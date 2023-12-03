@@ -1,97 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+{% extends 'base.html' %}
+
+{% block head %}
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<<<<<<< HEAD
-    <link rel="stylesheet" href="/static/css/signature_style.css">
-    <script type="text/javascript" src="/static/script/signature_pad.js"></script>
-    <title>Signature Form</title>
-</head>
-<body>
-    <p>++hier kommt der obere Teil des Formulars++</p>
-
-    <div class="w3-container">
-        <form class="w3-container" action="/download_pdf" method="POST" name="DAFORM" onSubmit="submitForm();" enctype="multipart/form-data" target="_self">
-            <div id="signature-pad" class="m-signature-pad">
-                <div class="m-signature-pad--body">
-                    <canvas></canvas>
-                    <input type="hidden" name="signature" id="signature" value="">
-                </div>
-            </div>
-
-            <button type="submit" class="actionButton submitButton">Antrag absenden</button>
-            <button type="button" class="actionButton clearButton" onclick="signaturePad.clear();">Unterschrift wiederholen</button>
-          </form>
-    </div>
-
-    <script type="text/javascript">
-        var wrapper = document.getElementById("signature-pad"),
-            canvas = wrapper.querySelector("canvas"),
-            signaturePad;
-
-        // Initialisiere SignaturePad, nachdem das Dokument geladen wurde
-        document.addEventListener("DOMContentLoaded", function() {
-            try {
-                signaturePad = new SignaturePad(canvas);
-                signaturePad.minWidth = 1; // Minimale Breite des Stiftes
-                signaturePad.maxWidth = 5; // Maximale Breite des Stiftes
-                signaturePad.penColor = "#000000"; // Stiftfarbe
-                signaturePad.backgroundColor = "#FFFFFF"; // Hintergrundfarbe
-                window.onresize = resizeCanvas;
-                resizeCanvas();
-            } catch (e) {
-                console.error("Fehler beim Initialisieren von SignaturePad:", e);
-            }
-        });
-
-        function resizeCanvas() {
-            var oldContent = signaturePad.toData();
-            var ratio =  Math.max(window.devicePixelRatio || 1, 1);
-            canvas.width = canvas.offsetWidth * ratio;
-            canvas.height = canvas.offsetHeight * ratio;
-            canvas.getContext("2d").scale(ratio, ratio);
-            signaturePad.clear();
-            signaturePad.fromData(oldContent);
-        }
-
-        function download(filename) {
-            var blob = dataURLToBlob(signaturePad.toDataURL());
-            var url = window.URL.createObjectURL(blob);
-
-            var a = document.createElement("a");
-            a.style = "display: none";
-            a.href = url;
-            a.download = filename;
-
-            document.body.appendChild(a);
-            a.click();
-
-            window.URL.revokeObjectURL(url);
-        }
-
-        function dataURLToBlob(dataURL) {
-            var parts = dataURL.split(';base64,');
-            var contentType = parts[0].split(":")[1];
-            var raw = window.atob(parts[1]);
-            var rawLength = raw.length;
-            var uInt8Array = new Uint8Array(rawLength);
-
-            for (var i = 0; i < rawLength; ++i) {
-                uInt8Array[i] = raw.charCodeAt(i);
-            }
-
-            return new Blob([uInt8Array], { type: contentType });
-        }
-
-        function submitForm() {
-            document.getElementById('signature').value = signaturePad.toDataURL();
-        }
-    </script>
-</body>
-</html>
-=======
     <title>Welcome to TSV Roßtal</title>
 {% endblock %}
 
@@ -111,4 +24,3 @@
         </div>
     </div>
 {% endblock %}
->>>>>>> origin/feature/jb-structure
