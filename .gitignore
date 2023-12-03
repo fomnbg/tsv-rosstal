@@ -1,4 +1,7 @@
 venv
 .idea
+<<<<<<< HEAD
 env
+=======
+>>>>>>> origin/feature/jb-structure
 __pycache__

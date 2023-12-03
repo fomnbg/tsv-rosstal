@@ -1,0 +1,199 @@
+.containerMain {
+    padding: 3rem 12rem 3rem 12rem;
+}
+
+.flexPersonalDataGroup {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 5rem;
+
+
+}
+
+.flexPersonalDataField {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 20%;
+    flex-grow: 1;
+    gap: 1rem;
+
+
+
+
+}
+
+.sportSelectionGroup {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+
+}
+
+.sportSelectionColumn {
+    display: flex;
+    flex-direction: column;
+    width: 31.3%;
+    gap: 0.3rem;
+    font-size: 1.5rem;
+
+}
+
+.addressField, .bankField {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.signature {
+    border: solid 2px rgb(209, 213, 219);
+    border-radius: 0.7rem;
+    height: 128px;
+    width: 100%;
+}
+
+/* Input field styles */
+.inputField {
+    border: 1px solid #e2e8f0;
+    border-radius: 0.6rem;
+    padding: 1rem;
+    font-size: 1.5rem;
+    line-height: 1.5;
+    outline: none;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    width: 100%;
+
+}
+
+/* Hover state */
+.inputField:hover {
+    border-color: #cbd5e0;
+}
+
+/* Focus state */
+.inputField:focus {
+    border-color: #878787;
+    box-shadow: 0 0 0 2px rgba(98, 98, 98, 0.3);
+}
+
+.labelCheck {
+	display: flex;
+    align-items: flex-start
+}
+
+.radioCheck {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+/*buttons*/
+
+/* Button styles */
+.button, .buttonSubmit {
+    display: inline-block;
+    padding: 1rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 0.7rem;
+    cursor: pointer;
+    margin-top: 2rem;
+
+}
+
+.button {
+    border: solid 1px rgb(225, 225, 225);
+    color: #000000;
+    background-color: #fdfdfd;
+
+}
+.button:hover {
+    background-color: #e5e5e5;
+}
+
+.buttonSubmit {
+    color: #ffffff;
+    background-color: #2f2f31;
+    border: 0;
+
+}
+
+.buttonSubmit:hover {
+	color: #ffffff;
+    background-color: #16161e;
+
+}
+
+input[type="checkbox"] {
+    margin-right: 1rem;
+}
+
+label{
+    font-weight: 500 !important;
+    font-size: 1.8rem !important;
+}
+
+p{
+    font-size: 1.8rem;
+}
+
+.bottomButtons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+/* Style for the main heading */
+.main-heading {
+    font-size: 3rem; /* Adjust the font size as needed */
+    color: #000000; /* Change the text color as desired */
+    margin-top: 20px; /* Add margin to separate it from other content */
+    font-weight: bolder;
+}
+
+/* Style for the sub-heading */
+.sub-heading {
+    font-size: 2.5rem; /* Adjust the font size as needed */
+    color: #000000; /* Change the text color as desired */
+    font-weight: bolder;
+    margin-top: 5rem;
+}
+
+/* Style for the radio button group */
+.radio-button-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+/* Style for the radio buttons */
+.radio-button {
+    display: block;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Style for the selected radio button */
+.radio-button input:checked {
+    background-color: #3498db; /* Change to your desired highlight color */
+    color: #fff;
+    border: 1px solid #3498db;
+}
+
+/* Additional styles for the rest of your content */
+/* ... */
