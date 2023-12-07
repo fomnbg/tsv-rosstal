@@ -3,16 +3,18 @@ from flask import Flask, request, send_file
 from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, Spacer, Image as PlatypusImage
 from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.colors import HexColor
 from PIL import Image as PILImage
 from io import BytesIO
-from base64 import b64decode
-from reportlab.lib.units import inch
+import base64
 import datetime
+from reportlab.lib.units import inch
+
 
 app = Flask(__name__)
 
 def generate_pdf(signature_data, file_path):
-    signature_image = PILImage.open(BytesIO(b64decode(signature_data.split(',')[1])))
+    signature_image = PILImage.open(BytesIO(base64.b64decode(signature_data.split(',')[1])))
 
     doc = SimpleDocTemplate(file_path, pagesize=letter, leftMargin=30, rightMargin=30)
     story = []
@@ -21,27 +23,30 @@ def generate_pdf(signature_data, file_path):
     style_normal = styles["Normal"]
     style_heading = styles["Heading2"]
 
-    # Überschrift Mitgliedsantrag hinzufügen
-    story.append(Paragraph("Mitgliedsantrag", styles["Heading1"]))  # Überschrift hinzufügen
-    story.append(Spacer(1, 12))  # Leerraum nach der Überschrift
-
-    # Membership type section...
-    membership_types = [
-        "Mitgliedschaft", "Neumitgliedschaft", "Umstellung Familienmitgliedschaft", "Antrag auf Beitragsbefreiung"
+    # Global table styles
+    global_table_style = [
+        ('ALIGN', (0, 0), (-1, -1), 'LEFT'),  # Left-align content
+        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+        ('LEFTPADDING', (0, 0), (-1, -1), 0),  # Left padding for the table
+        ('RIGHTPADDING', (0, 0), (-1, -1), 0),  # Right padding for the table
+        ('LEFTINDENT', (0, 0), (-1, -1), 0),
+        ('TEXTCOLOR', (0, 0), (-1, -1), HexColor('#333333')),  # Text color
+        ('GRID', (0, 0), (-1, -1), 1, HexColor('#CCCCCC'))  # Table grid color
     ]
 
-    membership_table_data = [[f"[ ] {membership}", ""] for membership in membership_types]
-    membership_table = Table(membership_table_data, colWidths=[2*inch, 2*inch], rowHeights=20)
-    membership_table.setStyle([
-        ('ALIGN', (0, 0), (-1, -1), 'LEFT'),  # Linksbündig ausrichten
-        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
-        ('LEFTPADDING', (0, 0), (-1, -1), 0),  # Linker Seitenabstand für die Tabelle
-        ('RIGHTPADDING', (0, 0), (-1, -1), 0),  # Rechter Seitenabstand für die Tabelle
-    ])
+    # Überschrift Mitgliedsantrag hinzufügen (mittig)
+    story.append(Paragraph("Mitgliedsantrag", style_heading))  # Überschrift hinzufügen
+    story.append(Spacer(1, 12))  # Leerraum nach der Überschrift
 
-    story.append(Paragraph("Mitgliedschaft", style_heading))
-    story.append(membership_table)
-    story.append(Spacer(1, 0.2*inch))
+    # Table for application type
+    application_type = [
+        ["Art des Antrags", ""]
+    ]
+    application_table = Table(application_type, colWidths=[2*inch, 2*inch], rowHeights=0.25*inch)
+    application_table.setStyle(global_table_style)
+
+    # Add the table to the story
+    story.append(application_table)
 
     # Tabelle für persönliche Informationen...
     personal_info = [
@@ -59,8 +64,7 @@ def generate_pdf(signature_data, file_path):
     ]
 
     personal_table = Table(data, colWidths=[2*inch, 2*inch], rowHeights=0.25*inch)
-    personal_table.setStyle([('ALIGN', (0, 0), (-1, -1), 'LEFT'),  # Linksbündig ausrichten
-                             ('VALIGN', (0, 0), (-1, -1), 'MIDDLE')])
+    personal_table.setStyle(global_table_style)
 
     story.append(Paragraph("Persönliche Informationen", style_heading))
     story.append(personal_table)
@@ -75,15 +79,19 @@ def generate_pdf(signature_data, file_path):
         "Faustball", "Passives Mitglied"
     ]
     sport_table = Table([[f"[ ] {sport}"] for sport in sports], colWidths=300, rowHeights=20)
+    sport_table.setStyle(global_table_style)
     story.append(sport_table)
 
     # Address table
     story.append(Paragraph("Adresse", style_heading))
     address_info = [
-        ["Straße Hausnr.:", ""],
-        ["Stadt, Postleitzahl:", ""]
+        ["Straße:", ""],
+        ["Hausnummer:", ""],
+        ["Postleitzahl:", ""],
+        ["Stadt:",""]
     ]
     address_table = Table(address_info, colWidths=[2*inch, 2*inch], rowHeights=0.25*inch)
+    address_table.setStyle(global_table_style)
     story.append(address_table)
 
     # Bank data table
@@ -93,35 +101,26 @@ def generate_pdf(signature_data, file_path):
         ["BIC:", ""]
     ]
     bank_table = Table(bank_info, colWidths=[2*inch, 2*inch], rowHeights=0.25*inch)
+    bank_table.setStyle(global_table_style)
     story.append(bank_table)
 
      # Antrag bestätigt Abschnitt
     confirm_heading = "Antrag bestätigt"
 
-  # Bild verkleinern und als BytesIO speichern
-    max_width = 800  # Maximal erlaubte Breite
-    max_height = 400  # Maximal erlaubte Höhe
-
-    # Verkleinere das Bild unter Beibehaltung der Qualität
-    signature_image.thumbnail((max_width, max_height), resample=PILImage.BICUBIC)
-
-    signature_buffer = BytesIO()
-    signature_image.save(signature_buffer, format="PNG")
-    signature_buffer.seek(0)
-
-    # Füge das temporäre Bild zur Tabelle hinzu
     confirm_table_data = [
-        ["Unterschrift:", PlatypusImage(signature_buffer, width=100, height=50)],
+        ["Unterschrift:", None],
         ["Antrag gesendet:", datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")]
     ]
+
+    # Convert signature image to base64 string
+    buffered = BytesIO()
+    signature_image.save(buffered, format="PNG")
+    img_str = base64.b64encode(buffered.getvalue()).decode('utf-8')
+
+    confirm_table_data[0][1] = PlatypusImage(BytesIO(base64.b64decode(img_str)), width=100, height=50)
     
     confirm_table = Table(confirm_table_data, colWidths=[2*inch, 2*inch], rowHeights=0.5*inch)
-    confirm_table.setStyle([
-        ('ALIGN', (0, 0), (-1, -1), 'LEFT'),  # Linksbündig ausrichten
-        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
-        ('LEFTPADDING', (0, 0), (-1, -1), 0),  # Linker Seitenabstand für die Tabelle
-        ('RIGHTPADDING', (0, 0), (-1, -1), 0),  # Rechter Seitenabstand für die Tabelle
-    ])
+    confirm_table.setStyle(global_table_style)
 
     story.append(Paragraph(confirm_heading, style_heading))
     story.append(confirm_table)
