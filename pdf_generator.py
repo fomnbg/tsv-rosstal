@@ -17,34 +17,37 @@ app = Flask(__name__)
 def generate_pdf(signature_data, file_path):
     signature_image = PILImage.open(BytesIO(base64.b64decode(signature_data.split(',')[1])))
 
+    # PDF Styling ------------------------------------------
+
     doc = SimpleDocTemplate(file_path, pagesize=letter, leftMargin=30, rightMargin=30)
     story = []
 
+    #Überschriften
     styles = getSampleStyleSheet()
     style_normal = styles["Normal"]
     style_heading = styles["Heading3"]
     style_heading0 = styles["Heading2"]
 
-    # Table styles
+    #Tabellen
     global_table_style = TableStyle([
         ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
         ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
-        #('TEXTCOLOR', (0, 0), (-1, -1), colors.HexColor('#333333')),
+        #('TEXTCOLOR', (0, 0), (-1, -1), colors.HexColor('#333333')), 
         #('GRID', (0, 0), (-1, -1), 1, colors.HexColor('#CCCCCC')),
         ('LEFTPADDING', (0, 0), (-1, -1), 0),
         ('RIGHTPADDING', (0, 0), (-1, -1), 0),
     ])
 
-    header_image_path = 'static/fileAblage/pdf_header.png'  # Passe den Pfad und Dateinamen entsprechend an
-    header_image = PlatypusImage(header_image_path, width=letter[0], height=0.75*inch)  # Fülle die volle Breite der PDF aus
-    story.insert(0, header_image)  # Füge das Bild als erstes Element in die Story ein
+    header_image_path = 'static/fileAblage/pdf_header.png'  # Header PNG öffnen
+    header_image = PlatypusImage(header_image_path, width=letter[0], height=0.75*inch)  # PNG auf bolle Breite
+    story.insert(0, header_image)  # Bild als erstes Element einfügen
 
-    doc = SimpleDocTemplate(file_path, pagesize=letter, leftMargin=30, rightMargin=30, topMargin=0)  # Setze topMargin auf 0
+    doc = SimpleDocTemplate(file_path, pagesize=letter, leftMargin=30, rightMargin=30, topMargin=0)  # TopMargin auf 0
 
-    # Überschrift Mitgliedsantrag hinzufügen (mittig)
+    # Überschrift Mitgliedsantrag hinzufügen
     story.append(Spacer(1, 12))
 
-    # Table for application type
+    # Tabelle für Antragsart ------------------------------------------
     application_type = [
         ["Art des Antrags", ""]
     ]
@@ -55,7 +58,7 @@ def generate_pdf(signature_data, file_path):
     # Add the table to the story
     story.append(application_table)
 
-    # Tabelle für persönliche Informationen...
+    # Tabelle für Persönliche Informationen ------------------------------------------
     personal_info = [
         ["Geschlecht:", ""],
         ["Vorname:", ""],
@@ -78,7 +81,7 @@ def generate_pdf(signature_data, file_path):
     story.append(personal_table)
     story.append(Spacer(1, 0.2*inch))
 
-    # Sport selection table
+    # Tabelle für Sportarten ------------------------------------------
     story.append(Paragraph("Gewählte Sportarten", style_heading))
     sports = [
         "Handball", "Mutter-/Kind", "Basketball", "Fußball", "Ballschule", "Boule",
@@ -94,7 +97,7 @@ def generate_pdf(signature_data, file_path):
     sport_table.hAlign = 'LEFT'
     story.append(sport_table)
 
-    # Address table
+    # Tabelle für Adresse ------------------------------------------
     story.append(Paragraph("Adresse", style_heading))
     address_info = [
         ["Straße:", ""],
@@ -107,7 +110,7 @@ def generate_pdf(signature_data, file_path):
     address_table.hAlign = 'LEFT'
     story.append(address_table)
 
-    # Bank data table
+    # Tabelle für Bankdaten ------------------------------------------
     story.append(Paragraph("Bankdaten", style_heading))
     bank_info = [
         ["IBAN:", ""],
@@ -118,7 +121,7 @@ def generate_pdf(signature_data, file_path):
     bank_table.hAlign = 'LEFT'
     story.append(bank_table)
 
-     # Antrag bestätigt Abschnitt
+     # Tabelle für Antrag bestätigt ------------------------------------------
     confirm_heading = "Antrag bestätigt"
 
     confirm_table_data = [
@@ -126,7 +129,7 @@ def generate_pdf(signature_data, file_path):
         ["Antrag gesendet:", datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")]
     ]
 
-    # Convert signature image to base64 string
+    # Signatur-Bild zu base64 string konvertieren
     buffered = BytesIO()
     signature_image.save(buffered, format="PNG")
     img_str = base64.b64encode(buffered.getvalue()).decode('utf-8')
