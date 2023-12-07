@@ -14,7 +14,7 @@ from reportlab.lib import colors
 
 app = Flask(__name__)
 
-def generate_pdf(signature_data, file_path):
+def generate_pdf(signature_data, file_path, vorname):
     signature_image = PILImage.open(BytesIO(base64.b64decode(signature_data.split(',')[1])))
 
     # PDF Styling ------------------------------------------
@@ -61,7 +61,7 @@ def generate_pdf(signature_data, file_path):
     # Tabelle für Persönliche Informationen ------------------------------------------
     personal_info = [
         ["Geschlecht:", ""],
-        ["Vorname:", ""],
+        ["Vorname:", vorname],
         ["Name:", ""],
         ["Geburtsdatum:", ""],
         ["E-Mail:", ""],
@@ -148,10 +148,14 @@ def generate_pdf(signature_data, file_path):
 
 @app.route('/download_pdf', methods=['POST'])
 def download_pdf():
-    signature_data = request.form['signature']
+    
     file_path = os.path.join('static', 'fileAblage', 'unterschrift.pdf')
 
-    generate_pdf(signature_data, file_path)
+    # Variablen aus Form Requesten
+    vorname = request.form['vorname']
+    signature_data = request.form['signature']
+    
+    generate_pdf(signature_data, file_path, vorname)
 
     return send_file(
         file_path,
