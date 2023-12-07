@@ -156,3 +156,8 @@
 .custom-search-input {
     border-bottom: 0;
 }
+
+.logo-heading a{
+  color: black;
+  text-decoration: none;
+}
