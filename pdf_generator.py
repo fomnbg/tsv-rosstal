@@ -1,7 +1,7 @@
 import os
 from flask import Flask, request, send_file
 from reportlab.lib.pagesizes import letter
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, Spacer, Image as PlatypusImage
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, TableStyle, Spacer, Image as PlatypusImage
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.colors import HexColor
 from PIL import Image as PILImage
@@ -9,6 +9,7 @@ from io import BytesIO
 import base64
 import datetime
 from reportlab.lib.units import inch
+from reportlab.lib import colors
 
 
 app = Flask(__name__)
@@ -21,22 +22,27 @@ def generate_pdf(signature_data, file_path):
 
     styles = getSampleStyleSheet()
     style_normal = styles["Normal"]
-    style_heading = styles["Heading2"]
+    style_heading = styles["Heading3"]
+    style_heading0 = styles["Heading2"]
 
-    # Global table styles
-    global_table_style = [
-        ('ALIGN', (0, 0), (-1, -1), 'LEFT'),  # Left-align content
+    # Table styles
+    global_table_style = TableStyle([
+        ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
         ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
-        ('LEFTPADDING', (0, 0), (-1, -1), 0),  # Left padding for the table
-        ('RIGHTPADDING', (0, 0), (-1, -1), 0),  # Right padding for the table
-        ('LEFTINDENT', (0, 0), (-1, -1), 0),
-        ('TEXTCOLOR', (0, 0), (-1, -1), HexColor('#333333')),  # Text color
-        ('GRID', (0, 0), (-1, -1), 1, HexColor('#CCCCCC'))  # Table grid color
-    ]
+        #('TEXTCOLOR', (0, 0), (-1, -1), colors.HexColor('#333333')),
+        #('GRID', (0, 0), (-1, -1), 1, colors.HexColor('#CCCCCC')),
+        ('LEFTPADDING', (0, 0), (-1, -1), 0),
+        ('RIGHTPADDING', (0, 0), (-1, -1), 0),
+    ])
+
+    header_image_path = 'static/fileAblage/pdf_header.png'  # Passe den Pfad und Dateinamen entsprechend an
+    header_image = PlatypusImage(header_image_path, width=letter[0], height=0.75*inch)  # Fülle die volle Breite der PDF aus
+    story.insert(0, header_image)  # Füge das Bild als erstes Element in die Story ein
+
+    doc = SimpleDocTemplate(file_path, pagesize=letter, leftMargin=30, rightMargin=30, topMargin=0)  # Setze topMargin auf 0
 
     # Überschrift Mitgliedsantrag hinzufügen (mittig)
-    story.append(Paragraph("Mitgliedsantrag", style_heading))  # Überschrift hinzufügen
-    story.append(Spacer(1, 12))  # Leerraum nach der Überschrift
+    story.append(Spacer(1, 12))
 
     # Table for application type
     application_type = [
@@ -44,6 +50,7 @@ def generate_pdf(signature_data, file_path):
     ]
     application_table = Table(application_type, colWidths=[2*inch, 2*inch], rowHeights=0.25*inch)
     application_table.setStyle(global_table_style)
+    application_table.hAlign = 'LEFT'
 
     # Add the table to the story
     story.append(application_table)
@@ -56,7 +63,7 @@ def generate_pdf(signature_data, file_path):
         ["Geburtsdatum:", ""],
         ["E-Mail:", ""],
         ["Telefon/Mobil:", ""],
-        ["Ich bin bereit ehrenamtliche Tätigkeiten zu übernehmen", ""]
+        ["Ehrenamtliche Tätigkeit:", ""]
     ]
 
     data = [
@@ -65,21 +72,26 @@ def generate_pdf(signature_data, file_path):
 
     personal_table = Table(data, colWidths=[2*inch, 2*inch], rowHeights=0.25*inch)
     personal_table.setStyle(global_table_style)
+    personal_table.hAlign = 'LEFT'
 
     story.append(Paragraph("Persönliche Informationen", style_heading))
     story.append(personal_table)
     story.append(Spacer(1, 0.2*inch))
 
     # Sport selection table
-    story.append(Paragraph("Sportarten", style_heading))
+    story.append(Paragraph("Gewählte Sportarten", style_heading))
     sports = [
         "Handball", "Mutter-/Kind", "Basketball", "Fußball", "Ballschule", "Boule",
         "Turnen", "Seniorensport", "Tae Bo", "Judo", "Klettern", "Pilates", "Badminton",
         "Volleyball", "Fitness", "Tischtennis", "Indica", "Power Workout", "Kinderturnen",
         "Faustball", "Passives Mitglied"
     ]
-    sport_table = Table([[f"[ ] {sport}"] for sport in sports], colWidths=300, rowHeights=20)
+
+    # Modifizierte Sports-Liste mit schmaler Spalte vorne
+    sports_with_column = [[f" ", f"  {sport}"] for sport in sports]
+    sport_table = Table(sports_with_column, colWidths=[20, 280], rowHeights=20)  # Breite der Spalten angepasst
     sport_table.setStyle(global_table_style)
+    sport_table.hAlign = 'LEFT'
     story.append(sport_table)
 
     # Address table
@@ -92,6 +104,7 @@ def generate_pdf(signature_data, file_path):
     ]
     address_table = Table(address_info, colWidths=[2*inch, 2*inch], rowHeights=0.25*inch)
     address_table.setStyle(global_table_style)
+    address_table.hAlign = 'LEFT'
     story.append(address_table)
 
     # Bank data table
@@ -102,6 +115,7 @@ def generate_pdf(signature_data, file_path):
     ]
     bank_table = Table(bank_info, colWidths=[2*inch, 2*inch], rowHeights=0.25*inch)
     bank_table.setStyle(global_table_style)
+    bank_table.hAlign = 'LEFT'
     story.append(bank_table)
 
      # Antrag bestätigt Abschnitt
@@ -121,6 +135,7 @@ def generate_pdf(signature_data, file_path):
     
     confirm_table = Table(confirm_table_data, colWidths=[2*inch, 2*inch], rowHeights=0.5*inch)
     confirm_table.setStyle(global_table_style)
+    confirm_table.hAlign = 'LEFT'
 
     story.append(Paragraph(confirm_heading, style_heading))
     story.append(confirm_table)
