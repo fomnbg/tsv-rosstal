@@ -131,7 +131,7 @@ def generate_pdf(signature_data, file_path):
     signature_image.save(buffered, format="PNG")
     img_str = base64.b64encode(buffered.getvalue()).decode('utf-8')
 
-    confirm_table_data[0][1] = PlatypusImage(BytesIO(base64.b64decode(img_str)), width=100, height=50)
+    confirm_table_data[0][1] = PlatypusImage(BytesIO(base64.b64decode(img_str)), width=100, height=30)
     
     confirm_table = Table(confirm_table_data, colWidths=[2*inch, 2*inch], rowHeights=0.5*inch)
     confirm_table.setStyle(global_table_style)
