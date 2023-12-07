@@ -57,6 +57,14 @@ def generate_pdf(signature_data, file_path):
 def download_pdf():
     print("Route '/download_pdf' wurde aufgerufen.")
     signature_data = request.form['signature']
+
+
+
+
+
+
+
+
     file_path = os.path.join('static', 'fileAblage', 'unterschrift.pdf')
 
     generate_pdf(signature_data, file_path)
