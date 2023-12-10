@@ -8,107 +8,115 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/pricelist.css') }}">
 
-    
+
     <title>Preisliste</title>
 </head>
 <body>
-    <div class="containerMain">
-        <div>
-            <h1 class="main-heading">Beiträge TSV Roßtal (gültig ab 01.01.2023)</h1>
+<div class="containerMain">
+    <div>
+        <h1 class="main-heading">Beiträge TSV Roßtal (gültig ab 01.01.2023)</h1>
+    </div>
+    <div>
+        <div class="table_1">
+            <table class="mainTable" id="table1">
+                <thead>
+                <tr>
+                    <th>Beitragsgruppe</th>
+                    <th>Monatlicher Beitrag</th>
+                    <th>Jahresbeitrag</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th>Kinder 0 - 3 Jahre</th>
+                    <td>Beitragsfrei</td>
+                    <td>Beitragsfrei</td>
+                </tr>
+                <tr>
+                    <th>Kinder 4 - 6 Jahre</th>
+                    <td>5,17 €</td>
+                    <td>62,00 €</td>
+                </tr>
+                <tr>
+                    <th>Kinder 7 - 13 Jahre</th>
+                    <td>6,58 €</td>
+                    <td>79,00 €</td>
+                </tr>
+                <tr>
+                    <th>Jugend 14 - 17 Jahre</th>
+                    <td>7,67 €</td>
+                    <td>92,00 €</td>
+                </tr>
+                <tr>
+                    <th>Erwachsene ab 18 Jahre</th>
+                    <td>10,83 €</td>
+                    <td>130,00 €</td>
+                </tr>
+                <tr>
+                    <th>Passiv</th>
+                    <td>7,50 €</td>
+                    <td>90,00 €</td>
+                </tr>
+                <tr>
+                    <th>Familien</th>
+                    <td>19,17 €</td>
+                    <td>230,00 €</td>
+                </tr>
+                <tr>
+                    <th>Anmeldegebühr</th>
+                    <td colspan="2">15 €</td>
+                </tr>
+                <tr>
+                    <th>Beitragsfreiheit Kinder</th>
+                    <td colspan="2">0-3 Jahre bei Begleitung eines erwachsenen Mitgliedes.</td>
+                </tr>
+                <tr>
+                    <th>Familienbeitrag</th>
+                    <td colspan="2">Die Einrichtung einer Familienmitgliedschaft erfolgt nur auf Antrag. Als Familie zählen
+                        Ehepartner / Lebenspartner mit oder ohne Kinder bis 24 Jahre
+                    </td>
+                </tr>
+                <tr>
+                    <th>Passivbeitrag</th>
+                    <td colspan="2">Auf Antrag bei der Vorstandschaft</td>
+                </tr>
+                <tr>
+                    <th>Kündigungsfristen</th>
+                    <td colspan="2">Spätestens vier Wochen zum Jahresende schriftlich oder per Mail an die
+                        geschaeftsstelle@tsv-rosstal.de (Bestätigung nur per Mail)
+                    </td>
+                </tr>
+                <tr>
+                    <th>Beitragszahlung</th>
+                    <td colspan="2">Per Bankeinzug jährlich zum Jahresanfang. Eine Änderung der Bankverbindung ist der
+                        Mitgliederverwaltung mitzuteilen Evtl. anfallende Bankgebühren wegen Rückbuchung werden dem
+                        Mitglied berechnet.
+                    </td>
+                </tr>
+                <tr>
+                    <th>Ehrenmitglieder und Privilegierte Mitglieder</th>
+                    <td colspan="2">Beitragsfrei, werden durch den Ehrenausschuss benannt.</td>
+                </tr>
+                <tr>
+                    <th>Härtefälle</th>
+                    <td colspan="2">Betragsermäßigungen regelt auf Antrag der Vorstand</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
-        <div>
-            <div class="table_1">
-                <table class="mainTable" id="table1">
-                    <thead>
-                        <tr>
-                            <th>Beitragsgruppe</th>
-                            <th>Monatlicher Beitrag</th>
-                            <th>Jahresbeitrag</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Kinder 0 - 3 Jahre</td>
-                            <td>Beitragsfrei</td>
-                            <td>Beitragsfrei</td>
-                        </tr>
-                        <tr>
-                            <td>Kinder 4 - 6 Jahre</td>
-                            <td>5,17 €</td>
-                            <td>62,00 €</td>
-                        </tr>
-                        <tr>
-                            <td>Kinder 7 - 13 Jahre</td>
-                            <td>6,58 €</td>
-                            <td>79,00 €</td>
-                        </tr>
-                        <tr>
-                            <td>Jugend 14 - 17 Jahre</td>
-                            <td>7,67 €</td>
-                            <td>92,00 €</td>
-                        </tr>
-                        <tr>
-                            <td>Erwachsene ab 18 Jahre</td>
-                            <td>10,83 €</td>
-                            <td>130,00 €</td>
-                        </tr>
-                        <tr>
-                            <td>Passiv</td>
-                            <td>7,50 €</td>
-                            <td>90,00 €</td>
-                        </tr>
-                        <tr>
-                            <td>Familien</td>
-                            <td>19,17 €</td>
-                            <td>230,00 €</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="table_2">
-                <table class="mainTable" id="table2">
-                    <tr>
-                        <th>Anmeldegebühr</th>
-                        <th>15 €</th>
-                    </tr>
-                </table>
-            </div>
-            <div class="table_3">
-                <table class="mainTable" id="table3">
-                    <tr>
-                        <th>Beitragsfreiheit Kinder</th>
-                        <td>0-3 Jahre bei Begleitung eines erwachsenen Mitgliedes.</td>
-                    </tr>
-                    <tr>
-                        <th>Familienbeitrag</th>
-                        <td>Die Einrichtung einer Familienmitgliedschaft erfolgt nur auf Antrag. Als Familie zählen Ehepartner / Lebenspartner mit oder ohne Kinder bis 24 Jahre</td>
-                    </tr>
-                    <tr>
-                        <th>Passivbeitrag</th>
-                        <td>Auf Antrag bei der Vorstandschaft</td>
-                    </tr>
-                    <tr>
-                        <th>Kündigungsfristen</th>
-                        <td>Spätestens vier Wochen zum Jahresende schriftlich oder per Mail an die geschaeftsstelle@tsv-rosstal.de (Bestätigung nur per Mail)</td>
-                    </tr>
-                    <tr>
-                        <th>Beitragszahlung</th>
-                        <td>Per Bankeinzug jährlich zum Jahresanfang. Eine Änderung der Bankverbindung ist der Mitgliederverwaltung mitzuteilen Evtl. anfallende Bankgebühren wegen Rückbuchung werden dem Mitglied berechnet.</td>
-                    </tr>
-                    <tr>
-                        <th>Ehrenmitglieder und Privilegierte Mitglieder</th>
-                        <td>Beitragsfrei, werden durch den Ehrenausschuss benannt.</td>
-                    </tr>
-                    <tr>
-                        <th>Härtefälle</th>
-                        <td>Betragsermäßigungen regelt auf Antrag der Vorstand</td>
-                    </tr>
-                </table>
+        <div class="table_2">
+            <table class="mainTable" id="table2">
+
+            </table>
+        </div>
+        <div class="table_3">
+            <table class="mainTable" id="table3">
+
+            </table>
         </div>
     </div>
 
 </body>
 
 
-
-{% endblock %}                    
+{% endblock %}

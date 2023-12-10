@@ -8,7 +8,6 @@
     font-weight: bolder;
 }
 .mainTable {
-
     background-color: ghostwhite;
     /*display: flex;*/
     flex-direction: column;
@@ -37,33 +36,32 @@ td{
     position: relative;
     transition: all 300ms;
 }
-
 thead{
     background-color: #878787;
     color: white;
 }
 .table_1{
     position: relative;
-    padding: 0.3rem;
-    border-radius: 8px;
-    background: #878787;
-    margin-bottom: 1rem;
-
-}
-.table_2{
-    position: relative;
     /*padding: 0.3rem;*/
     border-radius: 8px;
     background: #878787;
     margin-bottom: 1rem;
 }
-.table_3{
-    position: relative;
-    padding: 0.3rem;
-    border-radius: 8px;
-    background: #878787;
-    margin-bottom: 1rem;
+/*.table_2{*/
+/*    position: relative;*/
+/*    !*padding: 0.2rem;*!*/
+/*    border-radius: 8px;*/
+/*    background: #878787;*/
+/*    margin-bottom: 1rem;*/
+/*}*/
+/*.table_3{*/
+/*    position: relative;*/
+/*    !*padding: 0.3rem;*!*/
+/*    border-radius: 8px;*/
+/*    background: #878787;*/
+/*    margin-bottom: 1rem;*/
+/*}*/
+tbody tr:hover{
+    background-color: lightgray;
 }
-#table2{
-    width: 100%;
-}
+
