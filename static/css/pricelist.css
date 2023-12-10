@@ -1,0 +1,68 @@
+.containerMain {
+    padding: 3rem 12rem 3rem 12rem;
+}
+.main-heading {
+    font-size: 3rem; /* Adjust the font size as needed */
+    color: #000000; /* Change the text color as desired */
+    margin-top: 20px; /* Add margin to separate it from other content */
+    font-weight: bolder;
+}
+.mainTable {
+
+    background-color: ghostwhite;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem;
+
+}
+th{
+    width: 60%;
+    border-right: 1px solid #fff;
+    border-left: 1px solid #e8e8e8;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #e8e8e8;
+    padding: 10px 15px;
+    position: relative;
+    transition: all 300ms;
+    text-align: left;
+}
+td{
+    width: 60%;
+    border-right: 1px solid #fff;
+    border-left: 1px solid #e8e8e8;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #e8e8e8;
+    padding: 10px 15px;
+    position: relative;
+    transition: all 300ms;
+    text-align: left;
+}
+
+thead{
+    background-color: #878787;
+    color: white;
+}
+.table_1{
+    position: relative;
+    padding: 0.3rem;
+    border-radius: 8px;
+    background: #878787;
+    margin-bottom: 1rem;
+}
+.table_2{
+    position: relative;
+    padding: 0.3rem;
+    border-radius: 8px;
+    background: #878787;
+    margin-bottom: 1rem;
+}
+.table_3{
+    position: relative;
+    padding: 0.3rem;
+    border-radius: 8px;
+    background: #878787;
+    margin-bottom: 1rem;
+}
+

@@ -26,6 +26,10 @@ def mitglied_werden():
 def mitgliedsantrag():
     return render_template('mitgliedsantrag.html')
 
+@app.route('/pricelist')
+def pricelist():
+    return render_template('pricelist.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
