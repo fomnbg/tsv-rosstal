@@ -1,3 +1,4 @@
+
 /*
  ______  _______    ______   __    __ 
 /      |/       \  /      \ /  \  /  |
@@ -9,8 +10,13 @@ $$$$$$/ $$$$$$$  |/$$$$$$  |$$  \ $$ |
 / $$   |$$    $$/ $$ |  $$ |$$ | $$$ |
 $$$$$$/ $$$$$$$/  $$/   $$/ $$/   $$/ 
 */
-function alertValidIBAN(iban) {
-    alert(isValidIBANNumber(iban));
+
+/*
+function alertValidIBAN() {
+    var iban = document.getElementById('iban');
+    if (isValidIBANNumber(iban) != 1){
+        return
+    };
 }
 
 /*
@@ -18,6 +24,7 @@ function alertValidIBAN(iban) {
  * Returns FALSE if the IBAN's length is not as should be (for CY the IBAN Should be 28 chars long starting with CY )
  * Returns any other number (checksum) when the IBAN is invalid (check digits do not match)
  */
+
 function isValidIBANNumber(input) {
     var CODE_LENGTHS = {
         AD: 24, AE: 23, AT: 20, AZ: 28, BA: 20, BE: 16, BG: 22, BH: 22, BR: 29,
@@ -65,6 +72,7 @@ $$ |_____ $$ |$$$/ $$ |$$ |  $$ | _$$ |_ $$ |_____
 $$       |$$ | $/  $$ |$$ |  $$ |/ $$   |$$       |
 $$$$$$$$/ $$/      $$/ $$/   $$/ $$$$$$/ $$$$$$$$/ 
 */ 
+/*
 function ValidateEmail(input) {
 
 var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -88,7 +96,7 @@ if (input.value.match(validRegex)) {
 }
 
 }
-
+*/
 /*
   ______   __     ________  ________  _______  
  /      \ /  |   /        |/        |/       \ 
@@ -100,6 +108,7 @@ $$ |  $$ |$$ |_____ $$ |   $$ |_____ $$ |  $$ |
 $$ |  $$ |$$       |$$ |   $$       |$$ |  $$ |
 $$/   $$/ $$$$$$$$/ $$/    $$$$$$$$/ $$/   $$/ 
 */
+/*
 function pruefeAlter() {
     // Das Mindestalter festlegen (in Jahren)
     var mindestalter = 18;
@@ -125,7 +134,7 @@ function pruefeAlter() {
         document.getElementById('ergebnis').innerHTML = "Sie sind zu jung.";
     }
 }
-
+*/
 /*
  ________         __             ______                          
 /        |       /  |           /      \                         
@@ -137,19 +146,17 @@ $$$$$$$$/______  $$ |  ______  /$$$$$$  |______   _______
    $$ |$$       |$$ |$$       |$$ |    $$    $$/ $$ |  $$ |      
    $$/  $$$$$$$/ $$/  $$$$$$$/ $$/      $$$$$$/  $$/   $$/  
 */
-function checkPhoneNumber() {
-    const phoneNumberInput = document.getElementById('phoneNumber');
-    const phoneNumber = phoneNumberInput.value;
-  
+
+function checkPhoneNumber(phoneNumber) {  
     // Regulärer Ausdruck für das erwartete Format: +1234567890
     const phoneRegex = /^\+\d{10,}$/;
   
     if (phoneRegex.test(phoneNumber)) {
-      alert('Die Telefonnummer hat das erwartete Format.');
+      return true;
     } else {
-      alert('Die Telefonnummer hat ein ungültiges Format. Bitte verwenden Sie das Format +1234567890.');
+      return false;
     }
-  }
+}
 
 /*
    ______         __                                                  
@@ -161,7 +168,7 @@ function checkPhoneNumber() {
  $$ |  $$ |$$ \__$$ |$$ |      $$$$$$$$/  $$$$$$  |$$$$$$  |$$$$$$$$/ 
  $$ |  $$ |$$    $$ |$$ |      $$       |/     $$//     $$/ $$       |
  $$/   $$/  $$$$$$$/ $$/        $$$$$$$/ $$$$$$$/ $$$$$$$/   $$$$$$$/ 
-*/
+
 console.log("a");
 document.addEventListener('DOMContentLoaded', function () {
     console.log("a");
@@ -195,4 +202,95 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+*/
+/*
+________                           ______             
+/        |                         /      \            
+$$$$$$$$/   _______  _____  ____  /$$$$$$  |_______    
+    /$$/   /       |/     \/    \ $$ |_ $$//       |   
+   /$$/   /$$$$$$$/ $$$$$$ $$$$  |$$   |  /$$$$$$$/    
+  /$$/    $$      \ $$ | $$ | $$ |$$$$/   $$      \    
+ /$$/____  $$$$$$  |$$ | $$ | $$ |$$ |     $$$$$$  |__ 
+/$$      |/     $$/ $$ | $$ | $$ |$$ |    /     $$//  |
+$$$$$$$$/ $$$$$$$/  $$/  $$/  $$/ $$/     $$$$$$$/ $$/
+*/
+/*
+document.addEventListener('DOMContentLoaded', function(){
+    var submitBtn = document.getElementById('submit_btn');
 
+   
+        submitBtn.addEventListener('click', function () {
+            //if plausibilitätsprüfung fehlgeschlagen
+            //e.preventDefault();
+            //alert("Prevented default for submit button");
+
+            //else
+            //var tok = document.getElementById("submit_btn").getAttribute("data-sitekey")
+            //alert(tok);
+            //document.getElementById("submit_btn").removeAttribute("data-callback");
+            //submitBtn.removeAttribute("data-action");
+            //onSubmit();
+            //onSubmit(tok);
+            // Add your custom logic or form submission handling here
+        });
+    
+});
+/*
+*/
+/*
+function prev(ev){
+    ev.preventDefault()
+}
+function checkInputs(){
+    alert("inputs are getting checked.")
+    var btn = document.getElementById("submit_btn")
+    prev(btn);
+    document.getElementById("submit_btn").removeAttribute("data-callback");
+}
+*/
+//return False if te evaluation failed 
+function proove() {
+    var iban = $('#iban').val();
+    var phoneNumbers = document.querySelectorAll()
+    var bestanden;
+
+    //console.log(iban);
+    //console.log(isValidIBANNumber(iban));
+    // Check if the IBAN is valid
+    if (isValidIBANNumber(iban) == 1) {
+        bestanden = true;
+    } else {
+        alert("Bitte geben Sie eine gültige IBAN an!");
+        bestanden = false
+    }  
+     
+    return bestanden;
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Wait for the DOM to be fully loaded
+    
+    // Find the button by its ID or any other suitable selector
+    var myButton = document.getElementById('submit_btn');
+
+    // Add a click event listener to the button
+    myButton.addEventListener('click', function (event) {
+        if (proove() === false) {
+            // If evaluation passed, prevent the default behavior of the click event
+            event.preventDefault();
+
+            // Check if the button has the data-callback attribute set to "onSubmit"
+            if (myButton.getAttribute('data-callback') === 'onSubmit') {
+                // Override or modify the onSubmit function to prevent its default behavior
+                window.onSubmit = function () {
+                };
+            }
+
+            // Continue with the default behavior or additional logic
+            console.log('Default behavior or custom logic here');
+        } else {
+            // Evaluation failed, continue with the default behavior
+            console.log('Evaluation failed, default behavior here');
+        }
+    });
+});
