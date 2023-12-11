@@ -25,6 +25,7 @@ class Antrag(FlaskForm):
     familien_Mitglied_3 = FormField(Mitglied)
     familien_Mitglied_4 = FormField(Mitglied)
     konto = FormField(Kontoverbindung)
+    g-recaptcha-response = StringField()
 
 
 
