@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, request, abort
+from flask import Flask, render_template, redirect, url_for, request, abort, flash
 from urllib import response
 import requests
 import secrets
@@ -13,8 +13,8 @@ app.static_folder = 'static'
 
 #für site key und secret key frag entweder Philipp oder hol dir deine eigenen auf https://www.google.com/recaptcha/admin/create?hl=de 
 #!!! V3 RECAPTCHA !!!#
-SITE_KEY = 'YOUR_SITE_KEY'
-SECRET_KEY = 'YOUR_SECRET_KEY'
+SITE_KEY = '6Lf7LxkpAAAAAKZT2zaDVLVPMYP1PQqBj5usMKWz'
+SECRET_KEY = '6Lf7LxkpAAAAAKfrwOGJRp_AKPKQMCLeemLN5bxf'
 VERIFY_URL = 'https://www.google.com/recaptcha/api/siteverify'
 
 
@@ -29,13 +29,16 @@ def mitglied_werden():
 
 @app.route('/mitgliedsantrag', methods=["GET", "POST"])
 def mitgliedsantrag():
-    if request.method == 'POST':        
+    if request.method == 'POST': 
+        print(request.form)       
         secret_response = request.form['g-recaptcha-response']
         verify_response = requests.post(url=f'{VERIFY_URL}?secret={SECRET_KEY}&response={secret_response}').json()
+        print("secret-response:", secret_response)
         if verify_response['success'] == False or verify_response['score'] < 0.7:
             abort(401)#if bot detected or recaptcha request failed
         else: 
             return render_template('daten-uebermittelt.html')
+
     else:
         return render_template('mitgliedsantrag.html', site_key=SITE_KEY)
 

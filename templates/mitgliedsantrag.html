@@ -1,5 +1,6 @@
 
 {% extends 'base.html' %}
+
 {% block body %}
 
 <!DOCTYPE html>
@@ -7,17 +8,30 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/mitgliedsantrag.css') }}">
-    <!-- recaptcha -->
-    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script language="javascript" type="text/javascript" src="{{ url_for('static', filename='js/mitgliedsantrag_validierung_1.js') }}"></script>
+    <!-- recaptcha default from google site -->
+    <script src="https://www.google.com/recaptcha/api.js?render={{ site_key }}"></script>
+    
     <script>
-      function onSubmit(token) {
+      function onSubmit() {
         document.getElementById("antragsformular").submit();
       }
     </script>
+
+    <!---->
+    <!-- adress api default from google site -->
+    <script>
+        (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
+          key: "YOUR_API_KEY_HERE",
+          // Add other bootstrap parameters as needed, using camel case.
+          // Use the 'v' parameter to indicate the version to load (alpha, beta, weekly, etc.)
+        });
+      </script>
     <!---->
     <title>Membership Application</title>
 </head>
 <body>
+
 <form id="antragsformular" method="post" action="{{ url_for('mitgliedsantrag') }}">
     <div class="containerMain">
         <div>
@@ -131,10 +145,19 @@
                 </div>
             </div>
         </div>
-        <div class="addressField"><h2 class="sub-heading">Adresse</h2><input class="inputField" placeholder="Straße Hausnr. "><input
-                class="inputField" placeholder="Stadt, Postleitzahl"></div>
-        <div class="bankField"><h2 class="sub-heading">Bankdaten</h2><input class="inputField" placeholder="IBAN"><input
+        <div class="addressField">
+            <h2 class="sub-heading">Adresse</h2>
+            <!-- Attribut name hinzufügen um entität bei post mitzuschicken -->
+            <input class="inputField" name="StraßeHausnr" placeholder="Straße Hausnr. ">
+            <input class="inputField" name="StadtPostleitzahl" placeholder="Stadt, Postleitzahl">
+        </div>
+
+
+
+        <div class="bankField"><h2 class="sub-heading">Bankdaten</h2><input class="inputField" id="iban" name="iban" placeholder="IBAN"><input
                 class="inputField" placeholder="BIC (nur bei Auslandskonten)"></div>
+
+
         <div class="bankField"><h2 class="sub-heading">SEPA Mandate</h2>
             <p>
                 Die Mitgliedschaft ist ausschließlich mit Erteilung eines SEPA-Lastschriftmandats möglich. Zur Einrichtung der Mitgliedschaft im TSV Roßtal wird eine Aufnahmegebühr in Höhe von 15,00 Euro berechnet. Diese Gebühr fällt jeweils bei Wiederaufnahme einer gekündigten Mitgliedschaft erneut an.
@@ -157,8 +180,12 @@
         </div>
             <div class="bottomButtons">
                 <button class="button">Abbrechen</button>
-                <button class="buttonSubmit g-recaptcha" data-sitekey="{{ site_key }}" type="submit" data-callback='onSubmit' data-action='submit'>Bestätigen</button>
+                <!--<button class="buttonSubmit g-recaptcha" id="submit_btn"  type="button">Bestätigen</button>-->
+                <button onclick="checkInputs()" class="buttonSubmit g-recaptcha" id="submit_btn" data-sitekey="{{ site_key }}" type="button" data-action='submit' data-callback="onSubmit" >Bestätigen</button>
+                <!--<div class="g-recaptcha" data-sitekey="YOUR_RECAPTCHA_SITE_KEY" data-callback="onSubmit"></div>-->
+                <!--<button class="buttonSubmit" id="submit_btn" type="submit" data-sitekey="{{ site_key }}" >Submit</button>-->
             </div>
+
     </div>
 
 </form>
