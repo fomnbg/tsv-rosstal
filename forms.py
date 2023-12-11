@@ -9,7 +9,7 @@ class Mitglied(FlaskForm):
     telefon = StringField()
     sportart = StringField()
     straße_hausnummer = StringField()
-    ort_plz = StringField
+    ort_plz = StringField()
 
 class Kontoverbindung(FlaskForm): 
     iban = StringField()
