@@ -170,6 +170,12 @@ p{
     margin-top: 5rem;
 }
 
+.sub-heading2 {
+    font-size: 2rem; /* Adjust the font size as needed */
+    color: #000000; /* Change the text color as desired */
+    font-weight: bolder;
+}
+
 /* Style for the radio button group */
 .radio-button-group {
     display: flex;
