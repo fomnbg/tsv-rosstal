@@ -160,6 +160,7 @@ p{
     color: #000000; /* Change the text color as desired */
     margin-top: 20px; /* Add margin to separate it from other content */
     font-weight: bolder;
+    margin-bottom: 5rem;
 }
 
 /* Style for the sub-heading */
@@ -168,6 +169,22 @@ p{
     color: #000000; /* Change the text color as desired */
     font-weight: bolder;
     margin-top: 5rem;
+    margin-bottom: 3rem;
+}
+
+.sub-heading2 {
+    font-size: 2rem; /* Adjust the font size as needed */
+    color: #000000; /* Change the text color as desired */
+    font-weight: bolder;
+
+}
+
+.sub-heading3 {
+    font-size: 2.5rem; /* Adjust the font size as needed */
+    color: #000000; /* Change the text color as desired */
+    font-weight: bolder;
+    margin-top: 5rem;
+    margin-bottom: 1rem;
 }
 
 /* Style for the radio button group */
