@@ -90,42 +90,124 @@
         </div>
     </div>
     <!-- Sports selection -->
-    <div>
-        <h2 class="sub-heading">Sportart(en)</h2>
-        <div class="sportSelectionGroup">
-            <!-- Sport Selection Columns -->
-            <div class="sportSelectionColumn">
-                <h3 class="sub-heading2">Allgemein</h3>
-                <label><input type="checkbox">Klettern</label>
-                <label><input type="checkbox">Volleyball</label>
-                <label><input type="checkbox">Indiaca</label>
-                <label><input type="checkbox">Faustball</label>
-                <label><input type="checkbox">Basketball</label>
-                <label><input type="checkbox">Boule</label>
-                <label><input type="checkbox">Tae Bo</label>
-                <label><input type="checkbox">Pilates</label>
-                <label><input type="checkbox">Fitness</label>
-                <label><input type="checkbox">Power Workout</label>
-                <label><input type="checkbox">Passives Mitglied</label>
-            </div>
-            <div class="sportSelectionColumn">
-                <h3 class="sub-heading2">Leistungssport</h3>
-                <label><input type="checkbox">Handball</label>
-                <label><input type="checkbox">Fußball</label>
-                <label><input type="checkbox">Turnen</label>
-                <label><input type="checkbox">Judo</label>
-                <label><input type="checkbox">Badminton</label>
-                <label><input type="checkbox">Tischtennis</label>
-            </div>
-            <div class="sportSelectionColumn">
-                <h3 class="sub-heading2">Kinder-/Seniorensport</h3>
-                <label><input type="checkbox">Kinderturnen</label>
-                <label><input type="checkbox">Mutter-/Kind</label>
-                <label><input type="checkbox">Ballschule</label>
-                <label><input type="checkbox">Seniorensport</label>
+    <div class="sportsSelectionTabs">
 
+        <h2 class="sub-heading">Sportart(en)</h2>
+
+        <ul class="tabList">
+            <li class="tab active" onclick="openTab(event, 'Member1')">Mitglied 1</li>
+            <li class="tab" onclick="openTab(event, 'Member2')">Mitglied 2</li>
+            <li class="tab" onclick="openTab(event, 'Member3')">Mitglied 3</li>
+        </ul>
+            <div id="Member1" class="tabContent" style="display: block;">
+
+                <div class="sportSelectionGroup">
+                    <!-- Sport Selection Columns -->
+                    <div class="sportSelectionColumn">
+                        <h3 class="sub-heading2">Allgemein</h3>
+                        <label><input type="checkbox">Klettern</label>
+                        <label><input type="checkbox">Volleyball</label>
+                        <label><input type="checkbox">Indiaca</label>
+                        <label><input type="checkbox">Faustball</label>
+                        <label><input type="checkbox">Basketball</label>
+                        <label><input type="checkbox">Boule</label>
+                        <label><input type="checkbox">Tae Bo</label>
+                        <label><input type="checkbox">Pilates</label>
+                        <label><input type="checkbox">Fitness</label>
+                        <label><input type="checkbox">Power Workout</label>
+                        <label><input type="checkbox">Passives Mitglied</label>
+                    </div>
+                    <div class="sportSelectionColumn">
+                        <h3 class="sub-heading2">Leistungssport</h3>
+                        <label><input type="checkbox">Handball</label>
+                        <label><input type="checkbox">Fußball</label>
+                        <label><input type="checkbox">Turnen</label>
+                        <label><input type="checkbox">Judo</label>
+                        <label><input type="checkbox">Badminton</label>
+                        <label><input type="checkbox">Tischtennis</label>
+                    </div>
+                    <div class="sportSelectionColumn">
+                        <h3 class="sub-heading2">Kinder-/Seniorensport</h3>
+                        <label><input type="checkbox">Kinderturnen</label>
+                        <label><input type="checkbox">Mutter-/Kind</label>
+                        <label><input type="checkbox">Ballschule</label>
+                        <label><input type="checkbox">Seniorensport</label>
+
+                    </div>
+                </div>
             </div>
-        </div>
+            <div id="Member2" class="tabContent">
+                <div class="sportSelectionGroup">
+                    <!-- Sport Selection Columns -->
+                    <div class="sportSelectionColumn">
+                        <h3 class="sub-heading2">Allgemein</h3>
+                        <label><input type="checkbox">Klettern</label>
+                        <label><input type="checkbox">Volleyball</label>
+                        <label><input type="checkbox">Indiaca</label>
+                        <label><input type="checkbox">Faustball</label>
+                        <label><input type="checkbox">Basketball</label>
+                        <label><input type="checkbox">Boule</label>
+                        <label><input type="checkbox">Tae Bo</label>
+                        <label><input type="checkbox">Pilates</label>
+                        <label><input type="checkbox">Fitness</label>
+                        <label><input type="checkbox">Power Workout</label>
+                        <label><input type="checkbox">Passives Mitglied</label>
+                    </div>
+                    <div class="sportSelectionColumn">
+                        <h3 class="sub-heading2">Leistungssport</h3>
+                        <label><input type="checkbox">Handball</label>
+                        <label><input type="checkbox">Fußball</label>
+                        <label><input type="checkbox">Turnen</label>
+                        <label><input type="checkbox">Judo</label>
+                        <label><input type="checkbox">Badminton</label>
+                        <label><input type="checkbox">Tischtennis</label>
+                    </div>
+                    <div class="sportSelectionColumn">
+                        <h3 class="sub-heading2">Kinder-/Seniorensport</h3>
+                        <label><input type="checkbox">Kinderturnen</label>
+                        <label><input type="checkbox">Mutter-/Kind</label>
+                        <label><input type="checkbox">Ballschule</label>
+                        <label><input type="checkbox">Seniorensport</label>
+
+                    </div>
+                </div>
+            </div>
+            <div id="Member3" class="tabContent">
+                <div class="sportSelectionGroup">
+                    <!-- Sport Selection Columns -->
+                    <div class="sportSelectionColumn">
+                        <h3 class="sub-heading2">Allgemein</h3>
+                        <label><input type="checkbox">Klettern</label>
+                        <label><input type="checkbox">Volleyball</label>
+                        <label><input type="checkbox">Indiaca</label>
+                        <label><input type="checkbox">Faustball</label>
+                        <label><input type="checkbox">Basketball</label>
+                        <label><input type="checkbox">Boule</label>
+                        <label><input type="checkbox">Tae Bo</label>
+                        <label><input type="checkbox">Pilates</label>
+                        <label><input type="checkbox">Fitness</label>
+                        <label><input type="checkbox">Power Workout</label>
+                        <label><input type="checkbox">Passives Mitglied</label>
+                    </div>
+                    <div class="sportSelectionColumn">
+                        <h3 class="sub-heading2">Leistungssport</h3>
+                        <label><input type="checkbox">Handball</label>
+                        <label><input type="checkbox">Fußball</label>
+                        <label><input type="checkbox">Turnen</label>
+                        <label><input type="checkbox">Judo</label>
+                        <label><input type="checkbox">Badminton</label>
+                        <label><input type="checkbox">Tischtennis</label>
+                    </div>
+                    <div class="sportSelectionColumn">
+                        <h3 class="sub-heading2">Kinder-/Seniorensport</h3>
+                        <label><input type="checkbox">Kinderturnen</label>
+                        <label><input type="checkbox">Mutter-/Kind</label>
+                        <label><input type="checkbox">Ballschule</label>
+                        <label><input type="checkbox">Seniorensport</label>
+
+                    </div>
+                </div>
+            </div>
     </div>
     <div class="addressField"><h2 class="sub-heading3">Adresse</h2>
         <input class="inputField" placeholder="Straße Hausnr. ">
@@ -215,5 +297,20 @@
     }
 
 </script>
-
+<script>
+    // Member Tabs
+function openTab(evt, tabName) {
+    var i, tabContent, tab;
+    tabContent = document.getElementsByClassName("tabContent");
+    for (i = 0; i < tabContent.length; i++) {
+        tabContent[i].style.display = "none";
+    }
+    tab = document.getElementsByClassName("tab");
+    for (i = 0; i < tab.length; i++) {
+        tab[i].className = tab[i].className.replace(" active", "");
+    }
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+</script>
 {% endblock %}
