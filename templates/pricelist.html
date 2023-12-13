@@ -7,8 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/pricelist.css') }}">
-
-
+<!--obsolete     <script type="text/javascript" src="/static/js/importCSV.js"></script>-->
     <title>Preisliste</title>
 </head>
 <body>
@@ -27,78 +26,97 @@
                 </tr>
                 </thead>
                 <tbody>
+                {% for row in data %}
+                    <tr>
+                        {% for cell in row %}
+                        {% if loop.index == 1 %}
+                        <th>{{ cell }}</th>
+                        {% else %}
+                        <td>{{ cell }}</td>
+                        {% endif %}
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+
+                <!-- Obsolete -
+                Hier wird die CSV via JavaScript eingefügt
+                nur zu Demonstrationszwecken im Code belassen -->
+<!--                <tr id="csv-insert-point"></tr>-->
+
+<!-- obsolete - ursprünglich hard coded table -->
+
+<!--                <tr>-->
+<!--                    <th>Kinder 0 - 3 Jahre</th>-->
+<!--                    <td>Beitragsfrei</td>-->
+<!--                    <td>Beitragsfrei</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <th>Kinder 4 - 6 Jahre</th>-->
+<!--                    <td>5,17 €</td>-->
+<!--                    <td>62,00 €</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <th>Kinder 7 - 13 Jahre</th>-->
+<!--                    <td>6,58 €</td>-->
+<!--                    <td>79,00 €</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <th>Jugend 14 - 17 Jahre</th>-->
+<!--                    <td>7,67 €</td>-->
+<!--                    <td>92,00 €</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <th>Erwachsene ab 18 Jahre</th>-->
+<!--                    <td>10,83 €</td>-->
+<!--                    <td>130,00 €</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <th>Passiv</th>-->
+<!--                    <td>7,50 €</td>-->
+<!--                    <td>90,00 €</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <th>Familien</th>-->
+<!--                    <td>19,17 €</td>-->
+<!--                    <td>230,00 €</td>-->
+<!--                </tr>-->
                 <tr>
-                    <th>Kinder 0 - 3 Jahre</th>
-                    <td>Beitragsfrei</td>
-                    <td>Beitragsfrei</td>
-                </tr>
-                <tr>
-                    <th>Kinder 4 - 6 Jahre</th>
-                    <td>5,17 €</td>
-                    <td>62,00 €</td>
-                </tr>
-                <tr>
-                    <th>Kinder 7 - 13 Jahre</th>
-                    <td>6,58 €</td>
-                    <td>79,00 €</td>
-                </tr>
-                <tr>
-                    <th>Jugend 14 - 17 Jahre</th>
-                    <td>7,67 €</td>
-                    <td>92,00 €</td>
-                </tr>
-                <tr>
-                    <th>Erwachsene ab 18 Jahre</th>
-                    <td>10,83 €</td>
-                    <td>130,00 €</td>
-                </tr>
-                <tr>
-                    <th>Passiv</th>
-                    <td>7,50 €</td>
-                    <td>90,00 €</td>
-                </tr>
-                <tr>
-                    <th>Familien</th>
-                    <td>19,17 €</td>
-                    <td>230,00 €</td>
-                </tr>
-                <tr>
-                    <th>Anmeldegebühr</th>
+                    <td>Anmeldegebühr</td>
                     <td colspan="2">15 €</td>
                 </tr>
                 <tr>
-                    <th>Beitragsfreiheit Kinder</th>
+                    <td>Beitragsfreiheit Kinder</td>
                     <td colspan="2">0-3 Jahre bei Begleitung eines erwachsenen Mitgliedes.</td>
                 </tr>
                 <tr>
-                    <th>Familienbeitrag</th>
+                    <td>Familienbeitrag</td>
                     <td colspan="2">Die Einrichtung einer Familienmitgliedschaft erfolgt nur auf Antrag. Als Familie zählen
                         Ehepartner / Lebenspartner mit oder ohne Kinder bis 24 Jahre
                     </td>
                 </tr>
                 <tr>
-                    <th>Passivbeitrag</th>
+                    <td>Passivbeitrag</td>
                     <td colspan="2">Auf Antrag bei der Vorstandschaft</td>
                 </tr>
                 <tr>
-                    <th>Kündigungsfristen</th>
+                    <td>Kündigungsfristen</td>
                     <td colspan="2">Spätestens vier Wochen zum Jahresende schriftlich oder per Mail an die
                         geschaeftsstelle@tsv-rosstal.de (Bestätigung nur per Mail)
                     </td>
                 </tr>
                 <tr>
-                    <th>Beitragszahlung</th>
+                    <td>Beitragszahlung</td>
                     <td colspan="2">Per Bankeinzug jährlich zum Jahresanfang. Eine Änderung der Bankverbindung ist der
                         Mitgliederverwaltung mitzuteilen Evtl. anfallende Bankgebühren wegen Rückbuchung werden dem
                         Mitglied berechnet.
                     </td>
                 </tr>
                 <tr>
-                    <th>Ehrenmitglieder und Privilegierte Mitglieder</th>
+                    <td>Ehrenmitglieder und Privilegierte Mitglieder</td>
                     <td colspan="2">Beitragsfrei, werden durch den Ehrenausschuss benannt.</td>
                 </tr>
                 <tr>
-                    <th>Härtefälle</th>
+                    <td>Härtefälle</td>
                     <td colspan="2">Betragsermäßigungen regelt auf Antrag der Vorstand</td>
                 </tr>
                 </tbody>
