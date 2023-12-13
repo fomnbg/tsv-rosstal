@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, DateField, FormField
+from wtforms import StringField, SubmitField, DateField, FormField, BooleanField
 
 class Mitglied(FlaskForm): 
     vorname = StringField()
@@ -10,6 +10,7 @@ class Mitglied(FlaskForm):
     sportart = StringField()
     straße_hausnummer = StringField()
     ort_plz = StringField()
+    ehrenamt = BooleanField()
 
 class Kontoverbindung(FlaskForm): 
     iban = StringField()
@@ -22,8 +23,8 @@ class Antrag(FlaskForm):
     zahlendes_Mitglied = FormField(Mitglied)
     familien_Mitglied_1 = FormField(Mitglied)
     familien_Mitglied_2 = FormField(Mitglied)
-    familien_Mitglied_3 = FormField(Mitglied)
-    familien_Mitglied_4 = FormField(Mitglied)
+    #familien_Mitglied_3 = FormField(Mitglied)
+    #familien_Mitglied_4 = FormField(Mitglied)
     konto = FormField(Kontoverbindung)
     g-recaptcha-response = StringField()
 
