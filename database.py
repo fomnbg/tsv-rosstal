@@ -3,13 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from sqlalchemy.orm import relationship
-
-from .app import app
-
-app.config['SQLALCHEMY_DATABASE_URL'] = ''
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = ''
-db = SQLAlchemy(app)
+from .app import db
 
 class Zahlendesmitglied(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -33,3 +27,6 @@ class Familienmitglied(db.Model):
     telefonnr = db.Column(db.String(30))
     sportart = db.Column(db.String(30))
     adresse = db.Column(db.String(100))
+
+def write_to_database(form)-> bool: 
+    pass
