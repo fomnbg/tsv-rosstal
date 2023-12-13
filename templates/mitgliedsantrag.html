@@ -45,7 +45,7 @@
         <!---->
         <title>Membership Application</title>
     </head>
-    <body>
+<body>
 
     <form id="antragsformular" method="post" action="{{ url_for('mitgliedsantrag') }}">
         <div class="containerMain">
@@ -271,40 +271,40 @@
                 <div class="labelCheck"><input type="checkbox">
                     Mit der Unterschrift stimme/n ich/wir explizit der aktuellen Fassung der AGB und der
                     Datenschutzerklärung gem. Website www.tsv-rosstal.de/rechtliches zu.
-                    <div>
-                        <p style="font-weight: bold">Unterschrift:</p>
+                </div>
+                <div>
+                    <p style="font-weight: bold">Unterschrift:</p>
 
-                        <div class="w3-container">
-                            <form class="w3-container" action="/download_pdf" method="POST" name="DAFORM"
-                                  onSubmit="submitForm();" enctype="multipart/form-data" target="_self">
-                                <div id="signature-pad" class="m-signature-pad">
-                                    <div class="m-signature-pad--body">
-                                        <canvas></canvas>
-                                        <input type="hidden" name="signature" id="signature" value="">
-                                    </div>
+                    <div class="w3-container">
+                        <form class="w3-container" action="/download_pdf" method="POST" name="DAFORM"
+                              onSubmit="submitForm();" enctype="multipart/form-data" target="_self">
+                            <div id="signature-pad" class="m-signature-pad">
+                                <div class="m-signature-pad--body">
+                                    <canvas></canvas>
+                                    <input type="hidden" name="signature" id="signature" value="">
                                 </div>
-                            </form>
+                            </div>
+                        </form>
 
-                            <button type="button" class="button" onclick="signaturePad.clear();">Unterschrift
-                                wiederholen
-                            </button>
-                        </div>
-
-
-                    </div>
-
-                    <div class="bottomButtons">
-                        <button class="button">Abbrechen</button>
-                        <button onclick="checkInputs()" class="buttonSubmit g-recaptcha" id="submit_btn"
-                                data-sitekey="{{ site_key }}" type="button" data-action='submit'
-                                data-callback="onSubmit">Antrag absenden
+                        <button type="button" class="button" onclick="signaturePad.clear();">Unterschrift
+                            wiederholen
                         </button>
                     </div>
+
+
+                </div>
+
+                <div class="bottomButtons">
+                    <button class="button">Abbrechen</button>
+                    <button onclick="checkInputs()" class="buttonSubmit g-recaptcha" id="submit_btn"
+                            data-sitekey="{{ site_key }}" type="button" data-action='submit'
+                            data-callback="onSubmit">Antrag absenden
+                    </button>
                 </div>
             </div>
         </div>
     </form>
-    </body>
+</body>
 
 
     <script type="text/javascript">

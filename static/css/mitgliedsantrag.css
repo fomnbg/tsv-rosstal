@@ -212,50 +212,5 @@ p{
     border: 1px solid #3498db;
 }
 
-/* Style for the tabs to look like top buttons */
-.tabList {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    display: flex;
-}
-
-.tab {
-    border: 1px solid #ccc;
-    background-color: #fdfdfd;
-    padding: 1rem;
-    font-size: 1.5rem;
-    font-weight: 700;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 0.7rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    color: #000000;
-    margin-right: 1rem; /* Space between tabs */
-}
-
-.tab:hover {
-    background-color: #e5e5e5;
-}
-
-.active, .tab.active {
-    background-color: #2f2f31;
-    color: #ffffff;
-    border: none;
-}
-
-/* Clear floats after the tabs */
-.tabContent:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
-/* Style the tab content */
-.tabContent {
-    display: none;
-    padding: 20px;
-
-}
+/* Additional styles for the rest of your content */
+/* ... */
