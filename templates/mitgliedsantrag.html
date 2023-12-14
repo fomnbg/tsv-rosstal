@@ -2,9 +2,6 @@
 
 {% block body %}
 
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/mitgliedsantrag.css') }}">
@@ -54,70 +51,66 @@
                         <label class="labelCheck"><input type="checkbox">
                             Ich bin bereit im Verein eine ehrenamtliche Aufgabe zu übernehmen
 
-                        </label>
-                    </div>
-                    <!-- Field 2 -->
-                    <div class="flexPersonalDataField">
-                        <div class="radioCheck">
-                            <input class="" id="familyMale" type="radio" name="familyGender">
-                            <label for="familyMale">M</label>
-                            <input class="" id="familyFemale" type="radio" name="familyGender">
-                            <label for="familyFemale">W</label>
-                        </div>
-                        <!-- Input fields and labels for personal data -->
-                        <input class="inputField" placeholder="Vorname">
-                        <input class="inputField" placeholder="Name, Titel">
-                        <input class="inputField" placeholder="Geburtsdatum">
-                        <input class="inputField" placeholder="E-Mail">
-                        <input class="inputField" placeholder="Telefon/Mobil">
-                        <label class="labelCheck"><input type="checkbox">
-                            Ich bin bereit im Verein eine ehrenamtliche Aufgabe zu übernehmen
-                        </label>
-                    </div>
-                    <!-- Field 3 -->
-                    <div class="flexPersonalDataField">
-                        <div class="radioCheck">
-                            <input class="" id="recommendationMale" type="radio" name="recommendationGender">
-                            <label for="recommendationMale">M</label>
-                            <input class="" id="recommendationFemale" type="radio" name="recommendationGender">
-                            <label for="recommendationFemale">W</label>
-                        </div>
-                        <!-- Input fields and labels for personal data -->
-                        <input class="inputField" placeholder="Vorname">
-                        <input class="inputField" placeholder="Name, Titel">
-                        <input class="inputField" placeholder="Geburtsdatum">
-                        <input class="inputField" placeholder="E-Mail">
-                        <input class="inputField" placeholder="Telefon/Mobil">
-                        <label class="labelCheck"><input type="checkbox">
-                            Ich bin bereit im Verein eine ehrenamtliche Aufgabe zu übernehmen
-                        </label>
-                    </div>
-                </div>
+                </label>
             </div>
-            <!-- Sports selection -->
-            <div>
-                <h2 class="sub-heading">Sportart(en)</h2>
+            <!-- Field 2 -->
+            <div class="flexPersonalDataField">
+                <div class="radioCheck">
+                    <input class="" id="familyMale" type="radio" name="familyGender">
+                    <label for="familyMale">M</label>
+                    <input class="" id="familyFemale" type="radio" name="familyGender">
+                    <label for="familyFemale">W</label>
+                </div>
+                <!-- Input fields and labels for personal data -->
+                <input class="inputField" placeholder="Vorname">
+                <input class="inputField" placeholder="Name, Titel">
+                <input class="inputField" placeholder="Geburtsdatum">
+                <input class="inputField" placeholder="E-Mail">
+                <input class="inputField" placeholder="Telefon/Mobil">
+                <label class="labelCheck"><input type="checkbox">
+                Ich bin bereit im Verein eine ehrenamtliche Aufgabe zu übernehmen
+                </label>
+            </div>
+            <!-- Field 3 -->
+            <div class="flexPersonalDataField">
+                <div class="radioCheck">
+                    <input class="" id="recommendationMale" type="radio" name="recommendationGender">
+                    <label for="recommendationMale">M</label>
+                    <input class="" id="recommendationFemale" type="radio" name="recommendationGender">
+                    <label for="recommendationFemale">W</label>
+                </div>
+                <!-- Input fields and labels for personal data -->
+                <input class="inputField" placeholder="Vorname">
+                <input class="inputField" placeholder="Name, Titel">
+                <input class="inputField" placeholder="Geburtsdatum">
+                <input class="inputField" placeholder="E-Mail">
+                <input class="inputField" placeholder="Telefon/Mobil">
+                <label class="labelCheck"><input type="checkbox">
+                Ich bin bereit im Verein eine ehrenamtliche Aufgabe zu übernehmen
+                </label>
+            </div>
+        </div>
+    </div>
+    <!-- Sports selection -->
+    <div class="sportsSelectionTabs">
+
+        <h2 class="sub-heading">Sportart(en)</h2>
+
+        <ul class="tabList">
+            <li class="tab active" onclick="openTab(event, 'Member1')">Mitglied 1</li>
+            <li class="tab" onclick="openTab(event, 'Member2')">Mitglied 2</li>
+            <li class="tab" onclick="openTab(event, 'Member3')">Mitglied 3</li>
+        </ul>
+            <div id="Member1" class="tabContent" style="display: block;">
+
                 <div class="sportSelectionGroup">
                     <!-- Sport Selection Columns -->
                     <div class="sportSelectionColumn">
-                        <label><input type="checkbox">Handball</label>
-                        <label><input type="checkbox">Fußball</label>
-                        <label><input type="checkbox">Turnen</label>
-                        <label><input type="checkbox">Judo</label>
-                        <label><input type="checkbox">Badminton</label>
-                        <label><input type="checkbox">Tischtennis</label>
-                        <label><input type="checkbox">Kinterturnen</label>
-                    </div>
-                    <div class="sportSelectionColumn">
-                        <label><input type="checkbox">Mutter-/Kind</label>
-                        <label><input type="checkbox">Ballschule</label>
-                        <label><input type="checkbox">Seniorensport</label>
+                        <h3 class="sub-heading2">Allgemein</h3>
                         <label><input type="checkbox">Klettern</label>
                         <label><input type="checkbox">Volleyball</label>
-                        <label><input type="checkbox">Indica</label>
+                        <label><input type="checkbox">Indiaca</label>
                         <label><input type="checkbox">Faustball</label>
-                    </div>
-                    <div class="sportSelectionColumn">
                         <label><input type="checkbox">Basketball</label>
                         <label><input type="checkbox">Boule</label>
                         <label><input type="checkbox">Tae Bo</label>
@@ -126,41 +119,123 @@
                         <label><input type="checkbox">Power Workout</label>
                         <label><input type="checkbox">Passives Mitglied</label>
                     </div>
+                    <div class="sportSelectionColumn">
+                        <h3 class="sub-heading2">Leistungssport</h3>
+                        <label><input type="checkbox">Handball</label>
+                        <label><input type="checkbox">Fußball</label>
+                        <label><input type="checkbox">Turnen</label>
+                        <label><input type="checkbox">Judo</label>
+                        <label><input type="checkbox">Badminton</label>
+                        <label><input type="checkbox">Tischtennis</label>
+                    </div>
+                    <div class="sportSelectionColumn">
+                        <h3 class="sub-heading2">Kinder-/Seniorensport</h3>
+                        <label><input type="checkbox">Kinderturnen</label>
+                        <label><input type="checkbox">Mutter-/Kind</label>
+                        <label><input type="checkbox">Ballschule</label>
+                        <label><input type="checkbox">Seniorensport</label>
+
+                    </div>
                 </div>
             </div>
-            <div class="addressField">
-                <h2 class="sub-heading">Adresse</h2><input class="inputField" placeholder="Straße Hausnr. "><input
-                    class="inputField" placeholder="Stadt, Postleitzahl">
+            <div id="Member2" class="tabContent">
+                <div class="sportSelectionGroup">
+                    <!-- Sport Selection Columns -->
+                    <div class="sportSelectionColumn">
+                        <h3 class="sub-heading2">Allgemein</h3>
+                        <label><input type="checkbox">Klettern</label>
+                        <label><input type="checkbox">Volleyball</label>
+                        <label><input type="checkbox">Indiaca</label>
+                        <label><input type="checkbox">Faustball</label>
+                        <label><input type="checkbox">Basketball</label>
+                        <label><input type="checkbox">Boule</label>
+                        <label><input type="checkbox">Tae Bo</label>
+                        <label><input type="checkbox">Pilates</label>
+                        <label><input type="checkbox">Fitness</label>
+                        <label><input type="checkbox">Power Workout</label>
+                        <label><input type="checkbox">Passives Mitglied</label>
+                    </div>
+                    <div class="sportSelectionColumn">
+                        <h3 class="sub-heading2">Leistungssport</h3>
+                        <label><input type="checkbox">Handball</label>
+                        <label><input type="checkbox">Fußball</label>
+                        <label><input type="checkbox">Turnen</label>
+                        <label><input type="checkbox">Judo</label>
+                        <label><input type="checkbox">Badminton</label>
+                        <label><input type="checkbox">Tischtennis</label>
+                    </div>
+                    <div class="sportSelectionColumn">
+                        <h3 class="sub-heading2">Kinder-/Seniorensport</h3>
+                        <label><input type="checkbox">Kinderturnen</label>
+                        <label><input type="checkbox">Mutter-/Kind</label>
+                        <label><input type="checkbox">Ballschule</label>
+                        <label><input type="checkbox">Seniorensport</label>
+
+                    </div>
+                </div>
             </div>
-            <div class="bankField">
-                <h2 class="sub-heading">Bankdaten</h2><input class="inputField" placeholder="IBAN"><input class="inputField"
-                    placeholder="BIC (nur bei Auslandskonten)">
+            <div id="Member3" class="tabContent">
+                <div class="sportSelectionGroup">
+                    <!-- Sport Selection Columns -->
+                    <div class="sportSelectionColumn">
+                        <h3 class="sub-heading2">Allgemein</h3>
+                        <label><input type="checkbox">Klettern</label>
+                        <label><input type="checkbox">Volleyball</label>
+                        <label><input type="checkbox">Indiaca</label>
+                        <label><input type="checkbox">Faustball</label>
+                        <label><input type="checkbox">Basketball</label>
+                        <label><input type="checkbox">Boule</label>
+                        <label><input type="checkbox">Tae Bo</label>
+                        <label><input type="checkbox">Pilates</label>
+                        <label><input type="checkbox">Fitness</label>
+                        <label><input type="checkbox">Power Workout</label>
+                        <label><input type="checkbox">Passives Mitglied</label>
+                    </div>
+                    <div class="sportSelectionColumn">
+                        <h3 class="sub-heading2">Leistungssport</h3>
+                        <label><input type="checkbox">Handball</label>
+                        <label><input type="checkbox">Fußball</label>
+                        <label><input type="checkbox">Turnen</label>
+                        <label><input type="checkbox">Judo</label>
+                        <label><input type="checkbox">Badminton</label>
+                        <label><input type="checkbox">Tischtennis</label>
+                    </div>
+                    <div class="sportSelectionColumn">
+                        <h3 class="sub-heading2">Kinder-/Seniorensport</h3>
+                        <label><input type="checkbox">Kinderturnen</label>
+                        <label><input type="checkbox">Mutter-/Kind</label>
+                        <label><input type="checkbox">Ballschule</label>
+                        <label><input type="checkbox">Seniorensport</label>
+
+                    </div>
+                </div>
             </div>
-            <div class="bankField">
-                <h2 class="sub-heading">SEPA Mandate</h2>
-                <p>
-                    Die Mitgliedschaft ist ausschließlich mit Erteilung eines SEPA-Lastschriftmandats möglich. Zur
-                    Einrichtung der Mitgliedschaft im TSV Roßtal wird eine Aufnahmegebühr in Höhe von 15,00 Euro berechnet.
-                    Diese Gebühr fällt jeweils bei Wiederaufnahme einer gekündigten Mitgliedschaft erneut an.
-                    <br>
-                    <br>
-                    Gläubiger-Identifikationsnummer des TSV Roßtal e.V.: DE67TSV00002193097
-                    <br>
-                    <br>
-                    Ich ermächtige den TurnSportVerein Roßtal e.V. - widerruflich - zum Einzug der gem. Beitragsordnung
-                    geregelten Mitgliedsbeiträge zu Lasten meines vorgenannten Bankkontos per Lastschrifteinzug.
-                    <br>
-                    <br>
-                    <label class="labelCheck"><input type="checkbox">
-                        Mit der Unterschrift stimme/n ich/wir explizit der aktuellen Fassung der AGB und der
-                        Datenschutzerklärung gem. Website www.tsv-rosstal.de/rechtliches zu.
+    </div>
+    <div class="addressField"><h2 class="sub-heading3">Adresse</h2>
+        <input class="inputField" placeholder="Straße Hausnr. ">
+        <input class="inputField" placeholder="Stadt, Postleitzahl">
+    </div>
+    <div class="bankField"><h2 class="sub-heading3">Bankdaten</h2>
+        <input class="inputField" placeholder="Kontoinhaber/-in" required>
+        <input class="inputField" placeholder="IBAN">
+        <input class="inputField" placeholder="BIC (nur bei Auslandskonten)"></div>
+    <div class="bankField"><h2 class="sub-heading3">SEPA Mandate</h2>
+        <p>
+         	Die Mitgliedschaft ist ausschließlich mit Erteilung eines SEPA-Lastschriftmandats möglich. Zur Einrichtung der Mitgliedschaft im TSV Roßtal wird eine Aufnahmegebühr in Höhe von 15,00 Euro berechnet. Diese Gebühr fällt jeweils bei Wiederaufnahme einer gekündigten Mitgliedschaft erneut an.
+            <br>
+            <br>
+			Gläubiger-Identifikationsnummer des TSV Roßtal e.V.: DE67TSV00002193097
+            <br>
+            <br>
+			Ich ermächtige den TurnSportVerein Roßtal e.V. - widerruflich - zum Einzug der gem. Beitragsordnung geregelten Mitgliedsbeiträge zu Lasten meines vorgenannten Bankkontos per Lastschrifteinzug.
+            <br>
+            <br>
+            <label class="labelCheck" ><input type="checkbox">
+            Mit der Unterschrift stimme/n ich/wir explizit der aktuellen Fassung der AGB und der Datenschutzerklärung gem. Website www.tsv-rosstal.de/rechtliches zu.
 
-
-
-
-                </p>
-                <div>
-                    <p style="font-weight: bold">Unterschrift:</p>
+        </p>
+            <div>
+                <p style="font-weight: bold">Unterschrift:</p>
 
                     <div class="w3-container">
 
@@ -170,19 +245,21 @@
                                 <input type="hidden" name="signature" id="signature" value="">
                             </div>
                         </div>
-
+                    </form>
 
                         <button type="button" class="button" onclick="signaturePad.clear();">Unterschrift
                             wiederholen</button>
                     </div>
 
 
-                </div>
 
-                <div class="bottomButtons">
-                    <button class="button">Abbrechen</button>
-                    <button class="buttonSubmit" type="submit">Antrag absenden</button>
-
+    	</div>
+    
+        <div class="bottomButtons">
+        <button class="button">Abbrechen</button>
+        <button class="buttonSubmit" type="submit">Antrag absenden</button>
+    </form>
+</div>
 
                 </div>
             </div>
@@ -194,63 +271,51 @@
             canvas = wrapper.querySelector("canvas"),
             signaturePad;
 
-        // Initialisiere SignaturePad, nachdem das Dokument geladen wurde
-        document.addEventListener("DOMContentLoaded", function () {
-            try {
-                signaturePad = new SignaturePad(canvas);
-                signaturePad.minWidth = 1; // Minimale Breite des Stiftes
-                signaturePad.maxWidth = 5; // Maximale Breite des Stiftes
-                signaturePad.penColor = "#000000"; // Stiftfarbe
-                signaturePad.backgroundColor = "#FFFFFF"; // Hintergrundfarbe
-                window.onresize = resizeCanvas;
-                resizeCanvas();
-            } catch (e) {
-                console.error("Fehler beim Initialisieren von SignaturePad:", e);
-            }
-        });
-
-        function resizeCanvas() {
-            var oldContent = signaturePad.toData();
-            var ratio = Math.max(window.devicePixelRatio || 1, 1);
-            canvas.width = canvas.offsetWidth * ratio;
-            canvas.height = canvas.offsetHeight * ratio;
-            canvas.getContext("2d").scale(ratio, ratio);
-            signaturePad.clear();
-            signaturePad.fromData(oldContent);
+    // Initialize SignaturePad after the document has loaded
+    document.addEventListener("DOMContentLoaded", function() {
+        try {
+            signaturePad = new SignaturePad(canvas);
+            // SignaturePad settings
+            signaturePad.minWidth = 1;
+            signaturePad.maxWidth = 5;
+            signaturePad.penColor = "#000000";
+            signaturePad.backgroundColor = "#FFFFFF";
+            window.onresize = resizeCanvas;
+            resizeCanvas();
+        } catch (e) {
+            console.error("Error initializing SignaturePad:", e);
         }
+    });
 
-        function download(filename) {
-            var blob = dataURLToBlob(signaturePad.toDataURL());
-            var url = window.URL.createObjectURL(blob);
+    function resizeCanvas() {
+        var oldContent = signaturePad.toData();
+        var ratio = Math.max(window.devicePixelRatio || 1, 1);
+        canvas.width = canvas.offsetWidth * ratio;
+        canvas.height = canvas.offsetHeight * ratio;
+        canvas.getContext("2d").scale(ratio, ratio);
+        signaturePad.clear();
+        signaturePad.fromData(oldContent);
+    }
 
-            var a = document.createElement("a");
-            a.style = "display: none";
-            a.href = url;
-            a.download = filename;
+    function submitForm() {
+        document.getElementById('signature').value = signaturePad.toDataURL();
+    }
 
-            document.body.appendChild(a);
-            a.click();
-
-            window.URL.revokeObjectURL(url);
-        }
-
-        function dataURLToBlob(dataURL) {
-            var parts = dataURL.split(';base64,');
-            var contentType = parts[0].split(":")[1];
-            var raw = window.atob(parts[1]);
-            var rawLength = raw.length;
-            var uInt8Array = new Uint8Array(rawLength);
-
-            for (var i = 0; i < rawLength; ++i) {
-                uInt8Array[i] = raw.charCodeAt(i);
-            }
-
-            return new Blob([uInt8Array], { type: contentType });
-        }
-
-        function submitForm() {
-            document.getElementById('signature').value = signaturePad.toDataURL();
-        }
-    </script>
-
-    {% endblock %}
+</script>
+<script>
+    // Member Tabs
+function openTab(evt, tabName) {
+    var i, tabContent, tab;
+    tabContent = document.getElementsByClassName("tabContent");
+    for (i = 0; i < tabContent.length; i++) {
+        tabContent[i].style.display = "none";
+    }
+    tab = document.getElementsByClassName("tab");
+    for (i = 0; i < tab.length; i++) {
+        tab[i].className = tab[i].className.replace(" active", "");
+    }
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+</script>
+{% endblock %}

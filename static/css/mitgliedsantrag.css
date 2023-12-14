@@ -7,8 +7,6 @@
     flex-direction: row;
     justify-content: space-between;
     gap: 5rem;
-
-
 }
 
 .flexPersonalDataField {
@@ -18,18 +16,12 @@
     width: 20%;
     flex-grow: 1;
     gap: 1rem;
-
-
-
-
 }
 
 .sportSelectionGroup {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-
-
 }
 
 .sportSelectionColumn {
@@ -38,7 +30,6 @@
     width: 31.3%;
     gap: 0.3rem;
     font-size: 1.5rem;
-
 }
 
 .addressField, .bankField {
@@ -55,7 +46,6 @@
     width: 100%;
 }
 
-/* Input field styles */
 .inputField {
     border: 1px solid #e2e8f0;
     border-radius: 0.6rem;
@@ -68,12 +58,10 @@
 
 }
 
-/* Hover state */
 .inputField:hover {
     border-color: #cbd5e0;
 }
 
-/* Focus state */
 .inputField:focus {
     border-color: #878787;
     box-shadow: 0 0 0 2px rgba(98, 98, 98, 0.3);
@@ -154,23 +142,39 @@ p{
     margin-top: 2rem;
 }
 
-/* Style for the main heading */
 .main-heading {
-    font-size: 3rem; /* Adjust the font size as needed */
-    color: #000000; /* Change the text color as desired */
-    margin-top: 20px; /* Add margin to separate it from other content */
+    font-size: 3rem;
+    color: #000000;
+    margin-top: 20px;
     font-weight: bolder;
+    margin-bottom: 5rem;
 }
 
-/* Style for the sub-heading */
+
 .sub-heading {
-    font-size: 2.5rem; /* Adjust the font size as needed */
-    color: #000000; /* Change the text color as desired */
+    font-size: 2.5rem;
+    color: #000000;
     font-weight: bolder;
     margin-top: 5rem;
+    margin-bottom: 3rem;
 }
 
-/* Style for the radio button group */
+.sub-heading2 {
+    font-size: 2rem;
+    color: #000000;
+    font-weight: bolder;
+
+}
+
+.sub-heading3 {
+    font-size: 2.5rem;
+    color: #000000;
+    font-weight: bolder;
+    margin-top: 5rem;
+    margin-bottom: 1rem;
+}
+
+
 .radio-button-group {
     display: flex;
     flex-direction: column;
@@ -178,7 +182,7 @@ p{
     gap: 10px;
 }
 
-/* Style for the radio buttons */
+
 .radio-button {
     display: block;
     padding: 10px;
@@ -188,12 +192,56 @@ p{
     cursor: pointer;
 }
 
-/* Style for the selected radio button */
+
 .radio-button input:checked {
-    background-color: #3498db; /* Change to your desired highlight color */
+    background-color: #3498db;
     color: #fff;
     border: 1px solid #3498db;
 }
 
-/* Additional styles for the rest of your content */
-/* ... */
+.tabList {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+}
+
+.tab {
+    border: 1px solid #ccc;
+    background-color: #fdfdfd;
+    padding: 1rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 0.7rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    color: #000000;
+    margin-right: 1rem;
+}
+
+.tab:hover {
+    background-color: #e5e5e5;
+}
+
+.active, .tab.active {
+    background-color: #2f2f31;
+    color: #ffffff;
+    border: none;
+}
+
+
+.tabContent:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+
+.tabContent {
+    display: none;
+    padding: 20px;
+
+}

@@ -1,4 +1,3 @@
-/* Reduce the height of the navbar with a more specific selector */
 .navbar.navbar-custom {
     background-color: black;
     height: fit-content !important;
@@ -6,13 +5,11 @@
     border-radius: 0 !important;
 }
 
-/* Set the font to Oswald regular for the navbar text */
 .navbar-custom .navbar-nav > li > a {
     color: lightgray;
-    font-family: 'Oswald', sans-serif; /* Use Oswald regular or the appropriate font name */
+    font-family: 'Oswald', sans-serif;
 }
 
-/* Make selected (active) text black */
 .navbar-custom .navbar-nav > .active > a,
 .navbar-custom .navbar-nav > .active > a:focus {
     color: white;
@@ -27,7 +24,7 @@
 .logo-container{
     margin: 2rem;
 }
-/* Custom styles for the search field and button */
+
 .custom-search-form {
     margin-top: 7px;
 }
@@ -35,7 +32,7 @@
 .custom-search-input {
     border: none;
     border-radius: 0;
-    background-color: #333; /* Dark gray background */
+    background-color: #333;
     color: #ccc;
     padding: 10px 15px;
     border-radius: 0;
@@ -56,8 +53,8 @@
     border-radius: 0;
     padding: 10px;
     color: #fff;
-    font-size: 16px; /* Adjust the size as needed */
-    text-align: center; /* Center the icon horizontally */
+    font-size: 16px;
+    text-align: center;
     position: absolute;
 }
 
@@ -96,10 +93,10 @@
 }
 
 .logo-heading {
-    font-size: 50px; /* Adjust the font size as needed */
-    margin-left: 10px; /* Add margin to separate logo and text */
-    color: #333; /* Text color */
-    font-family: 'Oswald', sans-serif; /* Use Oswald font */
+    font-size: 50px;
+    margin-left: 10px;
+    color: #333;
+    font-family: 'Oswald', sans-serif;
     font-weight: bolder;
 }
 
