@@ -55,17 +55,17 @@
                     <!-- Field 1 -->
                     <div class="flexPersonalDataField">
                         <div class="radioCheck">
-                            <input class="" id="male" type="radio" name="gender">
+                            <input class="" id="male" type="radio" name="male">
                             <label for="male">M</label>
-                            <input class="" id="female" type="radio" name="gender">
+                            <input class="" id="female" type="radio" name="female">
                             <label for="female">W</label>
                         </div>
                         <!-- Input fields and labels for personal data -->
-                        <input class="inputField" placeholder="Vorname">
-                        <input class="inputField" placeholder="Name, Titel">
-                        <input class="inputField" placeholder="Geburtsdatum">
-                        <input class="inputField" placeholder="E-Mail">
-                        <input class="inputField" placeholder="Telefon/Mobil">
+                        <input class="inputField" placeholder="Vorname" name="vorname1">
+                        <input class="inputField" placeholder="Name, Titel" name="nachname1">
+                        <input class="inputField" placeholder="Geburtsdatum" name="geburtsdatum1">
+                        <input class="inputField" placeholder="E-Mail" name="email1">
+                        <input class="inputField" placeholder="Telefon/Mobil" name="phonenumber1">
                         <label class="labelCheck"><input type="checkbox">
                         Ich bin bereit im Verein eine ehrenamtliche Aufgabe zu übernehmen
 
@@ -74,17 +74,17 @@
                     <!-- Field 2 -->
                     <div class="flexPersonalDataField">
                         <div class="radioCheck">
-                            <input class="" id="familyMale" type="radio" name="familyGender">
+                            <input class="" id="familyMale" type="radio" name="familyMale">
                             <label for="familyMale">M</label>
-                            <input class="" id="familyFemale" type="radio" name="familyGender">
+                            <input class="" id="familyFemale" type="radio" name="familyFemale">
                             <label for="familyFemale">W</label>
                         </div>
                         <!-- Input fields and labels for personal data -->
-                        <input class="inputField" placeholder="Vorname">
-                        <input class="inputField" placeholder="Name, Titel">
-                        <input class="inputField" placeholder="Geburtsdatum">
-                        <input class="inputField" placeholder="E-Mail">
-                        <input class="inputField" placeholder="Telefon/Mobil">
+                        <input class="inputField" placeholder="Vorname" name="vorname2">
+                        <input class="inputField" placeholder="Name, Titel" name="nachname2">
+                        <input class="inputField" placeholder="Geburtsdatum" name="geburtsdatum2">
+                        <input class="inputField" placeholder="E-Mail" name="email2">
+                        <input class="inputField" placeholder="Telefon/Mobil" name="phonenumber2">
                         <label class="labelCheck"><input type="checkbox">
                         Ich bin bereit im Verein eine ehrenamtliche Aufgabe zu übernehmen
                         </label>
@@ -92,17 +92,17 @@
                     <!-- Field 3 -->
                     <div class="flexPersonalDataField">
                         <div class="radioCheck">
-                            <input class="" id="recommendationMale" type="radio" name="recommendationGender">
+                            <input class="" id="recommendationMale" type="radio" name="recommendationMale">
                             <label for="recommendationMale">M</label>
-                            <input class="" id="recommendationFemale" type="radio" name="recommendationGender">
+                            <input class="" id="recommendationFemale" type="radio" name="recommendationFemale">
                             <label for="recommendationFemale">W</label>
                         </div>
                         <!-- Input fields and labels for personal data -->
-                        <input class="inputField" placeholder="Vorname">
-                        <input class="inputField" placeholder="Name, Titel">
-                        <input class="inputField" placeholder="Geburtsdatum">
-                        <input class="inputField" placeholder="E-Mail">
-                        <input class="inputField" placeholder="Telefon/Mobil">
+                        <input class="inputField" placeholder="Vorname" name="vorname3">
+                        <input class="inputField" placeholder="Name, Titel" name="nachname3">
+                        <input class="inputField" placeholder="Geburtsdatum" name="geburtsdatum3">
+                        <input class="inputField" placeholder="E-Mail" name="email3">
+                        <input class="inputField" placeholder="Telefon/Mobil" name="phonenumber3">
                         <label class="labelCheck"><input type="checkbox">
                         Ich bin bereit im Verein eine ehrenamtliche Aufgabe zu übernehmen
                         </label>
@@ -236,24 +236,31 @@
             <div class="bankField"><h2 class="sub-heading3">Bankdaten</h2>
                 <input class="inputField" placeholder="Kontoinhaber/-in" required>
                 <input class="inputField" placeholder="IBAN">
-                <input class="inputField" placeholder="BIC (nur bei Auslandskonten)"></div>
+                <input class="inputField" placeholder="BIC (nur bei Auslandskonten)">
+            </div>
             <div class="bankField"><h2 class="sub-heading3">SEPA Mandate</h2>
-                    Die Mitgliedschaft ist ausschließlich mit Erteilung eines SEPA-Lastschriftmandats möglich. Zur Einrichtung der Mitgliedschaft im TSV Roßtal wird eine Aufnahmegebühr in Höhe von 15,00 Euro berechnet. Diese Gebühr fällt jeweils bei Wiederaufnahme einer gekündigten Mitgliedschaft erneut an.
+                    Die Mitgliedschaft ist ausschließlich mit Erteilung eines SEPA-Lastschriftmandats möglich. Zur
+                Einrichtung der Mitgliedschaft im TSV Roßtal wird eine Aufnahmegebühr in Höhe von 15,00 Euro berechnet.
+                Diese Gebühr fällt jeweils bei Wiederaufnahme einer gekündigten Mitgliedschaft erneut an.
                     <br>
                     <br>
                     Gläubiger-Identifikationsnummer des TSV Roßtal e.V.: DE67TSV00002193097
                     <br>
                     <br>
-                    Ich ermächtige den TurnSportVerein Roßtal e.V. - widerruflich - zum Einzug der gem. Beitragsordnung geregelten Mitgliedsbeiträge zu Lasten meines vorgenannten Bankkontos per Lastschrifteinzug.
+                    Ich ermächtige den TurnSportVerein Roßtal e.V. - widerruflich - zum Einzug der gem. Beitragsordnung
+                geregelten Mitgliedsbeiträge zu Lasten meines vorgenannten Bankkontos per Lastschrifteinzug.
                     <br>
                     <br>
-                    <label class="labelCheck" ><input type="checkbox">
-                    Mit der Unterschrift stimme/n ich/wir explizit der aktuellen Fassung der AGB und der Datenschutzerklärung gem. Website www.tsv-rosstal.de/rechtliches zu.
+                    <div class="labelCheck"><input type="checkbox">
+                    Mit der Unterschrift stimme/n ich/wir explizit der aktuellen Fassung der AGB und der
+                    Datenschutzerklärung gem. Website www.tsv-rosstal.de/rechtliches zu.
+</div>
                     <div>
                         <p style="font-weight: bold">Unterschrift:</p>
 
                         <div class="w3-container">
-                            <form class="w3-container" action="/download_pdf" method="POST" name="DAFORM" onSubmit="submitForm();" enctype="multipart/form-data" target="_self">
+                            <form class="w3-container" action="/download_pdf" method="POST" name="DAFORM"
+                              onSubmit="submitForm();" enctype="multipart/form-data" target="_self">
                                 <div id="signature-pad" class="m-signature-pad">
                                     <div class="m-signature-pad--body">
                                         <canvas></canvas>
@@ -262,18 +269,23 @@
                                 </div>
                             </form>
 
-                        <button type="button" class="button" onclick="signaturePad.clear();">Unterschrift wiederholen</button>
+                        <button type="button" class="button" onclick="signaturePad.clear();">Unterschrift
+                            wiederholen
+                        </button>
                     </div>
-
 
 
                 </div>
 
                 <div class="bottomButtons">
                 <button class="button">Abbrechen</button>
-                <button onclick="checkInputs()" class="buttonSubmit g-recaptcha" id="submit_btn" data-sitekey="{{ site_key }}" type="button" data-action='submit' data-callback="onSubmit" >Antrag absenden</button>
+                <button onclick="checkInputs()" class="buttonSubmit g-recaptcha" id="submit_btn"
+                            data-sitekey="{{ site_key }}" type="button" data-action='submit'
+                            data-callback="onSubmit">Antrag absenden
+                    </button>
+</div>
+            </div>
         </div>
-
     </form>
 </body>
 
@@ -284,7 +296,7 @@
         signaturePad;
 
     // Initialize SignaturePad after the document has loaded
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         try {
             signaturePad = new SignaturePad(canvas);
             // SignaturePad settings
@@ -312,6 +324,21 @@
     function submitForm() {
         document.getElementById('signature').value = signaturePad.toDataURL();
     }
+
+// Member Tabs
+        function openTab(evt, tabName) {
+            var i, tabContent, tab;
+            tabContent = document.getElementsByClassName("tabContent");
+            for (i = 0; i < tabContent.length; i++) {
+                tabContent[i].style.display = "none";
+            }
+            tab = document.getElementsByClassName("tab");
+            for (i = 0; i < tab.length; i++) {
+                tab[i].className = tab[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
 
 </script>
 
