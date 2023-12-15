@@ -250,9 +250,12 @@ function checkInputs(){
 */
 //return False if te evaluation failed 
 function proove() {
-    var iban = $('#iban').val();
-    var phoneNumbers = document.querySelectorAll()
+    var iban = document.getElementById('iban').value;
+
+    alert(iban);
+    /* var phoneNumbers = document.querySelectorAll() */
     var bestanden;
+
 
     //console.log(iban);
     //console.log(isValidIBANNumber(iban));

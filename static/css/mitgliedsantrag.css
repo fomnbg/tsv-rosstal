@@ -68,7 +68,7 @@
 }
 
 .labelCheck {
-	display: flex;
+    display: flex;
     align-items: flex-start
 }
 
@@ -104,6 +104,7 @@
     background-color: #fdfdfd;
 
 }
+
 .button:hover {
     background-color: #e5e5e5;
 }
@@ -116,7 +117,7 @@
 }
 
 .buttonSubmit:hover {
-	color: #ffffff;
+    color: #ffffff;
     background-color: #16161e;
 
 }
@@ -125,16 +126,16 @@ input[type="checkbox"] {
     margin-right: 1rem;
 }
 
-label{
+label {
     font-weight: 500 !important;
     font-size: 1.8rem !important;
 }
 
-p{
+p {
     font-size: 1.8rem;
 }
 
-.bottomButtons{
+.bottomButtons {
     display: flex;
     flex-direction: row;
     justify-content: space-between;

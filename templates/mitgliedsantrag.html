@@ -5,6 +5,7 @@
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="/static/css/signature_style.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script type="text/javascript" src="/static/script/signature_pad.js"></script>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/mitgliedsantrag.css') }}">
         <script language="javascript" type="text/javascript"
@@ -13,7 +14,13 @@
         <script src="https://www.google.com/recaptcha/api.js?render={{ site_key }}"></script>
         <script>
             function onSubmit() {
-                document.getElementById("antragsformular").submit();
+                var form = document.getElementById("antragsformular");
+                if (form.checkValidity()) {
+                    form.submit();
+                } else {
+                    // Optionally, report the validation errors here
+                    alert('Please fill in all required fields.');
+                }
             }
         </script>
         <!---->
@@ -54,7 +61,7 @@
                 <!-- Radio button group -->
                 <div class="radio-button-group">
                     <label class="radio-button">
-                        <input type="radio" name="membership-type" value="new-membership">
+                        <input type="radio" name="membership-type" required value="new-membership">
                         Neumitgliedschaft
                     </label>
                     <label class="radio-button">
@@ -78,10 +85,10 @@
                             <label for="female">W</label>
                         </div>
                         <!-- Input fields and labels for personal data -->
-                        <input class="inputField" placeholder="Vorname">
+                        <input class="inputField" required placeholder="Vorname">
                         <input class="inputField" placeholder="Name, Titel">
-                        <input class="inputField" placeholder="Geburtsdatum">
-                        <input class="inputField" placeholder="E-Mail">
+                        <input class="inputField" placeholder="Geburtsdatum" type="date">
+                        <input class="inputField" placeholder="E-Mail" type="email">
                         <input class="inputField" placeholder="Telefon/Mobil">
                         <label class="labelCheck"><input type="checkbox">
                             Ich bin bereit im Verein eine ehrenamtliche Aufgabe zu übernehmen
@@ -99,8 +106,8 @@
                         <!-- Input fields and labels for personal data -->
                         <input class="inputField" placeholder="Vorname">
                         <input class="inputField" placeholder="Name, Titel">
-                        <input class="inputField" placeholder="Geburtsdatum">
-                        <input class="inputField" placeholder="E-Mail">
+                        <input class="inputField" placeholder="Geburtsdatum" type="date">
+                        <input class="inputField" placeholder="E-Mail" type="email">
                         <input class="inputField" placeholder="Telefon/Mobil">
                         <label class="labelCheck"><input type="checkbox">
                             Ich bin bereit im Verein eine ehrenamtliche Aufgabe zu übernehmen
@@ -117,8 +124,8 @@
                         <!-- Input fields and labels for personal data -->
                         <input class="inputField" placeholder="Vorname">
                         <input class="inputField" placeholder="Name, Titel">
-                        <input class="inputField" placeholder="Geburtsdatum">
-                        <input class="inputField" placeholder="E-Mail">
+                        <input class="inputField" placeholder="Geburtsdatum" type="date">
+                        <input class="inputField" placeholder="E-Mail" type="email">
                         <input class="inputField" placeholder="Telefon/Mobil">
                         <label class="labelCheck"><input type="checkbox">
                             Ich bin bereit im Verein eine ehrenamtliche Aufgabe zu übernehmen
@@ -252,7 +259,7 @@
             </div>
             <div class="bankField"><h2 class="sub-heading3">Bankdaten</h2>
                 <input class="inputField" placeholder="Kontoinhaber/-in" required>
-                <input class="inputField" placeholder="IBAN">
+				<input class="inputField" type="text" id="iban" placeholder="IBAN">
                 <input class="inputField" placeholder="BIC (nur bei Auslandskonten)">
             </div>
             <div class="bankField"><h2 class="sub-heading3">SEPA Mandate</h2>
@@ -268,7 +275,7 @@
                 geregelten Mitgliedsbeiträge zu Lasten meines vorgenannten Bankkontos per Lastschrifteinzug.
                 <br>
                 <br>
-                <div class="labelCheck"><input type="checkbox">
+                <div class="labelCheck"><input type="checkbox" required>
                     Mit der Unterschrift stimme/n ich/wir explizit der aktuellen Fassung der AGB und der
                     Datenschutzerklärung gem. Website www.tsv-rosstal.de/rechtliches zu.
                 </div>
@@ -295,11 +302,13 @@
                 </div>
 
                 <div class="bottomButtons">
-                    <button class="button">Abbrechen</button>
-                    <button onclick="checkInputs()" class="buttonSubmit g-recaptcha" id="submit_btn"
-                            data-sitekey="{{ site_key }}" type="button" data-action='submit'
-                            data-callback="onSubmit">Antrag absenden
+                    <button class="button" type="button">Abbrechen</button>
+
+                    <button class="buttonSubmit g-recaptcha" id="submit_btn"
+                            data-sitekey="{{ site_key }}" type="submit" data-action='submit' data-callback="onSubmit">
+                        Antrag absenden
                     </button>
+
                 </div>
             </div>
         </div>
