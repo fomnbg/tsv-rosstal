@@ -452,22 +452,16 @@
                 document.querySelector(".tab-content-container").appendChild(newTabContent);
             }
 
-            function removeField(fieldId, member) {
+            function removeField(fieldId, memberId) {
                 var field = document.getElementById(fieldId);
-                var member = document.getElementById(member);
+                var member = document.getElementById(memberId);
+                console.log(field);
+                console.log(member);
+                console.log(field.parentNode)
+                console.log(member.parentNode)
                 field.parentNode.removeChild(field);
-                field.parentNode.removeChild(member);
+                member.parentNode.removeChild(member);
 
-                // Entferne den entsprechenden Tab
-                var tabNumber = fieldId.replace('personalDataField', '');
-                var tabToRemove = document.getElementById('Member' + tabNumber);
-                var tabListToRemove = document.querySelector("[onclick*='Member" + tabNumber + "']");
-                if(tabToRemove) {
-                    tabToRemove.parentNode.removeChild(tabToRemove);
-                }
-                if(tabListToRemove) {
-                    tabListToRemove.parentNode.removeChild(tabListToRemove);
-                }
 
                 // Zeige den Hinzufügen-Button an, falls er versteckt war
                 if (document.getElementById("personalDataGroup").children.length < 5) {
