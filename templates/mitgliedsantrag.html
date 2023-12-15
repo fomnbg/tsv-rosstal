@@ -53,7 +53,6 @@
 
     <form id="antragsformular" method="post" action="{{ url_for('mitgliedsantrag') }}">
         <div class="containerMain">
-            <div>
                 <h1 class="main-heading">Mitgliedsantrag</h1>
                 <!-- Radio button group -->
                 <div class="radio-button-group">
@@ -72,73 +71,35 @@
                 </div>
                 <div class="sub-heading">Persönliche Daten</div>
                 <!-- Personal data fields -->
-                <div class="flexPersonalDataGroup">
-                    <!-- Field 1 -->
-                    <div class="flexPersonalDataField">
-                        <div class="radioCheck">
-                            <input class="" id="male" type="radio" name="gender">
-                            <label for="male">M</label>
-                            <input class="" id="female" type="radio" name="gender">
-                            <label for="female">W</label>
+            	<div class="PD-Container">
+                    <div class="flexPersonalDataGroup" id="personalDataGroup">
+                        <!-- Initial Field -->
+                        <div class="flexPersonalDataField" id="personalDataField1">
+                            <!-- Inhalte für das erste Personalfeld -->
+                            <div class="radioCheck">
+                                <input class="" id="male1" type="radio" name="gender1">
+                                <label for="male1">M</label>
+                                <input class="" id="female1" type="radio" name="gender1">
+                                <label for="female1">W</label>
+                            </div>
+                            <input class="inputField" placeholder="Vorname" name="vn1">
+                            <input class="inputField" placeholder="Name, Titel" name="nn1">
+                            <input class="inputField" placeholder="Geburtsdatum" type="date" name="date1">
+                            <input class="inputField" placeholder="E-Mail" type="email" name="email1">
+                            <input class="inputField" placeholder="Telefon/Mobil" name="mobile1">
                         </div>
-                        <!-- Input fields and labels for personal data -->
-                        <input class="inputField" required placeholder="Vorname">
-                        <input class="inputField" placeholder="Name, Titel">
-                        <input class="inputField" placeholder="Geburtsdatum" type="date">
-                        <input class="inputField" placeholder="E-Mail" type="email">
-                        <input class="inputField" placeholder="Telefon/Mobil">
-                        <label class="labelCheck"><input type="checkbox">
-                            Ich bin bereit im Verein eine ehrenamtliche Aufgabe zu übernehmen
+                    </div>
+                	<span class="addFieldButton"><button class="addFieldButtonStyle" type="button" id="addFieldButton" onclick="addField()">+</button></span>
 
-                        </label>
-                    </div>
-                    <!-- Field 2 -->
-                    <div class="flexPersonalDataField">
-                        <div class="radioCheck">
-                            <input class="" id="familyMale" type="radio" name="familyGender">
-                            <label for="familyMale">M</label>
-                            <input class="" id="familyFemale" type="radio" name="familyGender">
-                            <label for="familyFemale">W</label>
-                        </div>
-                        <!-- Input fields and labels for personal data -->
-                        <input class="inputField" placeholder="Vorname">
-                        <input class="inputField" placeholder="Name, Titel">
-                        <input class="inputField" placeholder="Geburtsdatum" type="date">
-                        <input class="inputField" placeholder="E-Mail" type="email">
-                        <input class="inputField" placeholder="Telefon/Mobil">
-                        <label class="labelCheck"><input type="checkbox">
-                            Ich bin bereit im Verein eine ehrenamtliche Aufgabe zu übernehmen
-                        </label>
-                    </div>
-                    <!-- Field 3 -->
-                    <div class="flexPersonalDataField">
-                        <div class="radioCheck">
-                            <input class="" id="recommendationMale" type="radio" name="recommendationGender">
-                            <label for="recommendationMale">M</label>
-                            <input class="" id="recommendationFemale" type="radio" name="recommendationGender">
-                            <label for="recommendationFemale">W</label>
-                        </div>
-                        <!-- Input fields and labels for personal data -->
-                        <input class="inputField" placeholder="Vorname">
-                        <input class="inputField" placeholder="Name, Titel">
-                        <input class="inputField" placeholder="Geburtsdatum" type="date">
-                        <input class="inputField" placeholder="E-Mail" type="email">
-                        <input class="inputField" placeholder="Telefon/Mobil">
-                        <label class="labelCheck"><input type="checkbox">
-                            Ich bin bereit im Verein eine ehrenamtliche Aufgabe zu übernehmen
-                        </label>
-                    </div>
                 </div>
-            </div>
+
             <!-- Sports selection -->
             <div class="sportsSelectionTabs">
 
                 <h2 class="sub-heading">Sportart(en)</h2>
 
-                <ul class="tabList">
+                <ul class="tabList" id="tabList">
                     <li class="tab active" onclick="openTab(event, 'Member1')">Mitglied 1</li>
-                    <li class="tab" onclick="openTab(event, 'Member2')">Mitglied 2</li>
-                    <li class="tab" onclick="openTab(event, 'Member3')">Mitglied 3</li>
                 </ul>
                 <div id="Member1" class="tabContent" style="display: block;">
 
@@ -177,7 +138,9 @@
                         </div>
                     </div>
                 </div>
-                <div id="Member2" class="tabContent">
+
+                <div id="Member2" class="tabContent" style="display: block;">
+
                     <div class="sportSelectionGroup">
                         <!-- Sport Selection Columns -->
                         <div class="sportSelectionColumn">
@@ -213,7 +176,82 @@
                         </div>
                     </div>
                 </div>
-                <div id="Member3" class="tabContent">
+                <div id="Member3" class="tabContent" style="display: block;">
+
+                    <div class="sportSelectionGroup">
+                        <!-- Sport Selection Columns -->
+                        <div class="sportSelectionColumn">
+                            <h3 class="sub-heading2">Allgemein</h3>
+                            <label><input type="checkbox">Klettern</label>
+                            <label><input type="checkbox">Volleyball</label>
+                            <label><input type="checkbox">Indiaca</label>
+                            <label><input type="checkbox">Faustball</label>
+                            <label><input type="checkbox">Basketball</label>
+                            <label><input type="checkbox">Boule</label>
+                            <label><input type="checkbox">Tae Bo</label>
+                            <label><input type="checkbox">Pilates</label>
+                            <label><input type="checkbox">Fitness</label>
+                            <label><input type="checkbox">Power Workout</label>
+                            <label><input type="checkbox">Passives Mitglied</label>
+                        </div>
+                        <div class="sportSelectionColumn">
+                            <h3 class="sub-heading2">Leistungssport</h3>
+                            <label><input type="checkbox">Handball</label>
+                            <label><input type="checkbox">Fußball</label>
+                            <label><input type="checkbox">Turnen</label>
+                            <label><input type="checkbox">Judo</label>
+                            <label><input type="checkbox">Badminton</label>
+                            <label><input type="checkbox">Tischtennis</label>
+                        </div>
+                        <div class="sportSelectionColumn">
+                            <h3 class="sub-heading2">Kinder-/Seniorensport</h3>
+                            <label><input type="checkbox">Kinderturnen</label>
+                            <label><input type="checkbox">Mutter-/Kind</label>
+                            <label><input type="checkbox">Ballschule</label>
+                            <label><input type="checkbox">Seniorensport</label>
+
+                        </div>
+                    </div>
+                </div>
+                <div id="Member4" class="tabContent" style="display: block;">
+
+                    <div class="sportSelectionGroup">
+                        <!-- Sport Selection Columns -->
+                        <div class="sportSelectionColumn">
+                            <h3 class="sub-heading2">Allgemein</h3>
+                            <label><input type="checkbox">Klettern</label>
+                            <label><input type="checkbox">Volleyball</label>
+                            <label><input type="checkbox">Indiaca</label>
+                            <label><input type="checkbox">Faustball</label>
+                            <label><input type="checkbox">Basketball</label>
+                            <label><input type="checkbox">Boule</label>
+                            <label><input type="checkbox">Tae Bo</label>
+                            <label><input type="checkbox">Pilates</label>
+                            <label><input type="checkbox">Fitness</label>
+                            <label><input type="checkbox">Power Workout</label>
+                            <label><input type="checkbox">Passives Mitglied</label>
+                        </div>
+                        <div class="sportSelectionColumn">
+                            <h3 class="sub-heading2">Leistungssport</h3>
+                            <label><input type="checkbox">Handball</label>
+                            <label><input type="checkbox">Fußball</label>
+                            <label><input type="checkbox">Turnen</label>
+                            <label><input type="checkbox">Judo</label>
+                            <label><input type="checkbox">Badminton</label>
+                            <label><input type="checkbox">Tischtennis</label>
+                        </div>
+                        <div class="sportSelectionColumn">
+                            <h3 class="sub-heading2">Kinder-/Seniorensport</h3>
+                            <label><input type="checkbox">Kinderturnen</label>
+                            <label><input type="checkbox">Mutter-/Kind</label>
+                            <label><input type="checkbox">Ballschule</label>
+                            <label><input type="checkbox">Seniorensport</label>
+
+                        </div>
+                    </div>
+                </div>
+                <div id="Member5" class="tabContent" style="display: block;">
+
                     <div class="sportSelectionGroup">
                         <!-- Sport Selection Columns -->
                         <div class="sportSelectionColumn">
@@ -256,7 +294,7 @@
             </div>
             <div class="bankField"><h2 class="sub-heading3">Bankdaten</h2>
                 <input class="inputField" placeholder="Kontoinhaber/-in" required>
-				<input class="inputField" type="text" id="iban" placeholder="IBAN">
+             <input class="inputField" type="text" id="iban" placeholder="IBAN">
                 <input class="inputField" placeholder="BIC (nur bei Auslandskonten)">
             </div>
             <div class="bankField"><h2 class="sub-heading3">SEPA Mandate</h2>
@@ -299,7 +337,7 @@
                 </div>
 
                 <div class="bottomButtons">
-                    <button onclick="alert('Clicked')" class="invisButton" type="submit" id="validationButton"></button>
+                    <button class="invisButton" type="submit" id="validationButton"></button>
                     <button onclick="defaultProove()" class="button" type="button">Abbrechen</button>
 
 
@@ -364,6 +402,79 @@
             document.getElementById(tabName).style.display = "block";
             evt.currentTarget.className += " active";
         }
+
+        function addField() {
+            var personalDataGroup = document.getElementById("personalDataGroup");
+            var currentFieldCount = personalDataGroup.children.length;
+            var newFieldNum = currentFieldCount + 1;
+
+            if (newFieldNum > 5) {
+                document.getElementById("addFieldButton").style.display = "none";
+                return;
+            }
+
+            var newField = document.createElement("div");
+            newField.className = "flexPersonalDataField";
+            newField.id = "personalDataField" + newFieldNum;
+
+            newField.innerHTML = `
+                <div class="radioAndRemoveContainer">
+                    <div class="radioCheck">
+                        <input class="" id="male${newFieldNum}" type="radio" name="gender${newFieldNum}">
+                        <label for="male${newFieldNum}">M</label>
+                        <input class="" id="female${newFieldNum}" type="radio" name="gender${newFieldNum}">
+                        <label for="female${newFieldNum}">W</label>
+                    </div>
+                    <div class="removeFieldButton" onclick="removeField('personalDataField${newFieldNum}', 'Member${newFieldNum}')"></div>
+                </div>
+                <input class="inputField" placeholder="Vorname">
+                <input class="inputField" placeholder="Name, Titel">
+                <input class="inputField" placeholder="Geburtsdatum" type="date">
+                <input class="inputField" placeholder="E-Mail" type="email">
+                <input class="inputField" placeholder="Telefon/Mobil">
+            `;
+            personalDataGroup.appendChild(newField);
+
+            if (newFieldNum >= 5) {
+                document.getElementById("addFieldButton").style.display = "none";
+            }
+
+                var newTab = document.createElement("li");
+                newTab.className = "tab";
+                newTab.onclick = function(event) { openTab(event, 'Member' + newFieldNum); };
+                newTab.textContent = 'Mitglied ' + newFieldNum;
+                document.getElementById("tabList").appendChild(newTab);
+
+                var newTabContent = document.createElement("div");
+                newTabContent.id = 'Member' + newFieldNum;
+                newTabContent.className = 'tabContent';
+                newTabContent.style.display = 'none';
+                document.querySelector(".tab-content-container").appendChild(newTabContent);
+            }
+
+            function removeField(fieldId, member) {
+                var field = document.getElementById(fieldId);
+                var member = document.getElementById(member);
+                field.parentNode.removeChild(field);
+                field.parentNode.removeChild(member);
+
+                // Entferne den entsprechenden Tab
+                var tabNumber = fieldId.replace('personalDataField', '');
+                var tabToRemove = document.getElementById('Member' + tabNumber);
+                var tabListToRemove = document.querySelector("[onclick*='Member" + tabNumber + "']");
+                if(tabToRemove) {
+                    tabToRemove.parentNode.removeChild(tabToRemove);
+                }
+                if(tabListToRemove) {
+                    tabListToRemove.parentNode.removeChild(tabListToRemove);
+                }
+
+                // Zeige den Hinzufügen-Button an, falls er versteckt war
+                if (document.getElementById("personalDataGroup").children.length < 5) {
+                    document.getElementById("addFieldButton").style.display = "inline-block";
+                }
+            }
+
 
     </script>
 
