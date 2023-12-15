@@ -248,11 +248,19 @@ function checkInputs(){
     document.getElementById("submit_btn").removeAttribute("data-callback");
 }
 */
-//return False if te evaluation failed 
+
+function defaultProove() {
+    console.log("defaultProove() called");
+    var button = document.getElementById('validationButton');
+	button.click();
+    return 1;
+}
+
+//return False if te evaluation failed
 function proove() {
+    defaultProove();
     var iban = document.getElementById('iban').value;
 
-    alert(iban);
     /* var phoneNumbers = document.querySelectorAll() */
     var bestanden;
 

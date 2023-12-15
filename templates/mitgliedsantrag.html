@@ -302,7 +302,9 @@
                 </div>
 
                 <div class="bottomButtons">
-                    <button class="button" type="button">Abbrechen</button>
+                    <button onclick="alert('Clicked')" class="invisButton" type="submit" id="validationButton"></button>
+                    <button onclick="defaultProove()" class="button" type="button">Abbrechen</button>
+
 
                     <button class="buttonSubmit g-recaptcha" id="submit_btn"
                             data-sitekey="{{ site_key }}" type="submit" data-action='submit' data-callback="onSubmit">
