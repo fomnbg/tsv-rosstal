@@ -17,9 +17,6 @@
                 var form = document.getElementById("antragsformular");
                 if (form.checkValidity()) {
                     form.submit();
-                } else {
-                    // Optionally, report the validation errors here
-                    alert('Please fill in all required fields.');
                 }
             }
         </script>
@@ -307,7 +304,7 @@
 
 
                     <button class="buttonSubmit g-recaptcha" id="submit_btn"
-                            data-sitekey="{{ site_key }}" type="submit" data-action='submit' data-callback="onSubmit">
+                            data-sitekey="{{ site_key }}" onclick="test()">
                         Antrag absenden
                     </button>
 

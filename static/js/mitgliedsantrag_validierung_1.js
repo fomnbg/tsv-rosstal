@@ -305,3 +305,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+function test(){
+    onSubmit();
+}
