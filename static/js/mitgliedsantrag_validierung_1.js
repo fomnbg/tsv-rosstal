@@ -20,7 +20,7 @@ function alertValidIBAN() {
 }
 
 /*
- * Returns 1 if the IBAN is valid 
+ * Returns true if the IBAN is valid 
  * Returns FALSE if the IBAN's length is not as should be (for CY the IBAN Should be 28 chars long starting with CY )
  * Returns any other number (checksum) when the IBAN is invalid (check digits do not match)
  */
@@ -152,6 +152,7 @@ function checkPhoneNumber(phoneNumber) {
     const phoneRegex = /^\+\d{10,}$/;
   
     if (phoneRegex.test(phoneNumber)) {
+        
       return true;
     } else {
       return false;
@@ -257,23 +258,25 @@ function defaultProove() {
 }
 
 //return False if te evaluation failed
-function proove() {
-    defaultProove();
+function proove_iban() {
     var iban = document.getElementById('iban');
     var iban_val = iban.value;
+    console.log(iban_val)
     /* var phoneNumbers = document.querySelectorAll() */
-    var bestanden;
+    var bestanden =true;
 
 
     //console.log(iban);
     //console.log(isValidIBANNumber(iban));
     // Check if the IBAN is valid
-    if (isValidIBANNumber(iban_val) == 1) {
-        bestanden = true;
-    } else {
+    if (isValidIBANNumber(iban_val) != true) {
+        console.log('falscher pfad')
         iban.setCustomValidity('Bitte geben Sie eine gültige IBAN an.'); 
         bestanden = false;
-    }  
+    } else {
+        iban.setCustomValidity('');
+        return bestanden;
+    }
      
     return bestanden;
 }
@@ -283,10 +286,12 @@ document.addEventListener('DOMContentLoaded', function () {
     
     // Find the button by its ID or any other suitable selector
     var myButton = document.getElementById('submit_btn');
-
+    var form = document.getElementById('antragsformular');
     // Add a click event listener to the button
     myButton.addEventListener('click', function (event) {
-        if (proove() === false) {
+        defaultProove()
+        console.log("proove_iban output: "+proove_iban())
+        if (proove_iban() === false) {
             // If evaluation passed, prevent the default behavior of the click event
             event.preventDefault();
 
@@ -300,13 +305,13 @@ document.addEventListener('DOMContentLoaded', function () {
             // Continue with the default behavior or additional logic
             console.log('Default behavior or custom logic here');
         } else {
+            defaultProove();
             // Evaluation failed, continue with the default behavior
-            console.log('Evaluation failed, default behavior here');
+            if (form.checkValidity()){
+                console.log("test called")
+                form.submit();
+            }
+            
         }
     });
 });
-
-function test(){
-    onSubmit();
-    
-}

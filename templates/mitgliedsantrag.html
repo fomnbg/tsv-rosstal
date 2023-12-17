@@ -12,14 +12,7 @@
                 src="{{ url_for('static', filename='js/mitgliedsantrag_validierung_1.js') }}"></script>
         <!-- recaptcha default from google site -->
         <script src="https://www.google.com/recaptcha/api.js?render={{ site_key }}"></script>
-        <script>
-            function onSubmit() {
-                var form = document.getElementById("antragsformular");
-                if (form.checkValidity()) {
-                    form.submit();
-                }
-            }
-        </script>
+        
         <!---->
         <!-- adress api default from google site -->
         <script>
@@ -342,7 +335,7 @@
 
 
                     <button class="buttonSubmit g-recaptcha" id="submit_btn"
-                            data-sitekey="{{ site_key }}" onclick="test()">
+                            data-sitekey="{{ site_key }}" >
                         Antrag absenden
                     </button>
 
