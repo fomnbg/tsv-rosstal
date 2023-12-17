@@ -259,8 +259,8 @@ function defaultProove() {
 //return False if te evaluation failed
 function proove() {
     defaultProove();
-    var iban = document.getElementById('iban').value;
-
+    var iban = document.getElementById('iban');
+    var iban_val = iban.value;
     /* var phoneNumbers = document.querySelectorAll() */
     var bestanden;
 
@@ -268,11 +268,11 @@ function proove() {
     //console.log(iban);
     //console.log(isValidIBANNumber(iban));
     // Check if the IBAN is valid
-    if (isValidIBANNumber(iban) == 1) {
+    if (isValidIBANNumber(iban_val) == 1) {
         bestanden = true;
     } else {
-        alert("Bitte geben Sie eine gültige IBAN an!");
-        bestanden = false
+        iban.setCustomValidity('Bitte geben Sie eine gültige IBAN an.'); 
+        bestanden = false;
     }  
      
     return bestanden;
@@ -308,4 +308,5 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function test(){
     onSubmit();
+    
 }
