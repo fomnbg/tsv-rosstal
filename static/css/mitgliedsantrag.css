@@ -269,14 +269,14 @@ p {
 
 .addFieldButton{
     display: flex;
-    flex-direction: row;
     gap: 1rem;
     align-items: center;
     margin-top: 1rem;
-
+    flex-direction: column;
+    justify-content: center;
 }
 
-.addFieldButtonStyle{
+.addFieldButtonStyle, .removeFieldButtonStyle{
     border: none;
     background-color: #2f2f31;
     padding: 1rem 1.6rem 1rem 1.6rem;
@@ -289,6 +289,8 @@ p {
     transition: background-color 0.3s;
     color: #ffffff;
     margin-right: 1rem;
+    width: 45px;
+    height: 45px;
 }
 
 .radioAndRemoveContainer {
