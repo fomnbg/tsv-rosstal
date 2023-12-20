@@ -56,13 +56,13 @@
     outline: none;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     width: 100%;
-
 }
 
 .inputField:hover {
     border-color: #cbd5e0;
 }
 
+/* Focus state */
 .inputField:focus {
     border-color: #878787;
     box-shadow: 0 0 0 2px rgba(98, 98, 98, 0.3);
