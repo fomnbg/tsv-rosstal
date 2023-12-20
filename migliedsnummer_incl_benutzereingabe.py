@@ -9,6 +9,7 @@ def mitgliedsnummer_vergeben(vorname, nachname):
         with open(mitglieder_dateipfad, "w") as f:
             json.dump({}, f)
 
+    
     # Laden der bestehenden Zuordnung von Mitgliedsnummern
     with open(mitglieder_dateipfad, "r") as f:
         mitglieder_dict = json.load(f)
