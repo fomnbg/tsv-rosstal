@@ -1,60 +1,36 @@
-import random
+import json
+import os
 
-class MitgliedsnummerGenerator:
-    def __init__(self):
-        self.generated_numbers = set()
+def mitgliedsnummer_vergeben(vorname, nachname):
+    mitglieder_dateipfad = "mitglieder.json"
 
-    def generiere_mitgliedsnummer(self):
-        while True:
-            mitgliedsnummer = random.randint(1000, 9999)
-            if mitgliedsnummer not in self.generated_numbers:
-                self.generated_numbers.add(mitgliedsnummer)
-                return mitgliedsnummer
+    # Überprüfen, ob die JSON-Datei existiert
+    if not os.path.exists(mitglieder_dateipfad):
+        with open(mitglieder_dateipfad, "w") as f:
+            json.dump({}, f)
 
-class Mitglied:
-    def __init__(self, geschlecht, vorname, nachname, geburtsdatum, plz, ort, handynummer):
-        self.geschlecht = geschlecht
-        self.vorname = vorname
-        self.nachname = nachname
-        self.geburtsdatum = geburtsdatum
-        self.plz = plz
-        self.ort = ort
-        self.handynummer = handynummer
-        self.mitgliedsnummer = None
+    # Laden der bestehenden Zuordnung von Mitgliedsnummern
+    with open(mitglieder_dateipfad, "r") as f:
+        mitglieder_dict = json.load(f)
 
-    def setze_mitgliedsnummer(self, mitgliedsnummer):
-        self.mitgliedsnummer = mitgliedsnummer
+    # Überprüfen, ob die Mitgliedsnummer bereits vergeben ist
+    for mitgliedsnummer, daten in mitglieder_dict.items():
+        if daten["Vorname"] == vorname and daten["Nachname"] == nachname:
+            return f"Mitgliedsnummer {mitgliedsnummer} bereits vergeben."
 
-# Beispiel zur Verwendung des Codes
-if __name__ == "__main__":
-    generator = MitgliedsnummerGenerator()
+    # Neue Mitgliedsnummer generieren
+    neue_mitgliedsnummer = len(mitglieder_dict) + 1
 
-    mitglieder = []
+    # Hinzufügen der neuen Zuordnung von Mitgliedsnummer zu Vornamen und Nachnamen
+    mitglieder_dict[str(neue_mitgliedsnummer)] = {"Vorname": vorname, "Nachname": nachname}
 
-    while True:
-        geschlecht = input("Geschlecht des Mitglieds (oder 'exit' zum Beenden): ")
-        if geschlecht.lower() == 'exit':
-            break
+    # Speichern der aktualisierten Zuordnung in der JSON-Datei
+    with open(mitglieder_dateipfad, "w") as f:
+        json.dump(mitglieder_dict, f, indent=2)
 
-        vorname = input("Vorname des Mitglieds: ")
-        nachname = input("Nachname des Mitglieds: ")
-        geburtsdatum = input("Geburtsdatum des Mitglieds: ")
-        plz = input("Postleitzahl des Mitglieds: ")
-        ort = input("Ort des Mitglieds: ")
-        handynummer = input("Handynummer des Mitglieds: ")
+    return f"Mitgliedsnummer {neue_mitgliedsnummer} für {vorname} {nachname} vergeben."
 
-        mitglied = Mitglied(geschlecht, vorname, nachname, geburtsdatum, plz, ort, handynummer)
-        mitglied.setze_mitgliedsnummer(generator.generiere_mitgliedsnummer())
+# Beispielaufruf
+print(mitgliedsnummer_vergeben("Max", "Mustermann"))
+print(mitgliedsnummer_vergeben("Anna", "Schmidt"))
 
-        mitglieder.append(mitglied)
-
-    for index, mitglied in enumerate(mitglieder, start=1):
-        print(f"\nMitglied {index}:")
-        print(f"Geschlecht: {mitglied.geschlecht}")
-        print(f"Vorname: {mitglied.vorname}")
-        print(f"Nachname: {mitglied.nachname}")
-        print(f"Geburtsdatum: {mitglied.geburtsdatum}")
-        print(f"PLZ: {mitglied.plz}")
-        print(f"Ort: {mitglied.ort}")
-        print(f"Handynummer: {mitglied.handynummer}")
-        print(f"Mitgliedsnummer: {mitglied.mitgliedsnummer}")
