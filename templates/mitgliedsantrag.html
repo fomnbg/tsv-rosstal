@@ -444,11 +444,11 @@ updateFieldButtons();
                         <label for="female${newFieldNum}">W</label>
                     </div>
                 </div>
-                <input class="inputField" placeholder="Vorname">
-                <input class="inputField" placeholder="Name, Titel">
-                <input class="inputField" placeholder="Geburtsdatum" type="date">
-                <input class="inputField" placeholder="E-Mail" type="email">
-                <input class="inputField" placeholder="Telefon/Mobil">
+                <input class="inputField" placeholder="Vorname" name="vn${newFieldNum}">
+                <input class="inputField" placeholder="Name, Titel" name="nn${newFieldNum}">
+                <input class="inputField" placeholder="Geburtsdatum" type="date" name="date${newFieldNum}">
+                <input class="inputField" placeholder="E-Mail" type="email" name="email${newFieldNum}">
+                <input class="inputField" placeholder="Telefon/Mobil" name="mobile${newFieldNum}">
             `;
             personalDataGroup.appendChild(newField);
 
