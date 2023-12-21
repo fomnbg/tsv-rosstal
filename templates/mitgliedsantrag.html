@@ -11,6 +11,10 @@
     <script type="text/javascript" src="/static/script/signature_pad.js"></script>
     
     <title>Membership Application</title>
+
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/validation.css') }}">
+    
 </head>
 <body>
 <div class="containerMain">
@@ -46,7 +50,8 @@
                 <input class="inputField" placeholder="Vorname">
                 <input class="inputField" placeholder="Name, Titel">
                 <input class="inputField" placeholder="Geburtsdatum">
-                <input class="inputField" placeholder="E-Mail">
+                <input class="inputField emailInput" id="emailInput1" placeholder="E-Mail" />
+                <span id="emailFeedback1" class="error-message"></span>
                 <input class="inputField" placeholder="Telefon/Mobil">
                 <label class="labelCheck"><input type="checkbox">
                 Ich bin bereit im Verein eine ehrenamtliche Aufgabe zu übernehmen
@@ -65,7 +70,8 @@
                 <input class="inputField" placeholder="Vorname">
                 <input class="inputField" placeholder="Name, Titel">
                 <input class="inputField" placeholder="Geburtsdatum">
-                <input class="inputField" placeholder="E-Mail">
+                <input class="inputField emailInput" id="emailInput2" placeholder="E-Mail" />
+                <span id="emailFeedback2" class="error-message"></span>
                 <input class="inputField" placeholder="Telefon/Mobil">
                 <label class="labelCheck"><input type="checkbox">
                 Ich bin bereit im Verein eine ehrenamtliche Aufgabe zu übernehmen
@@ -83,7 +89,8 @@
                 <input class="inputField" placeholder="Vorname">
                 <input class="inputField" placeholder="Name, Titel">
                 <input class="inputField" placeholder="Geburtsdatum">
-                <input class="inputField" placeholder="E-Mail">
+                <input class="inputField emailInput" id="emailInput3" placeholder="E-Mail" />
+                <span id="emailFeedback3" class="error-message"></span>
                 <input class="inputField" placeholder="Telefon/Mobil">
                 <label class="labelCheck"><input type="checkbox">
                 Ich bin bereit im Verein eine ehrenamtliche Aufgabe zu übernehmen
@@ -238,6 +245,11 @@
     function submitForm() {
         document.getElementById('signature').value = signaturePad.toDataURL();
     }
+    
+</script>
+<script src="{{ url_for('static', filename='js/mitgliedsantrag.js') }}"></script>
+</body>
+
 </script>
 
 {% endblock %}
