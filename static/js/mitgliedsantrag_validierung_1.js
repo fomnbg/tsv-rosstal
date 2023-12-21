@@ -10,17 +10,8 @@ $$$$$$/ $$$$$$$  |/$$$$$$  |$$  \ $$ |
 / $$   |$$    $$/ $$ |  $$ |$$ | $$$ |
 $$$$$$/ $$$$$$$/  $$/   $$/ $$/   $$/ 
 */
-
 /*
-function alertValidIBAN() {
-    var iban = document.getElementById('iban');
-    if (isValidIBANNumber(iban) != 1){
-        return
-    };
-}
-
-/*
- * Returns 1 if the IBAN is valid 
+ * Returns true if the IBAN is valid 
  * Returns FALSE if the IBAN's length is not as should be (for CY the IBAN Should be 28 chars long starting with CY )
  * Returns any other number (checksum) when the IBAN is invalid (check digits do not match)
  */
@@ -61,42 +52,7 @@ function mod97(string) {
     return checksum;
 }
 
-/*
- ________  __       __   ______   ______  __       
-/        |/  \     /  | /      \ /      |/  |      
-$$$$$$$$/ $$  \   /$$ |/$$$$$$  |$$$$$$/ $$ |      
-$$ |__    $$$  \ /$$$ |$$ |__$$ |  $$ |  $$ |      
-$$    |   $$$$  /$$$$ |$$    $$ |  $$ |  $$ |      
-$$$$$/    $$ $$ $$/$$ |$$$$$$$$ |  $$ |  $$ |      
-$$ |_____ $$ |$$$/ $$ |$$ |  $$ | _$$ |_ $$ |_____ 
-$$       |$$ | $/  $$ |$$ |  $$ |/ $$   |$$       |
-$$$$$$$$/ $$/      $$/ $$/   $$/ $$$$$$/ $$$$$$$$/ 
-*/ 
-/*
-function ValidateEmail(input) {
 
-var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-
-if (input.value.match(validRegex)) {
-
-  alert("Valid email address!");
-
-  document.form1.text1.focus();
-
-  return true;
-
-} else {
-
-  alert("Invalid email address!");
-
-  document.form1.text1.focus();
-
-  return false;
-
-}
-
-}
-*/
 /*
   ______   __     ________  ________  _______  
  /      \ /  |   /        |/        |/       \ 
@@ -108,33 +64,27 @@ $$ |  $$ |$$ |_____ $$ |   $$ |_____ $$ |  $$ |
 $$ |  $$ |$$       |$$ |   $$       |$$ |  $$ |
 $$/   $$/ $$$$$$$$/ $$/    $$$$$$$$/ $$/   $$/ 
 */
-/*
-function pruefeAlter() {
+
+function pruefeAlter(geburtsdatum) {
     // Das Mindestalter festlegen (in Jahren)
     var mindestalter = 18;
 
-    // Geburtsdatum aus dem Eingabefeld abrufen
-    var geburtsdatum = new Date(document.getElementById('geburtsdatum').value);
-
     // Aktuelles Datum abrufen
     var aktuellesDatum = new Date();
-
     // Das Alter berechnen
     var alter = aktuellesDatum.getFullYear() - geburtsdatum.getFullYear();
-
     // Überprüfen, ob das Geburtstag dieses Jahr bereits stattgefunden hat
     if (aktuellesDatum.getMonth() < geburtsdatum.getMonth() || (aktuellesDatum.getMonth() === geburtsdatum.getMonth() && aktuellesDatum.getDate() < geburtsdatum.getDate())) {
         alter--;
     }
-
     // Das Ergebnis ausgeben
     if (alter >= mindestalter) {
-        document.getElementById('ergebnis').innerHTML = "Sie sind alt genug.";
+        return true;
     } else {
-        document.getElementById('ergebnis').innerHTML = "Sie sind zu jung.";
+        return false;
     }
 }
-*/
+
 /*
  ________         __             ______                          
 /        |       /  |           /      \                         
@@ -152,119 +102,51 @@ function checkPhoneNumber(phoneNumber) {
     const phoneRegex = /^\+\d{10,}$/;
   
     if (phoneRegex.test(phoneNumber)) {
+
       return true;
     } else {
       return false;
     }
 }
 
-/*
-   ______         __                                                  
-  /      \       /  |                                                 
- /$$$$$$  |  ____$$ |  ______    ______    _______  _______   ______  
- $$ |__$$ | /    $$ | /      \  /      \  /       |/       | /      \ 
- $$    $$ |/$$$$$$$ |/$$$$$$  |/$$$$$$  |/$$$$$$$//$$$$$$$/ /$$$$$$  |
- $$$$$$$$ |$$ |  $$ |$$ |  $$/ $$    $$ |$$      \$$      \ $$    $$ |
- $$ |  $$ |$$ \__$$ |$$ |      $$$$$$$$/  $$$$$$  |$$$$$$  |$$$$$$$$/ 
- $$ |  $$ |$$    $$ |$$ |      $$       |/     $$//     $$/ $$       |
- $$/   $$/  $$$$$$$/ $$/        $$$$$$$/ $$$$$$$/ $$$$$$$/   $$$$$$$/ 
 
-console.log("a");
-document.addEventListener('DOMContentLoaded', function () {
-    console.log("a");
-    const submit_btn = document.getElementById('submit_btn');
-    const geocoder = new google.maps.Geocoder();
-    console.log("Submit button: "+ submit_btn);
-    submit_btn.addEventListener('click', function (event) {
-        // Verhindere das Standardverhalten des Submit-Buttons (Formularabsenden)
-        event.preventDefault();
 
-        // Abrufen der Werte der Eingabefelder
-        const streetHouseNumber = document.getElementsByName('StraßeHausnr')[0].value;
-        const cityPostalCode = document.getElementsByName('StadtPostleitzahl')[0].value;
+function defaultProove() {
+    console.log("defaultProove() called");
+    var button = document.getElementById('validationButton');
+	button.click();
+    return 1;
+}
 
-        // Zusammensetzen der Adresse
-        const address = streetHouseNumber + ", " + cityPostalCode;
-        alert("Adresse: " + address);
+function proove_alter(){
+    var alter = document.getElementById('date1');
+    var alter_val = new Date(alter.value);
+ 
+    if (pruefeAlter(alter_val) != true){
+        alter.setCustomValidity('Das erste Mitglied muss mindestens 18 sein, sollten Sie Ihr kind anmelden wollen, geben Sie sich als erstes Mitglied an und das Kind als zweites Mitglied.')
+        return false;
+    }else{
+        alter.setCustomValidity(''); 
+        return true;
+    }
 
-        // Geocoding
-        geocoder.geocode({ address: address }, (results, status) => {
-            if (status === 'OK' && results.length > 0) {
-                const city = results[0].address_components.find(component => component.types.includes('locality'));
-                if (city) {
-                    console.log(`Valid city: ${city.long_name}`);
-                } else {
-                    console.log('City not found.');
-                }
-            } else {
-                console.log('Invalid address.');
-            }
-        });
-    });
-});
-*/
-/*
-________                           ______             
-/        |                         /      \            
-$$$$$$$$/   _______  _____  ____  /$$$$$$  |_______    
-    /$$/   /       |/     \/    \ $$ |_ $$//       |   
-   /$$/   /$$$$$$$/ $$$$$$ $$$$  |$$   |  /$$$$$$$/    
-  /$$/    $$      \ $$ | $$ | $$ |$$$$/   $$      \    
- /$$/____  $$$$$$  |$$ | $$ | $$ |$$ |     $$$$$$  |__ 
-/$$      |/     $$/ $$ | $$ | $$ |$$ |    /     $$//  |
-$$$$$$$$/ $$$$$$$/  $$/  $$/  $$/ $$/     $$$$$$$/ $$/
-*/
-/*
-document.addEventListener('DOMContentLoaded', function(){
-    var submitBtn = document.getElementById('submit_btn');
+}
 
-   
-        submitBtn.addEventListener('click', function () {
-            //if plausibilitätsprüfung fehlgeschlagen
-            //e.preventDefault();
-            //alert("Prevented default for submit button");
-
-            //else
-            //var tok = document.getElementById("submit_btn").getAttribute("data-sitekey")
-            //alert(tok);
-            //document.getElementById("submit_btn").removeAttribute("data-callback");
-            //submitBtn.removeAttribute("data-action");
-            //onSubmit();
-            //onSubmit(tok);
-            // Add your custom logic or form submission handling here
-        });
+//return False if te evaluation failed
+function proove_iban() {
+    var iban = document.getElementById('iban');
+    var iban_val = iban.value;
+    console.log(iban_val)
+    /* var phoneNumbers = document.querySelectorAll() */
     
-});
-/*
-*/
-/*
-function prev(ev){
-    ev.preventDefault()
-}
-function checkInputs(){
-    alert("inputs are getting checked.")
-    var btn = document.getElementById("submit_btn")
-    prev(btn);
-    document.getElementById("submit_btn").removeAttribute("data-callback");
-}
-*/
-//return False if te evaluation failed 
-function proove() {
-    var iban = $('#iban').val();
-    var phoneNumbers = document.querySelectorAll()
-    var bestanden;
-
-    //console.log(iban);
-    //console.log(isValidIBANNumber(iban));
     // Check if the IBAN is valid
-    if (isValidIBANNumber(iban) == 1) {
-        bestanden = true;
+    if (isValidIBANNumber(iban_val) != true) {
+        iban.setCustomValidity('Bitte geben Sie eine gültige IBAN an.'); 
+        return false;
     } else {
-        alert("Bitte geben Sie eine gültige IBAN an!");
-        bestanden = false
-    }  
-     
-    return bestanden;
+        iban.setCustomValidity('');
+        return true;
+    }
 }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -272,10 +154,11 @@ document.addEventListener('DOMContentLoaded', function () {
     
     // Find the button by its ID or any other suitable selector
     var myButton = document.getElementById('submit_btn');
-
+    var form = document.getElementById('antragsformular');
     // Add a click event listener to the button
     myButton.addEventListener('click', function (event) {
-        if (proove() === false) {
+        defaultProove()
+        if (proove_iban() === false | proove_alter() === false) {
             // If evaluation passed, prevent the default behavior of the click event
             event.preventDefault();
 
@@ -289,8 +172,13 @@ document.addEventListener('DOMContentLoaded', function () {
             // Continue with the default behavior or additional logic
             console.log('Default behavior or custom logic here');
         } else {
+            defaultProove();
             // Evaluation failed, continue with the default behavior
-            console.log('Evaluation failed, default behavior here');
+            if (form.checkValidity()){
+                console.log("test called")
+                form.submit();
+            }
+            
         }
     });
 });

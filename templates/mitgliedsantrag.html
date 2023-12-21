@@ -46,7 +46,7 @@
 
     <form id="antragsformular" method="post" action="{{ url_for('mitgliedsantrag') }}">
         <div class="containerMain">
-                            <h1 class="main-heading">Mitgliedsantrag</h1>
+                <h1 class="main-heading">Mitgliedsantrag</h1>
                 <!-- Radio button group -->
                 <div class="radio-button-group">
                     <label class="radio-button">
@@ -64,30 +64,30 @@
                 </div>
                 <div class="sub-heading">Persönliche Daten</div>
                 <!-- Personal data fields -->
-                <div class="PD-Container">
+            	<div class="PD-Container">
                     <div class="flexPersonalDataGroup" id="personalDataGroup">
                         <!-- Initial Field -->
                         <div class="flexPersonalDataField" id="personalDataField1">
                             <!-- Inhalte für das erste Personalfeld -->
-                        <div class="radioCheck">
-                            <input class="" id="male1" type="radio" name="gender1">
-                            <label for="male1">M</label>
-                            <input class="" id="female1" type="radio" name="gender1">
+                            <div class="radioCheck">
+                                <input class="" id="male1" type="radio" name="gender1">
+                                <label for="male1">M</label>
+                                <input class="" id="female1" type="radio" name="gender1">
                                 <label for="female1">W</label>
-                    </div>
-                    <input class="inputField" placeholder="Vorname" name="vn1">
-                    <input class="inputField" placeholder="Name, Titel" name="nn1">
+                            </div>
+                            <input class="inputField" placeholder="Vorname" name="vn1">
+                            <input class="inputField" placeholder="Name, Titel" name="nn1">
                             <input class="inputField" placeholder="Geburtsdatum" type="date" name="date1" id="date1">
                             <input class="inputField" placeholder="E-Mail" type="email" name="email1">
                             <input class="inputField" placeholder="Telefon/Mobil" name="mobile1">
                         </div>
                     </div>
-<span class="addFieldButton">
+                	<span class="addFieldButton">
                         <button class="addFieldButtonStyle" type="button" id="addFieldButton" onclick="addField()">+</button>
                         <button class="removeFieldButtonStyle" type="button" id="removeFieldButton" onclick="removeField()">-</button>
                     </span>
                 </div>
-            
+
             <!-- Sports selection -->
             <div class="sportsSelectionTabs">
 
@@ -287,39 +287,37 @@
             </div>
             <div class="bankField"><h2 class="sub-heading3">Bankdaten</h2>
                 <input class="inputField" placeholder="Kontoinhaber/-in" required>
-                <input class="inputField" type="text" id="iban" placeholder="IBAN">
+             <input class="inputField" type="text" id="iban" placeholder="IBAN">
                 <input class="inputField" placeholder="BIC (nur bei Auslandskonten)">
             </div>
             <div class="bankField"><h2 class="sub-heading3">SEPA Mandate</h2>
-                    Die Mitgliedschaft ist ausschließlich mit Erteilung eines SEPA-Lastschriftmandats möglich. Zur
+                Die Mitgliedschaft ist ausschließlich mit Erteilung eines SEPA-Lastschriftmandats möglich. Zur
                 Einrichtung der Mitgliedschaft im TSV Roßtal wird eine Aufnahmegebühr in Höhe von 15,00 Euro berechnet.
                 Diese Gebühr fällt jeweils bei Wiederaufnahme einer gekündigten Mitgliedschaft erneut an.
-                    <br>
-                    <br>
-                    Gläubiger-Identifikationsnummer des TSV Roßtal e.V.: DE67TSV00002193097
-                    <br>
-                    <br>
-                    Ich ermächtige den TurnSportVerein Roßtal e.V. - widerruflich - zum Einzug der gem. Beitragsordnung
+                <br>
+                <br>
+                Gläubiger-Identifikationsnummer des TSV Roßtal e.V.: DE67TSV00002193097
+                <br>
+                <br>
+                Ich ermächtige den TurnSportVerein Roßtal e.V. - widerruflich - zum Einzug der gem. Beitragsordnung
                 geregelten Mitgliedsbeiträge zu Lasten meines vorgenannten Bankkontos per Lastschrifteinzug.
-                    <br>
-                    <br>
-                    <div class="labelCheck"><input type="checkbox" required>
+                <br>
+                <br>
+                <div class="labelCheck"><input type="checkbox" required>
                     Mit der Unterschrift stimme/n ich/wir explizit der aktuellen Fassung der AGB und der
                     Datenschutzerklärung gem. Website www.tsv-rosstal.de/rechtliches zu.
-</div>
-                    <div>
-                        <p style="font-weight: bold">Unterschrift:</p>
+                </div>
+                <div>
+                    <p style="font-weight: bold">Unterschrift:</p>
 
-                        <div class="w3-container">
-                            <form class="w3-container" action="/download_pdf" method="POST" name="DAFORM"
-                              onSubmit="submitForm();" enctype="multipart/form-data" target="_self">
-                                <div id="signature-pad" class="m-signature-pad">
-                                    <div class="m-signature-pad--body">
-                                        <canvas></canvas>
-                                        <input type="hidden" name="signature" id="signature" value="">
-                                    </div>
-                                </div>
-                            </form>
+                    <div class="w3-container">
+                        
+                        <div id="signature-pad" class="m-signature-pad">
+                            <div class="m-signature-pad--body">
+                                <canvas></canvas>
+                                <input type="hidden" name="signature" id="signature" value="">
+                            </div>
+                        </div>
 
                         <button type="button" class="button" onclick="signaturePad.clear();">Unterschrift
                             wiederholen
@@ -330,8 +328,8 @@
                 </div>
 
                 <div class="bottomButtons">
-                <button class="invisButton" type="submit" id="validationButton"></button>
-                <button onclick="defaultProove()" class="button" type="button">Abbrechen</button>
+                    <button class="invisButton" type="submit" id="validationButton"></button>
+                    <button class="button" type="button">Abbrechen</button>
 
 
                     <button class="buttonSubmit g-recaptcha" id="submit_btn"
@@ -339,25 +337,25 @@
                         Antrag absenden
                     </button>
 
-</div>
+                </div>
             </div>
         </div>
     </form>
 </body>
 
 
-<script type="text/javascript">
+<script>
     var wrapper = document.getElementById("signature-pad"),
         canvas = wrapper.querySelector("canvas"),
         signaturePad;
 
     // Initialize SignaturePad after the document has loaded
     document.addEventListener("DOMContentLoaded", function () {
-updateFieldButtons();
+        updateFieldButtons();
 
-            if (document.getElementsByClassName("tab")[0]) {
-                document.getElementsByClassName("tab")[0].click();
-            }
+        if (document.getElementsByClassName("tab")[0]) {
+            document.getElementsByClassName("tab")[0].click();
+        }
         try {
             signaturePad = new SignaturePad(canvas);
             // SignaturePad settings
