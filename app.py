@@ -3,7 +3,6 @@ from urllib import response
 import requests
 import secrets
 from forms import Antrag
-from database import 
 
 #app.py Flask Konstruktor aufrufen
 app = Flask(__name__)
@@ -16,7 +15,6 @@ app.static_folder = 'static'
 #db_setup global
 app.config['SQLALCHEMY_DATABASE_URL'] = ''
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-DB = SQLAlchemy(app)
 
 #für site key und secret key frag entweder Philipp oder hol dir deine eigenen auf https://www.google.com/recaptcha/admin/create?hl=de 
 #!!! V3 RECAPTCHA !!!#
