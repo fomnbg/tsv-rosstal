@@ -1,5 +1,7 @@
 # tsv-rosstal
 
+![rosstal](/assets_readme/rosstal.png)
+
 ## Aktuelle Features 
 - Preisliste
 - flexibles Frontend mit bis zu 5 Mitgliedern, dynamisch änderbar
