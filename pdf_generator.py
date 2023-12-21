@@ -11,6 +11,9 @@ import datetime
 from reportlab.lib.units import inch
 from reportlab.lib import colors
 
+from database import Zahlendesmitglied
+from database import Familienmitglied
+
 
 app = Flask(__name__)
 
@@ -58,27 +61,27 @@ def generate_pdf(signature_data, file_path, vorname):
     # Add the table to the story
     story.append(application_table)
 
-    # Tabelle für Persönliche Informationen ------------------------------------------
-    personal_info = [
-        ["Geschlecht:", ""],
-        ["Vorname:", vorname],
-        ["Name:", ""],
-        ["Geburtsdatum:", ""],
-        ["E-Mail:", ""],
-        ["Telefon/Mobil:", ""],
-        ["Ehrenamtliche Tätigkeit:", ""]
+    # Tabelle für Persönliche Informationen Zahlendes Mitglied ------------------------------------------
+    zahlendes_mitglied = [
+        ["Geschlecht:", Zahlendesmitglied.gender],
+        ["Vorname:", Zahlendesmitglied.vorname],
+        ["Name:", Zahlendesmitglied.nachname],
+        ["Geburtsdatum:", Zahlendesmitglied.geburtsdatum],
+        ["E-Mail:", Zahlendesmitglied.email],
+        ["Telefon/Mobil:", Zahlendesmitglied.telefonnr],
+        ["Ehrenamtliche Tätigkeit:", "Ja."]
     ]
 
-    data = [
-        [Paragraph(item[0], style_normal), Paragraph(item[1], style_normal)] for item in personal_info
+    data_zahlendes_mitglied = [
+        [Paragraph(item[0], style_normal), Paragraph(item[1], style_normal)] for item in zahlendes_mitglied
     ]
 
-    personal_table = Table(data, colWidths=[2*inch, 2*inch], rowHeights=0.25*inch)
-    personal_table.setStyle(global_table_style)
-    personal_table.hAlign = 'LEFT'
+    table_zahlendes_mitglied = Table(data_zahlendes_mitglied, colWidths=[2*inch, 2*inch], rowHeights=0.25*inch)
+    table_zahlendes_mitglied.setStyle(global_table_style)
+    table_zahlendes_mitglied.hAlign = 'LEFT'
 
-    story.append(Paragraph("Persönliche Informationen", style_heading))
-    story.append(personal_table)
+    story.append(Paragraph("Persönliche Informationen Antragsteller", style_heading))
+    story.append(table_zahlendes_mitglied)
     story.append(Spacer(1, 0.2*inch))
 
     # Tabelle für Sportarten ------------------------------------------
