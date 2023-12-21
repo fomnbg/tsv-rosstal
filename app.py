@@ -39,10 +39,11 @@ def mitgliedsantrag():
         print(request.form)       
         secret_response = request.form['g-recaptcha-response']
         verify_response = requests.post(url=f'{VERIFY_URL}?secret={SECRET_KEY}&response={secret_response}').json()
-        print("secret-response:", secret_response)
+        #print("secret-response:", secret_response)
         if verify_response['success'] == False or verify_response['score'] < 0.7:
             abort(401)#if bot detected or recaptcha request failed
         else: 
+            #write_to_database(request.form)
             return render_template('daten-uebermittelt.html')
 
     else:

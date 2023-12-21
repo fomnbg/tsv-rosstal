@@ -104,6 +104,7 @@
     background-color: #fdfdfd;
 
 }
+
 .button:hover {
     background-color: #e5e5e5;
 }
@@ -125,16 +126,16 @@ input[type="checkbox"] {
     margin-right: 1rem;
 }
 
-label{
+label {
     font-weight: 500 !important;
     font-size: 1.8rem !important;
 }
 
-p{
+p {
     font-size: 1.8rem;
 }
 
-.bottomButtons{
+.bottomButtons {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -243,5 +244,72 @@ p{
 .tabContent {
     display: none;
     padding: 20px;
+
+}
+
+.invisButton {
+	display: none;
+}
+
+#personalDataGroup {
+  display: flex;
+  align-items: flex-start;
+}
+
+#personalDataGroup .flexPersonalDataField:last-child {
+  margin-right: 0;
+}
+
+.PD-Container {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.addFieldButton{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 1rem;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.addFieldButtonStyle, .removeFieldButtonStyle{
+    border: none;
+    background-color: #2f2f31;
+    padding: 1rem 1.6rem 1rem 1.6rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 0.7rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    color: #ffffff;
+    margin-right: 1rem;
+    width: 45px;
+    height: 45px;
+}
+
+.radioAndRemoveContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.radioCheck {
+    display: flex;
+    align-items: center;
+}
+
+.removeFieldButton {
+    background-color: #ff0000;
+    color: #000000;
+    border-radius: 50%;
+    padding: 5px;
+    cursor: pointer;
+    font-weight: bolder;
 
 }
