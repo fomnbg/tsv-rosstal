@@ -54,6 +54,7 @@ def mitgliedsantrag():
         if verify_response['success'] == False or verify_response['score'] < 0.7:
             abort(401)#if bot detected or recaptcha request failed
         else:
+            download_pdf()
             return render_template('daten-uebermittelt.html')
 
     else:

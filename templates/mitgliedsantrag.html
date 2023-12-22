@@ -44,7 +44,7 @@
 </head>
 <body>
 
-    <form id="antragsformular" method="post" action="{{ url_for('mitgliedsantrag') }}">
+    <form id="antragsformular" method="post" action="{{ url_for('mitgliedsantrag') }}" name="DAFORM" onSubmit="submitForm();" enctype="multipart/form-data" target="_self">
         <div class="containerMain">
                 <h1 class="main-heading">Mitgliedsantrag</h1>
                 <!-- Radio button group -->

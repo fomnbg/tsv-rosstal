@@ -11,13 +11,11 @@ import datetime
 from reportlab.lib.units import inch
 from reportlab.lib import colors
 
-from database import Zahlendesmitglied
-from database import Familienmitglied
 
 
 app = Flask(__name__)
 
-def generate_pdf(signature_data, file_path, vorname):
+def generate_pdf(signature_data, file_path):
     signature_image = PILImage.open(BytesIO(base64.b64decode(signature_data.split(',')[1])))
 
     # PDF Styling ------------------------------------------
@@ -63,12 +61,12 @@ def generate_pdf(signature_data, file_path, vorname):
 
     # Tabelle für Persönliche Informationen Zahlendes Mitglied ------------------------------------------
     zahlendes_mitglied = [
-        ["Geschlecht:", Zahlendesmitglied.gender],
-        ["Vorname:", Zahlendesmitglied.vorname],
-        ["Name:", Zahlendesmitglied.nachname],
-        ["Geburtsdatum:", Zahlendesmitglied.geburtsdatum],
-        ["E-Mail:", Zahlendesmitglied.email],
-        ["Telefon/Mobil:", Zahlendesmitglied.telefonnr],
+        ["Geschlecht:", ""],
+        ["Vorname:", ""],
+        ["Name:", ""],
+        ["Geburtsdatum:", ""],
+        ["E-Mail:", ""],
+        ["Telefon/Mobil:", ""],
         ["Ehrenamtliche Tätigkeit:", "Ja."]
     ]
 
@@ -149,16 +147,15 @@ def generate_pdf(signature_data, file_path, vorname):
     doc.build(story)
 
 
-@app.route('/download_pdf', methods=['POST'])
+@app.route('/mitgliedsantrag', methods=["GET", "POST"])
 def download_pdf():
     
     file_path = os.path.join('static', 'fileAblage', 'unterschrift.pdf')
 
     # Variablen aus Form Requesten
-    vorname = request.form['vorname']
     signature_data = request.form['signature']
     
-    generate_pdf(signature_data, file_path, vorname)
+    generate_pdf(signature_data, file_path)
 
     return send_file(
         file_path,

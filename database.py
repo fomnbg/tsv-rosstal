@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
-from WTForms import StringField, SubmitField
+#from WTForms import StringField, SubmitField
 from sqlalchemy.orm import relationship
 from app import db
 from werkzeug.datastructures import ImmutableMultiDict
