@@ -101,10 +101,8 @@ def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, ad
     # Tabelle für Adresse ------------------------------------------
     story.append(Paragraph("Adresse", style_heading))
     address_info = [
-        ["Straße:", ""],
-        ["Hausnummer:", ""],
-        ["Postleitzahl:", ""],
-        ["Stadt:",""]
+        ["Straße:", adresse],
+        ["Postleitzahl, Ort:", ort],
     ]
     address_table = Table(address_info, colWidths=[2*inch, 2*inch], rowHeights=0.25*inch)
     address_table.setStyle(global_table_style)
@@ -127,7 +125,7 @@ def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, ad
 
     confirm_table_data = [
         ["Unterschrift:", None],
-        ["Antrag gesendet:", datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")]
+        ["Antrag gesendet:", datetime.datetime.now().strftime("%d.%m.%Y %H:%M")]
     ]
 
     # Signatur-Bild zu base64 string konvertieren
