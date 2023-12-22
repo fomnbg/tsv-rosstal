@@ -57,7 +57,28 @@ def mitgliedsantrag():
             return render_template('daten-uebermittelt.html')
 
     else:
-        return render_template('mitgliedsantrag.html', site_key=SITE_KEY)
+        sportarten_a = []
+        sportarten_k = []
+        sportarten_l = []
+        
+        with open('static/fileAblage/sportarten-allgemein.txt', 'r', encoding='utf-8-sig') as file:
+            lines = file.readlines()
+        sportarten_a = [line.strip() for line in lines]
+
+        with open('static/fileAblage/sportarten-kinder_seniorensport.txt', 'r', encoding='utf-8-sig') as file:
+            lines = file.readlines()
+        sportarten_k = [line.strip() for line in lines]
+
+        with open('static/fileAblage/sportarten-leistungssport.txt', 'r', encoding='utf-8-sig') as file:
+            lines = file.readlines()
+        sportarten_l = [line.strip() for line in lines]
+        del lines
+
+        print(sportarten_a)
+        print(sportarten_k)
+        print(sportarten_l)
+
+        return render_template('mitgliedsantrag.html', site_key=SITE_KEY, sportarten_a = sportarten_a, sportarten_k = sportarten_k, sportarten_l = sportarten_l)
 
 @app.route('/pricelist')
 def pricelist():

@@ -186,3 +186,22 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+
+
+//Sportart befüllen 
+document.addEventListener('DOMContentLoaded', function(){
+    var buttonsMember1 = document.querySelectorAll('input[id="sportart_member1"]'); 
+    var sportartMember1 = document.getElementById('sportartenMember1');
+    
+    buttonsMember1.forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+          // Your event handling code goes here
+          if (checkbox.checked) {
+            sportartMember1.value = sportartMember1.value + " " + checkbox.value;
+          } else {
+            sportartMember1.value.replace(checkbox.value, "");
+          }
+        });
+    });
+});
