@@ -15,7 +15,7 @@ from reportlab.lib import colors
 
 app = Flask(__name__)
 
-def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, adresse, ort, kontoinhaber, iban, bic, signature_data):
+def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, membership_type, adresse, ort, kontoinhaber, iban, bic, signature_data):
     signature_image = PILImage.open(BytesIO(base64.b64decode(signature_data.split(',')[1])))
 
     # PDF Styling ------------------------------------------
@@ -33,8 +33,8 @@ def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, ad
     global_table_style = TableStyle([
         ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
         ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
-        #('TEXTCOLOR', (0, 0), (-1, -1), colors.HexColor('#333333')), 
-        #('GRID', (0, 0), (-1, -1), 1, colors.HexColor('#CCCCCC')),
+        ('TEXTCOLOR', (0, 0), (-1, -1), colors.HexColor('#333333')), 
+        ('GRID', (0, 0), (-1, -1), 1, colors.HexColor('#CCCCCC')),
         ('LEFTPADDING', (0, 0), (-1, -1), 0),
         ('RIGHTPADDING', (0, 0), (-1, -1), 0),
     ])
@@ -49,8 +49,17 @@ def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, ad
     story.append(Spacer(1, 12))
 
     # Tabelle für Antragsart ------------------------------------------
+    if membership_type == "fee-exemption":
+        membership_type = "Antrag auf Beitragsbefreiung"
+    
+    if membership_type == "family-membership":
+        membership_type = "Familienitgliedschaft"
+
+    if membership_type == "new-membership":
+        membership_type = "Neumitgliedschaft"
+
     application_type = [
-        ["Art des Antrags", ""]
+        ["Art des Antrags", membership_type]
     ]
     application_table = Table(application_type, colWidths=[2*inch, 2*inch], rowHeights=0.25*inch)
     application_table.setStyle(global_table_style)
@@ -182,6 +191,8 @@ def download_pdf():
             persons[f'Person{i}']['mobile'] = request.form[f'mobile{i}']    # Zugriffbeispiel: persons['Person3']['vn']
     
     # Restlichen Daten Zahlendes Mitglied
+    membership_type = request.form['membership-type']
+    
     adresse = request.form['adresse']
     ort = request.form['ort']
 
@@ -192,7 +203,7 @@ def download_pdf():
     signature_data = request.form['signature']
     
     # PDF Struktur mit Werten befüllen
-    generate_pdf(file_path, persons['Person1'], persons['Person2'], persons['Person3'], persons['Person4'], persons['Person5'], adresse, ort, kontoinhaber, iban, bic, signature_data)
+    generate_pdf(file_path, persons['Person1'], persons['Person2'], persons['Person3'], persons['Person4'], persons['Person5'], membership_type, adresse, ort, kontoinhaber, iban, bic, signature_data)
 
     return send_file(
         file_path,
