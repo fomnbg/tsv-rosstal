@@ -15,7 +15,7 @@ from reportlab.lib import colors
 
 app = Flask(__name__)
 
-def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, adresse, ort, signature_data):
+def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, adresse, ort, kontoinhaber, iban, bic, signature_data):
     signature_image = PILImage.open(BytesIO(base64.b64decode(signature_data.split(',')[1])))
 
     # PDF Styling ------------------------------------------
@@ -112,8 +112,9 @@ def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, ad
     # Tabelle für Bankdaten ------------------------------------------
     story.append(Paragraph("Bankdaten", style_heading))
     bank_info = [
-        ["IBAN:", ""],
-        ["BIC:", ""]
+        ["Kontoinhaber:", kontoinhaber],
+        ["IBAN:", iban],
+        ["BIC:", bic]
     ]
     bank_table = Table(bank_info, colWidths=[2*inch, 2*inch], rowHeights=0.25*inch)
     bank_table.setStyle(global_table_style)
@@ -180,10 +181,14 @@ def download_pdf():
     adresse = request.form['adresse']
     ort = request.form['ort']
 
+    kontoinhaber = request.form['kontoinhaber']
+    iban = request.form['iban']
+    bic = request.form['bic']
+
     signature_data = request.form['signature']
     
     # PDF Struktur mit Werten befüllen
-    generate_pdf(file_path, persons['Person1'], persons['Person2'], persons['Person3'], persons['Person4'], persons['Person5'], adresse, ort, signature_data)
+    generate_pdf(file_path, persons['Person1'], persons['Person2'], persons['Person3'], persons['Person4'], persons['Person5'], adresse, ort, kontoinhaber, iban, bic, signature_data)
 
     return send_file(
         file_path,
