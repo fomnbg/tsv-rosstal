@@ -125,6 +125,7 @@ def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, ad
     confirm_heading = "Antrag bestätigt"
 
     confirm_table_data = [
+        ["Zustimmung:", "Zustimmung zu AGB, Datenschutz, Lastschrifteinzug erteilt."],
         ["Unterschrift:", None],
         ["Antrag gesendet:", datetime.datetime.now().strftime("%d.%m.%Y %H:%M")]
     ]
@@ -134,7 +135,7 @@ def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, ad
     signature_image.save(buffered, format="PNG")
     img_str = base64.b64encode(buffered.getvalue()).decode('utf-8')
 
-    confirm_table_data[0][1] = PlatypusImage(BytesIO(base64.b64decode(img_str)), width=100, height=30)
+    confirm_table_data[1][1] = PlatypusImage(BytesIO(base64.b64decode(img_str)), width=100, height=30)
     
     confirm_table = Table(confirm_table_data, colWidths=[2*inch, 2*inch], rowHeights=0.5*inch)
     confirm_table.setStyle(global_table_style)
@@ -150,7 +151,7 @@ def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, ad
 def download_pdf():
     
     #Zwischenablage
-    file_path = os.path.join('static', 'fileAblage', 'unterschrift.pdf')
+    file_path = os.path.join('static', 'fileAblage', 'Mitgliedsantrag.pdf')
 
     # Variablen aus Form Requesten
 
@@ -164,8 +165,11 @@ def download_pdf():
     }
 
     for i in range(1, 6):  # 5 Personen von 1 bis 5
-        if f'gender{i}' in request.form:
-            persons[f'Person{i}']['gender'] = request.form[f'gender{i}']
+        if f'vn{i}' in request.form:            
+            if f'male{i}' in request.form:
+                persons[f'Person{i}']['gender'] = 'Männlich'
+            else:
+                persons[f'Person{i}']['gender'] = 'Weiblich'
         if f'vn{i}' in request.form:
             persons[f'Person{i}']['vn'] = request.form[f'vn{i}']
         if f'nn{i}' in request.form:
@@ -194,7 +198,7 @@ def download_pdf():
         file_path,
         as_attachment=True,
         mimetype='application/pdf',
-        download_name='unterschrift.pdf'
+        download_name='Mitgliedsantrag.pdf'
     )
 
 if __name__ == "__main__":
