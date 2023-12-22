@@ -15,7 +15,7 @@ from reportlab.lib import colors
 
 app = Flask(__name__)
 
-def generate_pdf(signature_data, file_path):
+def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, adresse, ort, signature_data):
     signature_image = PILImage.open(BytesIO(base64.b64decode(signature_data.split(',')[1])))
 
     # PDF Styling ------------------------------------------
@@ -61,13 +61,13 @@ def generate_pdf(signature_data, file_path):
 
     # Tabelle für Persönliche Informationen Zahlendes Mitglied ------------------------------------------
     zahlendes_mitglied = [
-        ["Geschlecht:", ""],
-        ["Vorname:", ""],
-        ["Name:", ""],
-        ["Geburtsdatum:", ""],
-        ["E-Mail:", ""],
-        ["Telefon/Mobil:", ""],
-        ["Ehrenamtliche Tätigkeit:", "Ja."]
+        ["Geschlecht:", persons1['gender']],
+        ["Vorname:", persons1['vn']],
+        ["Name:", persons1['nn']],
+        ["Geburtsdatum:", persons1['date']],
+        ["E-Mail:", persons1['email']],
+        ["Telefon/Mobil:", persons1['mobile']],
+        ["Ehrenamtliche Tätigkeit:", "Ja"]
     ]
 
     data_zahlendes_mitglied = [
@@ -150,12 +150,42 @@ def generate_pdf(signature_data, file_path):
 @app.route('/mitgliedsantrag', methods=["GET", "POST"])
 def download_pdf():
     
+    #Zwischenablage
     file_path = os.path.join('static', 'fileAblage', 'unterschrift.pdf')
 
     # Variablen aus Form Requesten
+
+    # Persönliche Daten für max 5 Personen abfragen (1. Person = Zahlendes Mitglied, anderen Personen optional )
+    persons = {
+        'Person1': {'gender': None, 'vn': None, 'nn': None, 'date': None, 'email': None, 'mobile': None},
+        'Person2': {'gender': None, 'vn': None, 'nn': None, 'date': None, 'email': None, 'mobile': None},
+        'Person3': {'gender': None, 'vn': None, 'nn': None, 'date': None, 'email': None, 'mobile': None},
+        'Person4': {'gender': None, 'vn': None, 'nn': None, 'date': None, 'email': None, 'mobile': None},
+        'Person5': {'gender': None, 'vn': None, 'nn': None, 'date': None, 'email': None, 'mobile': None}
+    }
+
+    for i in range(1, 6):  # 5 Personen von 1 bis 5
+        if f'gender{i}' in request.form:
+            persons[f'Person{i}']['gender'] = request.form[f'gender{i}']
+        if f'vn{i}' in request.form:
+            persons[f'Person{i}']['vn'] = request.form[f'vn{i}']
+        if f'nn{i}' in request.form:
+            persons[f'Person{i}']['nn'] = request.form[f'nn{i}']
+        if f'date{i}' in request.form:
+            persons[f'Person{i}']['date'] = request.form[f'date{i}']
+        if f'email{i}' in request.form:
+            persons[f'Person{i}']['email'] = request.form[f'email{i}']
+        if f'mobile{i}' in request.form:                                    # Überprüfe, ob Daten vorhanden sind, bevor sie dem Dictionary hinzugefügt werden
+            persons[f'Person{i}']['mobile'] = request.form[f'mobile{i}']    # Zugriffbeispiel: persons['Person3']['vn']
+    
+    # Restlichen Daten Zahlendes Mitglied
+    adresse = request.form['adresse']
+    ort = request.form['ort']
+
     signature_data = request.form['signature']
     
-    generate_pdf(signature_data, file_path)
+    # PDF Struktur mit Werten befüllen
+    generate_pdf(file_path, persons['Person1'], persons['Person2'], persons['Person3'], persons['Person4'], persons['Person5'], adresse, ort, signature_data)
 
     return send_file(
         file_path,
