@@ -196,12 +196,68 @@ document.addEventListener('DOMContentLoaded', function(){
     
     buttonsMember1.forEach(function(checkbox) {
         checkbox.addEventListener('change', function() {
-          // Your event handling code goes here
-          if (checkbox.checked) {
-            sportartMember1.value = sportartMember1.value + " " + checkbox.value;
-          } else {
-            sportartMember1.value.replace(checkbox.value, "");
-          }
+            // Your event handling code goes here
+            if (checkbox.checked) {
+                sportartMember1.value = sportartMember1.value + " " + checkbox.value;
+            } else {
+                sportartMember1.value = sportartMember1.value.replace(checkbox.value, '').trim();
+            }
+        });
+    });
+
+    var buttonsMember2 = document.querySelectorAll('input[id="sportart_member2"]'); 
+    var sportartMember2 = document.getElementById('sportartenMember2');
+    
+    buttonsMember2.forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+            // Your event handling code goes here
+            if (checkbox.checked) {
+                sportartMember2.value = sportartMember2.value + " " + checkbox.value;
+            } else {
+                sportartMember2.value = sportartMember2.value.replace(checkbox.value, '').trim();
+            }
+        });
+    });
+
+    var buttonsMember3 = document.querySelectorAll('input[id="sportart_member3"]'); 
+    var sportartMember3 = document.getElementById('sportartenMember3');
+    
+    buttonsMember3.forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+            // Your event handling code goes here
+            if (checkbox.checked) {
+                sportartMember3.value = sportartMember3.value + " " + checkbox.value;
+            } else {
+                sportartMember3.value = sportartMember3.value.replace(checkbox.value, '').trim();
+            }
+        });
+    });
+
+    var buttonsMember4 = document.querySelectorAll('input[id="sportart_member4"]'); 
+    var sportartMember4 = document.getElementById('sportartenMember4');
+    
+    buttonsMember4.forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+            // Your event handling code goes here
+            if (checkbox.checked) {
+                sportartMember4.value = sportartMember4.value + " " + checkbox.value;
+            } else {
+                sportartMember4.value = sportartMember4.value.replace(checkbox.value, '').trim();
+            }
+        });
+    });
+
+    var buttonsMember5 = document.querySelectorAll('input[id="sportart_member5"]'); 
+    var sportartMember5 = document.getElementById('sportartenMember5');
+    
+    buttonsMember5.forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+            // Your event handling code goes here
+            if (checkbox.checked) {
+                sportartMember5.value = sportartMember5.value + " " + checkbox.value;
+            } else {
+                sportartMember5.value = sportartMember5.value.replace(checkbox.value, '').trim();
+            }
         });
     });
 });
