@@ -43,6 +43,9 @@ def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, me
         ('RIGHTPADDING', (0, 0), (-1, -1), 0),
     ])
 
+    col_widths_application = [1.8*inch, 2*inch, 1.8*inch, 2*inch]  # Breite Spalten application_table
+    col_widths = [1.8*inch, 2*inch]  # Breite Spalten
+
     header_image_path = 'static/fileAblage/pdf_header.png'  # Header PNG öffnen
     header_image = PlatypusImage(header_image_path, width=letter[0], height=0.75*inch)  # PNG auf bolle Breite
     story.insert(0, header_image)  # Bild als erstes Element einfügen
@@ -65,7 +68,7 @@ def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, me
     application_type = [
         ["Art des Antrags", membership_type]
     ]
-    application_table = Table(application_type, colWidths=[2*inch, 2*inch], rowHeights=0.25*inch)
+    application_table = Table(application_type, colWidths=col_widths, rowHeights=0.25*inch)
     application_table.setStyle(global_table_style)
     application_table.hAlign = 'LEFT'
 
@@ -73,8 +76,7 @@ def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, me
     story.append(application_table)
 
     # Tabelle für Persönliche Informationen Zahlendes Mitglied ------------------------------------------
-    bold_cells = [(0, 0), (0, 2), (2, 0), (3, 0), (3, 2), (4, 0), (5, 0), (6, 0), (6, 2)]
-
+    
     zahlendes_mitglied = [
         ["Geschlecht:", persons1['gender'], "Adresse:", adresse],
         ["Vorname:", persons1['vn'], "Postleitzahl, Ort:", ort],
@@ -102,7 +104,7 @@ def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, me
         ] for row in zahlendes_mitglied
     ]
 
-    table_zahlendes_mitglied = Table(data_zahlendes_mitglied, rowHeights=0.25*inch)
+    table_zahlendes_mitglied = Table(data_zahlendes_mitglied, colWidths=col_widths_application, rowHeights=0.25*inch)
     table_zahlendes_mitglied.setStyle(global_table_style)
     table_zahlendes_mitglied.hAlign = 'LEFT'
 
@@ -126,30 +128,7 @@ def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, me
     sport_table.hAlign = 'LEFT'
     story.append(sport_table)
 
-    # Tabelle für Adresse ------------------------------------------
-    story.append(Paragraph("Adresse", style_heading))
-    address_info = [
-        ["Straße:", adresse],
-        ["Postleitzahl, Ort:", ort],
-    ]
-    address_table = Table(address_info, colWidths=[2*inch, 2*inch], rowHeights=0.25*inch)
-    address_table.setStyle(global_table_style)
-    address_table.hAlign = 'LEFT'
-    story.append(address_table)
-
-    # Tabelle für Bankdaten ------------------------------------------
-    story.append(Paragraph("Bankdaten", style_heading))
-    bank_info = [
-        ["Kontoinhaber:", kontoinhaber],
-        ["IBAN:", iban],
-        ["BIC:", bic]
-    ]
-    bank_table = Table(bank_info, colWidths=[2*inch, 2*inch], rowHeights=0.25*inch)
-    bank_table.setStyle(global_table_style)
-    bank_table.hAlign = 'LEFT'
-    story.append(bank_table)
-
-     # Tabelle für Antrag bestätigt ------------------------------------------
+    # Tabelle für Antrag bestätigt ------------------------------------------
     confirm_heading = "Antrag bestätigt"
 
     confirm_table_data = [
@@ -165,7 +144,7 @@ def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, me
 
     confirm_table_data[1][1] = PlatypusImage(BytesIO(base64.b64decode(img_str)), width=100, height=30)
     
-    confirm_table = Table(confirm_table_data, colWidths=[2*inch, 2*inch], rowHeights=0.5*inch)
+    confirm_table = Table(confirm_table_data, colWidths=col_widths, rowHeights=0.5*inch)
     confirm_table.setStyle(global_table_style)
     confirm_table.hAlign = 'LEFT'
 
