@@ -45,6 +45,7 @@ def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, me
 
     col_widths_application = [1.8*inch, 2*inch, 1.8*inch, 2*inch]  # Breite Spalten application_table
     col_widths = [1.8*inch, 2*inch]  # Breite Spalten
+    col_widths_sports = [0.2*inch, 2*inch, 0.2*inch, 2*inch, 0.2*inch, 2*inch]  # Breite Spalten application_table
 
     header_image_path = 'static/fileAblage/pdf_header.png'  # Header PNG öffnen
     header_image = PlatypusImage(header_image_path, width=letter[0], height=0.75*inch)  # PNG auf bolle Breite
@@ -114,18 +115,28 @@ def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, me
 
     # Tabelle für Sportarten ------------------------------------------
     story.append(Paragraph("Gewählte Sportarten", style_heading))
+    
     sports = [
-        "Handball", "Mutter-/Kind", "Basketball", "Fußball", "Ballschule", "Boule",
-        "Turnen", "Seniorensport", "Tae Bo", "Judo", "Klettern", "Pilates", "Badminton",
-        "Volleyball", "Fitness", "Tischtennis", "Indica", "Power Workout", "Kinderturnen",
-        "Faustball", "Passives Mitglied"
+        ["Allgemein:", "", "Leistungssport:", "", "Kinder-/Seniorensport", ""],
+
+        [" X ", "Klettern",            "",     "Handball",     "", "Kinderturnen"],
+        ["", "Volleyball",          "",     "Fußball",      "", "Mutter-/Kind"],
+        ["", "Indiaca",             "",     "Turnen",       "", "Ballschule"],
+        ["", "Faustball",           "",     "Judo",         "", "Seniorensport"],
+        ["", "Basketball",          "",     "Badminton",    "", ""],
+        ["", "Boule",               "",     "Tischtennis",  "", ""],
+        ["", "Tae Bo",              "",     "",             "", ""],
+        ["", "Pilates",             "",     "",             "", ""],
+        ["", "Fitness",             "",     "",             "", ""],
+        ["", "Power Workout",       "",     "",             "", ""],
+        ["", "Passives Mitglied",   "",     "",             "", ""]
+
     ]
 
-    # Modifizierte Sports-Liste mit schmaler Spalte vorne
-    sports_with_column = [[f" ", f"  {sport}"] for sport in sports]
-    sport_table = Table(sports_with_column, colWidths=[20, 280], rowHeights=20)  # Breite der Spalten angepasst
+    sport_table = Table(sports, colWidths=col_widths_sports, rowHeights=20)  # Breite der Spalten angepasst
     sport_table.setStyle(global_table_style)
     sport_table.hAlign = 'LEFT'
+
     story.append(sport_table)
 
     # Tabelle für Antrag bestätigt ------------------------------------------
