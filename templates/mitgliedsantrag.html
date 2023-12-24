@@ -10,6 +10,8 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/mitgliedsantrag.css') }}">
         <script language="javascript" type="text/javascript"
                 src="{{ url_for('static', filename='js/mitgliedsantrag_validierung_1.js') }}"></script>
+        <script language="javascript" type="text/javascript"
+                src="{{ url_for('static', filename='js/mitgliedsantrag.js') }}"></script>
         <!-- recaptcha default from google site -->
         <script src="https://www.google.com/recaptcha/api.js?render={{ site_key }}"></script>
 
@@ -40,8 +42,15 @@
             });
         </script>
         <!---->
+        <style>
+            .hidden-opacity {
+                opacity: 0;
+            }
+        </style>
+
         <title>Membership Application</title>
     </head>
+
 <body>
 
     <form id="antragsformular" method="post" action="{{ url_for('mitgliedsantrag') }}">
@@ -54,7 +63,7 @@
                         Neumitgliedschaft
                     </label>
                     <label class="radio-button">
-                        <input type="radio" name="membership-type" value="family-membership">
+                        <input type="radio" name="membership-type" id="family-membership" value="family-membership">
                         Umstellung Familienmitgliedschaft
                     </label>
                     <label class="radio-button">
@@ -77,14 +86,17 @@
                             </div>
                             <input class="inputField" placeholder="Vorname" name="vn1">
                             <input class="inputField" placeholder="Name, Titel" name="nn1">
-                            <input class="inputField" placeholder="Geburtsdatum" type="date" name="date1" id="date1">
+                            <input class="inputField" class="birthdayField" placeholder="Geburtsdatum" type="date"
+                                name="date1" id="date1">
                             <input class="inputField" placeholder="E-Mail" type="email" name="email1">
                             <input class="inputField" placeholder="Telefon/Mobil" name="mobile1">
                         </div>
                     </div>
                 	<span class="addFieldButton">
-                        <button class="addFieldButtonStyle" type="button" id="addFieldButton" onclick="addField()">+</button>
-                        <button class="removeFieldButtonStyle" type="button" id="removeFieldButton" onclick="removeField()">-</button>
+                        <button class="addFieldButtonStyle" type="button" id="addFieldButton" 
+                        onclick="addField()">+</button>
+                        <button class="removeFieldButtonStyle" type="button" id="removeFieldButton" 
+                        onclick="removeField()">-</button>
                     </span>
                 </div>
 
@@ -102,33 +114,33 @@
                         <!-- Sport Selection Columns -->
                         <div class="sportSelectionColumn">
                             <h3 class="sub-heading2">Allgemein</h3>
-                            <label><input type="checkbox">Klettern</label>
-                            <label><input type="checkbox">Volleyball</label>
-                            <label><input type="checkbox">Indiaca</label>
-                            <label><input type="checkbox">Faustball</label>
-                            <label><input type="checkbox">Basketball</label>
-                            <label><input type="checkbox">Boule</label>
-                            <label><input type="checkbox">Tae Bo</label>
-                            <label><input type="checkbox">Pilates</label>
-                            <label><input type="checkbox">Fitness</label>
-                            <label><input type="checkbox">Power Workout</label>
-                            <label><input type="checkbox">Passives Mitglied</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Klettern</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Volleyball</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Indiaca</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Faustball</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Basketball</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Boule</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Tae Bo</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Pilates</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Fitness</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Power Workout</label>
+                            <label><input id="passivMember1" type="checkbox">Passives Mitglied</label>
                         </div>
                         <div class="sportSelectionColumn">
                             <h3 class="sub-heading2">Leistungssport</h3>
-                            <label><input type="checkbox">Handball</label>
-                            <label><input type="checkbox">Fußball</label>
-                            <label><input type="checkbox">Turnen</label>
-                            <label><input type="checkbox">Judo</label>
-                            <label><input type="checkbox">Badminton</label>
-                            <label><input type="checkbox">Tischtennis</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Handball</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Fußball</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Turnen</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Judo</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Badminton</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Tischtennis</label>
                         </div>
                         <div class="sportSelectionColumn">
                             <h3 class="sub-heading2">Kinder-/Seniorensport</h3>
-                            <label><input type="checkbox">Kinderturnen</label>
-                            <label><input type="checkbox">Mutter-/Kind</label>
-                            <label><input type="checkbox">Ballschule</label>
-                            <label><input type="checkbox">Seniorensport</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Kinderturnen</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Mutter-/Kind</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Ballschule</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Seniorensport</label>
 
                         </div>
                     </div>
@@ -139,33 +151,33 @@
                         <!-- Sport Selection Columns -->
                         <div class="sportSelectionColumn">
                             <h3 class="sub-heading2">Allgemein</h3>
-                            <label><input type="checkbox">Klettern</label>
-                            <label><input type="checkbox">Volleyball</label>
-                            <label><input type="checkbox">Indiaca</label>
-                            <label><input type="checkbox">Faustball</label>
-                            <label><input type="checkbox">Basketball</label>
-                            <label><input type="checkbox">Boule</label>
-                            <label><input type="checkbox">Tae Bo</label>
-                            <label><input type="checkbox">Pilates</label>
-                            <label><input type="checkbox">Fitness</label>
-                            <label><input type="checkbox">Power Workout</label>
-                            <label><input type="checkbox">Passives Mitglied</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Klettern</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Volleyball</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Indiaca</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Faustball</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Basketball</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Boule</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Tae Bo</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Pilates</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Fitness</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Power Workout</label>
+                            <label><input id="passivMember2" type="checkbox">Passives Mitglied</label>
                         </div>
                         <div class="sportSelectionColumn">
                             <h3 class="sub-heading2">Leistungssport</h3>
-                            <label><input type="checkbox">Handball</label>
-                            <label><input type="checkbox">Fußball</label>
-                            <label><input type="checkbox">Turnen</label>
-                            <label><input type="checkbox">Judo</label>
-                            <label><input type="checkbox">Badminton</label>
-                            <label><input type="checkbox">Tischtennis</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Handball</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Fußball</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Turnen</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Judo</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Badminton</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Tischtennis</label>
                         </div>
                         <div class="sportSelectionColumn">
                             <h3 class="sub-heading2">Kinder-/Seniorensport</h3>
-                            <label><input type="checkbox">Kinderturnen</label>
-                            <label><input type="checkbox">Mutter-/Kind</label>
-                            <label><input type="checkbox">Ballschule</label>
-                            <label><input type="checkbox">Seniorensport</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Kinderturnen</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Mutter-/Kind</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Ballschule</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Seniorensport</label>
 
                         </div>
                     </div>
@@ -176,33 +188,33 @@
                         <!-- Sport Selection Columns -->
                         <div class="sportSelectionColumn">
                             <h3 class="sub-heading2">Allgemein</h3>
-                            <label><input type="checkbox">Klettern</label>
-                            <label><input type="checkbox">Volleyball</label>
-                            <label><input type="checkbox">Indiaca</label>
-                            <label><input type="checkbox">Faustball</label>
-                            <label><input type="checkbox">Basketball</label>
-                            <label><input type="checkbox">Boule</label>
-                            <label><input type="checkbox">Tae Bo</label>
-                            <label><input type="checkbox">Pilates</label>
-                            <label><input type="checkbox">Fitness</label>
-                            <label><input type="checkbox">Power Workout</label>
-                            <label><input type="checkbox">Passives Mitglied</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Klettern</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Volleyball</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Indiaca</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Faustball</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Basketball</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Boule</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Tae Bo</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Pilates</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Fitness</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Power Workout</label>
+                            <label><input id="passivMember3" type="checkbox">Passives Mitglied</label>
                         </div>
                         <div class="sportSelectionColumn">
                             <h3 class="sub-heading2">Leistungssport</h3>
-                            <label><input type="checkbox">Handball</label>
-                            <label><input type="checkbox">Fußball</label>
-                            <label><input type="checkbox">Turnen</label>
-                            <label><input type="checkbox">Judo</label>
-                            <label><input type="checkbox">Badminton</label>
-                            <label><input type="checkbox">Tischtennis</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Handball</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Fußball</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Turnen</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Judo</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Badminton</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Tischtennis</label>
                         </div>
                         <div class="sportSelectionColumn">
                             <h3 class="sub-heading2">Kinder-/Seniorensport</h3>
-                            <label><input type="checkbox">Kinderturnen</label>
-                            <label><input type="checkbox">Mutter-/Kind</label>
-                            <label><input type="checkbox">Ballschule</label>
-                            <label><input type="checkbox">Seniorensport</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Kinderturnen</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Mutter-/Kind</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Ballschule</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Seniorensport</label>
 
                         </div>
                     </div>
@@ -213,33 +225,33 @@
                         <!-- Sport Selection Columns -->
                         <div class="sportSelectionColumn">
                             <h3 class="sub-heading2">Allgemein</h3>
-                            <label><input type="checkbox">Klettern</label>
-                            <label><input type="checkbox">Volleyball</label>
-                            <label><input type="checkbox">Indiaca</label>
-                            <label><input type="checkbox">Faustball</label>
-                            <label><input type="checkbox">Basketball</label>
-                            <label><input type="checkbox">Boule</label>
-                            <label><input type="checkbox">Tae Bo</label>
-                            <label><input type="checkbox">Pilates</label>
-                            <label><input type="checkbox">Fitness</label>
-                            <label><input type="checkbox">Power Workout</label>
-                            <label><input type="checkbox">Passives Mitglied</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Klettern</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Volleyball</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Indiaca</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Faustball</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Basketball</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Boule</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Tae Bo</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Pilates</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Fitness</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Power Workout</label>
+                            <label><input id="passivMember4" type="checkbox">Passives Mitglied</label>
                         </div>
                         <div class="sportSelectionColumn">
                             <h3 class="sub-heading2">Leistungssport</h3>
-                            <label><input type="checkbox">Handball</label>
-                            <label><input type="checkbox">Fußball</label>
-                            <label><input type="checkbox">Turnen</label>
-                            <label><input type="checkbox">Judo</label>
-                            <label><input type="checkbox">Badminton</label>
-                            <label><input type="checkbox">Tischtennis</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Handball</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Fußball</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Turnen</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Judo</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Badminton</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Tischtennis</label>
                         </div>
                         <div class="sportSelectionColumn">
                             <h3 class="sub-heading2">Kinder-/Seniorensport</h3>
-                            <label><input type="checkbox">Kinderturnen</label>
-                            <label><input type="checkbox">Mutter-/Kind</label>
-                            <label><input type="checkbox">Ballschule</label>
-                            <label><input type="checkbox">Seniorensport</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Kinderturnen</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Mutter-/Kind</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Ballschule</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Seniorensport</label>
 
                         </div>
                     </div>
@@ -250,48 +262,51 @@
                         <!-- Sport Selection Columns -->
                         <div class="sportSelectionColumn">
                             <h3 class="sub-heading2">Allgemein</h3>
-                            <label><input type="checkbox">Klettern</label>
-                            <label><input type="checkbox">Volleyball</label>
-                            <label><input type="checkbox">Indiaca</label>
-                            <label><input type="checkbox">Faustball</label>
-                            <label><input type="checkbox">Basketball</label>
-                            <label><input type="checkbox">Boule</label>
-                            <label><input type="checkbox">Tae Bo</label>
-                            <label><input type="checkbox">Pilates</label>
-                            <label><input type="checkbox">Fitness</label>
-                            <label><input type="checkbox">Power Workout</label>
-                            <label><input type="checkbox">Passives Mitglied</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Klettern</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Volleyball</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Indiaca</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Faustball</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Basketball</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Boule</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Tae Bo</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Pilates</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Fitness</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Power Workout</label>
+                            <label><input id="passivMember5" type="checkbox">Passives Mitglied</label>
                         </div>
                         <div class="sportSelectionColumn">
                             <h3 class="sub-heading2">Leistungssport</h3>
-                            <label><input type="checkbox">Handball</label>
-                            <label><input type="checkbox">Fußball</label>
-                            <label><input type="checkbox">Turnen</label>
-                            <label><input type="checkbox">Judo</label>
-                            <label><input type="checkbox">Badminton</label>
-                            <label><input type="checkbox">Tischtennis</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Handball</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Fußball</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Turnen</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Judo</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Badminton</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Tischtennis</label>
                         </div>
                         <div class="sportSelectionColumn">
                             <h3 class="sub-heading2">Kinder-/Seniorensport</h3>
-                            <label><input type="checkbox">Kinderturnen</label>
-                            <label><input type="checkbox">Mutter-/Kind</label>
-                            <label><input type="checkbox">Ballschule</label>
-                            <label><input type="checkbox">Seniorensport</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Kinderturnen</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Mutter-/Kind</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Ballschule</label>
+                            <label><input onchange="kindOfSportChange(this)" type="checkbox">Seniorensport</label>
 
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="addressField"><h2 class="sub-heading3">Adresse</h2>
+            <div class="addressField">
+                <h2 class="sub-heading3">Adresse</h2>
                 <input class="inputField" placeholder="Straße Hausnr. ">
                 <input class="inputField" placeholder="Stadt, Postleitzahl">
             </div>
-            <div class="bankField"><h2 class="sub-heading3">Bankdaten</h2>
+            <div class="bankField">
+                <h2 class="sub-heading3">Bankdaten</h2>
                 <input class="inputField" placeholder="Kontoinhaber/-in" required>
-             <input class="inputField" type="text" id="iban" placeholder="IBAN">
+                <input class="inputField" type="text" id="iban" placeholder="IBAN">
                 <input class="inputField" placeholder="BIC (nur bei Auslandskonten)">
             </div>
-            <div class="bankField"><h2 class="sub-heading3">SEPA Mandate</h2>
+            <div class="bankField">
+                <h2 class="sub-heading3">SEPA Mandate</h2>
                 Die Mitgliedschaft ist ausschließlich mit Erteilung eines SEPA-Lastschriftmandats möglich. Zur
                 Einrichtung der Mitgliedschaft im TSV Roßtal wird eine Aufnahmegebühr in Höhe von 15,00 Euro berechnet.
                 Diese Gebühr fällt jeweils bei Wiederaufnahme einer gekündigten Mitgliedschaft erneut an.
@@ -313,16 +328,36 @@
 
                     <div class="w3-container">
                         <form class="w3-container" action="/download_pdf" method="POST" name="DAFORM"
-                              onSubmit="submitForm();" enctype="multipart/form-data" target="_self">
+                            onSubmit="submitForm();" enctype="multipart/form-data" target="_self">
                             <div id="signature-pad" class="m-signature-pad">
                                 <div class="m-signature-pad--body">
                                     <canvas></canvas>
                                     <input type="hidden" name="signature" id="signature" value="">
+                                    <input type="hidden" name="signature-2" id="signature-2" value="">
                                 </div>
                             </div>
                         </form>
 
-                        <button type="button" class="button" onclick="signaturePad.clear();">Unterschrift
+                        <button type="button" class="button" onclick="signaturePad1.clear();">Unterschrift
+                            wiederholen
+                        </button>
+                    </div>
+                </div>
+
+                <div id="parentSignature" class="hidden-opacity">
+                    <p style="font-weight: bold">Erziehungsberechtigter Unterschrift:</p>
+
+                    <div class="w3-container">
+                        <form class="w3-container" action="/download_pdf" method="POST" name="DAFORM"
+                            enctype="multipart/form-data" target="_self">
+                            <div id="signature-pad-2" class="m-signature-pad">
+                                <div class="m-signature-pad--body">
+                                    <canvas></canvas>
+                                </div>
+                            </div>
+                        </form>
+
+                        <button type="button" class="button" onclick="signaturePad2.clear();">Unterschrift
                             wiederholen
                         </button>
                     </div>
@@ -330,13 +365,18 @@
 
                 </div>
 
+                <p>Jährlicher Beitrag: <span id="yearlyPrice">0,00€</span></p>
+                <p>Anmeldekosten: <span id="processingFee">0,00€</span></p>
+                <p>--------------------------</p>
+                <p>Kosten gesamt: <span id="totalPrice">0,00€</span></p>
+
                 <div class="bottomButtons">
                     <button class="invisButton" type="submit" id="validationButton"></button>
                     <button onclick="defaultProove()" class="button" type="button">Abbrechen</button>
 
 
                     <button class="buttonSubmit g-recaptcha" id="submit_btn"
-                            data-sitekey="{{ site_key }}" >
+                            data-sitekey="{{ site_key }}">
                         Antrag absenden
                     </button>
 
@@ -348,43 +388,48 @@
 
 
     <script type="text/javascript">
-        var wrapper = document.getElementById("signature-pad"),
-            canvas = wrapper.querySelector("canvas"),
+        // Wrapper und Canvas für das erste Signature Pad
+        var wrapper1 = document.getElementById("signature-pad"),
+            canvas1 = wrapper1.querySelector("canvas"),
             signaturePad;
 
-        // Initialize SignaturePad after the document has loaded
-        document.addEventListener("DOMContentLoaded", function () {
-            updateFieldButtons();
+        var wrapper2 = document.getElementById("signature-pad-2"),
+            canvas2 = wrapper2.querySelector("canvas"),
+            signaturePad2;
 
-            if (document.getElementsByClassName("tab")[0]) {
-                document.getElementsByClassName("tab")[0].click();
-            }
-            try {
-                signaturePad = new SignaturePad(canvas);
-                // SignaturePad settings
-                signaturePad.minWidth = 1;
-                signaturePad.maxWidth = 5;
-                signaturePad.penColor = "#000000";
-                signaturePad.backgroundColor = "#FFFFFF";
-                window.onresize = resizeCanvas;
-                resizeCanvas();
-            } catch (e) {
-                console.error("Error initializing SignaturePad:", e);
-            }
-        });
-
-        function resizeCanvas() {
-            var oldContent = signaturePad.toData();
-            var ratio = Math.max(window.devicePixelRatio || 1, 1);
+        function resizeCanvas(canvas) {
+            var ratio = window.devicePixelRatio || 1;
             canvas.width = canvas.offsetWidth * ratio;
             canvas.height = canvas.offsetHeight * ratio;
             canvas.getContext("2d").scale(ratio, ratio);
-            signaturePad.clear();
-            signaturePad.fromData(oldContent);
         }
+
+        // Initialize SignaturePads nach dem Laden des Dokuments
+    document.addEventListener("DOMContentLoaded", function () {
+        try {
+            // Erstes Signature Pad
+            resizeCanvas(canvas1);
+            signaturePad1 = new SignaturePad(canvas1);
+            signaturePad1.minWidth = 1;
+            signaturePad1.maxWidth = 5;
+            signaturePad1.penColor = "#000000";
+            signaturePad1.backgroundColor = "#FFFFFF";
+
+            // Zweites Signature Pad
+            resizeCanvas(canvas2);
+            signaturePad2 = new SignaturePad(canvas2);
+            signaturePad2.minWidth = 1;
+            signaturePad2.maxWidth = 5;
+            signaturePad2.penColor = "#000000";
+            signaturePad2.backgroundColor = "#FFFFFF";
+        } catch (e) {
+            console.error("Fehler bei der Initialisierung von SignaturePads:", e);
+        }
+    });
 
         function submitForm() {
             document.getElementById('signature').value = signaturePad.toDataURL();
+            document.getElementById('signature-2').value = signaturePad2.toDataURL();
         }
 
         // Member Tabs

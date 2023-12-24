@@ -10,8 +10,9 @@ import datetime
 
 app = Flask(__name__)
 
-def generate_pdf(signature_data, file_path):
-    signature_image_data = b64decode(signature_data.split(',')[1])
+def generate_pdf(signature_data1, signature_data2, file_path):
+    signature_image_data1 = b64decode(signature_data1.split(',')[1])
+    signature_image_data2 = b64decode(signature_data2.split(',')[1])
 
     pdf = canvas.Canvas(file_path, pagesize=letter)
     pdf.setFont("Helvetica-Bold", 16)
@@ -25,7 +26,8 @@ def generate_pdf(signature_data, file_path):
         ["PLZ:", ""],
         ["Ort:", ""],
         ["Datum:", ""],
-        ["Unterschrift:", ""]
+        ["Unterschrift:", ""],
+        ["Erziehungsberechtigter", ""]
     ]
 
     current_timestamp = datetime.datetime.now().strftime("%d.%m.%Y")
@@ -43,7 +45,7 @@ def generate_pdf(signature_data, file_path):
             pdf.rect(300, 685 - 50 * row_index, 200, 50, stroke=1, fill=0)  # Beibehaltung der Höhe für andere Zellen auf 50
 
         if row_index == 6:
-            signature_image = Image.open(BytesIO(signature_image_data))
+            signature_image = Image.open(BytesIO(signature_image_data1))
             image_width, image_height = signature_image.size
             scale_factor = 190 / image_width if image_width > 0 else 1
             scaled_width = image_width * scale_factor
@@ -51,12 +53,22 @@ def generate_pdf(signature_data, file_path):
 
             table_data[6][1] = pdf.drawInlineImage(signature_image, 305, 730 - 50 * row_index - scaled_height, width=scaled_width, height=scaled_height)
 
+        if row_index == 7:
+            signature_image = Image.open(BytesIO(signature_image_data2))
+            image_width, image_height = signature_image.size
+            scale_factor = 190 / image_width if image_width > 0 else 1
+            scaled_width = image_width * scale_factor
+            scaled_height = image_height * scale_factor
+
+            table_data[7][1] = pdf.drawInlineImage(signature_image, 305, 730 - 50 * row_index - scaled_height, width=scaled_width, height=scaled_height)
+
     pdf.save()
 
 @app.route('/download_pdf', methods=['POST'])
 def download_pdf():
     print("Route '/download_pdf' wurde aufgerufen.")
     signature_data = request.form['signature']
+    signature_data2 = request.form['signature-2']
 
 
 
@@ -67,7 +79,7 @@ def download_pdf():
 
     file_path = os.path.join('static', 'fileAblage', 'unterschrift.pdf')
 
-    generate_pdf(signature_data, file_path)
+    generate_pdf(signature_data, signature_data2, file_path)
 
     return send_file(
         file_path,

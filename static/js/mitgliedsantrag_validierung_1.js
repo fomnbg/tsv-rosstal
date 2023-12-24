@@ -109,7 +109,10 @@ function checkPhoneNumber(phoneNumber) {
     }
 }
 
-
+function generateToken() {
+    var absenden = document.getElementById('submit_btn');
+    absenden.click();
+}
 
 function defaultProove() {
     console.log("defaultProove() called");
@@ -117,6 +120,7 @@ function defaultProove() {
 	button.click();
     return 1;
 }
+
 
 function proove_alter(){
     var alter = document.getElementById('date1');
@@ -152,6 +156,7 @@ function proove_iban() {
 document.addEventListener('DOMContentLoaded', function () {
     // Wait for the DOM to be fully loaded
     
+    setTimeout("generateToken();" , 500);
     // Find the button by its ID or any other suitable selector
     var myButton = document.getElementById('submit_btn');
     var form = document.getElementById('antragsformular');
