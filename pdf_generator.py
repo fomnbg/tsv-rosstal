@@ -29,6 +29,10 @@ def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, me
     style_heading = styles["Heading3"]
     style_heading0 = styles["Heading2"]
 
+    #Fett-Style
+    style_bold = styles["Normal"]
+    style_bold.fontName = "Helvetica-Bold"  # Setting font to bold
+
     #Tabellen
     global_table_style = TableStyle([
         ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
@@ -69,21 +73,36 @@ def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, me
     story.append(application_table)
 
     # Tabelle für Persönliche Informationen Zahlendes Mitglied ------------------------------------------
+    bold_cells = [(0, 0), (0, 2), (2, 0), (3, 0), (3, 2), (4, 0), (5, 0), (6, 0), (6, 2)]
+
     zahlendes_mitglied = [
-        ["Geschlecht:", persons1['gender']],
-        ["Vorname:", persons1['vn']],
-        ["Name:", persons1['nn']],
-        ["Geburtsdatum:", persons1['date']],
-        ["E-Mail:", persons1['email']],
-        ["Telefon/Mobil:", persons1['mobile']],
-        ["Ehrenamtliche Tätigkeit:", "Ja"]
+        ["Geschlecht:", persons1['gender'], "Adresse:", adresse],
+        ["Vorname:", persons1['vn'], "Postleitzahl, Ort:", ort],
+        ["Name:", persons1['nn'], "", ""],
+        ["Geburtsdatum:", persons1['date'], "Bankverbindung", ""],
+        ["E-Mail:", persons1['email'], "Kontoinhaber:", kontoinhaber],
+        ["Telefon/Mobil:", persons1['mobile'], "IBAN:", iban],
+        ["Ehrenamtliche Tätigkeit:", "Ja", "BIC:", bic]
     ]
 
     data_zahlendes_mitglied = [
-        [Paragraph(item[0], style_normal), Paragraph(item[1], style_normal)] for item in zahlendes_mitglied
+        [item if isinstance(item, PlatypusImage) else item for item in row] for row in zahlendes_mitglied
     ]
 
-    table_zahlendes_mitglied = Table(data_zahlendes_mitglied, colWidths=[2*inch, 2*inch], rowHeights=0.25*inch)
+    
+    # Identifiziere die Indizes der ersten und vierten Spalte
+    first_column_indices = [0, 2]
+    fourth_column_indices = [3, 5]
+
+    # Erstelle die aktualisierte Datenstruktur für das zahlende Mitglied
+    data_zahlendes_mitglied = [
+        [
+            Paragraph(row[i], style_bold) if idx in first_column_indices else row[i]
+            for idx, i in enumerate(range(len(row)))
+        ] for row in zahlendes_mitglied
+    ]
+
+    table_zahlendes_mitglied = Table(data_zahlendes_mitglied, rowHeights=0.25*inch)
     table_zahlendes_mitglied.setStyle(global_table_style)
     table_zahlendes_mitglied.hAlign = 'LEFT'
 
