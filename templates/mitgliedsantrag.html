@@ -10,8 +10,8 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/mitgliedsantrag.css') }}">
         <script language="javascript" type="text/javascript"
                 src="{{ url_for('static', filename='js/mitgliedsantrag_validierung_1.js') }}"></script>
-        <script language="javascript" type="text/javascript"
-                src="{{ url_for('static', filename='js/mitgliedsantrag.js') }}"></script>
+	    <script src="{{ url_for('static', filename='js/mitgliedsantrag.js') }}"></script>
+
         <!-- recaptcha default from google site -->
         <script src="https://www.google.com/recaptcha/api.js?render={{ site_key }}"></script>
 
@@ -108,7 +108,7 @@
                 <ul class="tabList" id="tabList">
                     <li class="tab active" onclick="openTab(event, 'Member1')">Mitglied 1</li>
                 </ul>
-                <div id="Member1" class="tabContent" style="display: none;">
+                <div id="Member1" class="tabContent" style="display: block;">
 
                     <div class="sportSelectionGroup">
                         <!-- Sport Selection Columns -->

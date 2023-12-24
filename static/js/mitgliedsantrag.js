@@ -43,61 +43,70 @@ document.addEventListener('change', function (event) {
 
 
   function berechneKosten() {
-    totalCost = 0;
+    let totalCost = 0;
+    const isFamilyMembership = document.getElementById('family-membership').checked;
+    const processingFee = 15;
+
     for (let i = 1; i <= 5; i++) {
-      memberCost = 0;
-      const memberContainerId = `personalDataField${i}`;
-
-      const memberContainer = document.getElementById(memberContainerId);
-
-      if (memberContainer) {
-
-        const birthdate = memberContainer.querySelector(`input[type="date"]`).value;
-
-        const InputData = new Date(birthdate);
-
-        const currentDate = new Date();
-
-        const differenceInMS = currentDate - InputData;
-
-        // Convert difference in years
-        var differenceYears = differenceInMS / (1000 * 60 * 60 * 24 * 365.25);
-        if (!document.getElementById('family-membership').checked) {
-
-          if (differenceYears >= 4 && differenceYears <= 6) {
-            memberCost = 5.17;
-          } else if (differenceYears >= 7 && differenceYears <= 13) {
-            memberCost = 6.58;
-          } else if (differenceYears >= 14 && differenceYears <= 18) {
-            memberCost = 7.67;
-          } else if (differenceYears >= 18) {
-            memberCost = 10.83;
-          }
-          differenceYears = 0;
-        } else {
-          memberCost = 19.17;
-        }
-
-        // kind of sport
-        if (document.getElementById('passivMember' + i).checked == true) {
-          memberCost = 7.5;
-          sportMultiplier = 1;
-        }
-
-      }
-
-      totalCost += ((sportMultiplier * memberCost));
-
+      let memberCost = calculateMemberCost(i, isFamilyMembership);
+      totalCost += memberCost * sportMultiplier;
     }
 
-    var totalCostYearly = totalCost*12;
-    var totalCost = (totalCost*12) + 15;
-    var processingFee = 15;
+    const totalCostYearly = totalCost * 12;
+    const finalTotalCost = totalCostYearly + processingFee;
 
-    document.getElementById('yearlyPrice').innerText = totalCostYearly.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '€';
-    document.getElementById('processingFee').innerText = processingFee.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '€';
-    document.getElementById('totalPrice').innerText = totalCost.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '€';
+    updateCostDisplay(totalCostYearly, processingFee, finalTotalCost);
   }
+
+  function calculateMemberCost(memberIndex, isFamilyMembership) {
+    const birthdateElement = document.querySelector(`#personalDataField${memberIndex} input[type="date"]`);
+
+    if (!birthdateElement) {
+      return 0;
+    }
+
+    const birthdate = birthdateElement.value;
+    const age = calculateAge(birthdate);
+
+    if (document.getElementById('passivMember' + memberIndex) &&
+        document.getElementById('passivMember' + memberIndex).checked) {
+      return 7.5;
+    }
+
+    if (isFamilyMembership) {
+      return 19.17;
+    }
+
+    return calculateActiveMemberCost(age);
+  }
+
+
+  function calculateActiveMemberCost(age) {
+    if (age >= 4 && age <= 6) {
+      return 5.17;
+    } else if (age >= 7 && age <= 13) {
+      return 6.58;
+    } else if (age >= 14 && age <= 18) {
+      return 7.67;
+    } else if (age >= 18) {
+      return 10.83;
+    }
+    return 0;
+  }
+
+  function calculateAge(birthdate) {
+    const birthDate = new Date(birthdate);
+    const currentDate = new Date();
+    const age = currentDate.getFullYear() - birthDate.getFullYear();
+    return age;
+  }
+
+  function updateCostDisplay(totalCostYearly, processingFee, totalCost) {
+    document.getElementById('yearlyPrice').innerText = `${totalCostYearly.toFixed(2)}€`;
+    document.getElementById('processingFee').innerText = `${processingFee.toFixed(2)}€`;
+    document.getElementById('totalPrice').innerText = `${totalCost.toFixed(2)}€`;
+  }
+
 
   var inputs = document.querySelectorAll('input');
   inputs.forEach(function (input) {
