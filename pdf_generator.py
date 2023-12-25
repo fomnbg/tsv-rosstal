@@ -38,7 +38,7 @@ def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, sp
         ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
         ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
         ('TEXTCOLOR', (0, 0), (-1, -1), colors.HexColor('#333333')), 
-        ('GRID', (0, 0), (-1, -1), 1, colors.HexColor('#CCCCCC')),
+        #('GRID', (0, 0), (-1, -1), 1, colors.HexColor('#CCCCCC')),
         ('LEFTPADDING', (0, 0), (-1, -1), 0),
         ('RIGHTPADDING', (0, 0), (-1, -1), 0),
     ])
