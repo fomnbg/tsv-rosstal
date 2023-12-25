@@ -67,7 +67,7 @@ def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, sp
         membership_type = "Neumitgliedschaft"
 
     application_type = [
-        ["Art des Antrags", membership_type]
+        [Paragraph("Art des Antrags", style_bold), membership_type]
     ]
     application_table = Table(application_type, colWidths=col_widths, rowHeights=0.25*inch)
     application_table.setStyle(global_table_style)
@@ -160,9 +160,9 @@ def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, sp
     confirm_heading = "Antrag bestätigt"
 
     confirm_table_data = [
-        ["Zustimmung:", "Zustimmung zu AGB, Datenschutz, Lastschrifteinzug erteilt."],
-        ["Unterschrift:", None],
-        ["Antrag gesendet:", datetime.datetime.now().strftime("%d.%m.%Y %H:%M")]
+        [Paragraph("Zustimmung:", style_bold), "Zustimmung zu AGB, Datenschutz, Lastschrifteinzug erteilt."],
+        [Paragraph("Unterschrift:", style_bold), None],
+        [Paragraph("Antrag gesendet:", style_bold), datetime.datetime.now().strftime("%d.%m.%Y %H:%M")]
     ]
 
     # Signatur-Bild zu base64 string konvertieren
