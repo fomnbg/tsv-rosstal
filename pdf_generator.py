@@ -43,7 +43,7 @@ def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, sp
         ('RIGHTPADDING', (0, 0), (-1, -1), 0),
     ])
 
-    col_widths_application = [1.8*inch, 2*inch, 1.8*inch, 2*inch]  # Breite Spalten application_table
+    col_widths_application = [1.8*inch, 2.2*inch, 1.4*inch, 2*inch]  # Breite Spalten application_table
     col_widths = [1.8*inch, 2*inch]  # Breite Spalten
     col_widths_sports = [1.8*inch, 2*inch, 1.8*inch]  # Breite Spalten application_table
 
@@ -116,7 +116,13 @@ def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, sp
     # Tabelle für Sportarten ------------------------------------------
     story.append(Paragraph("Gewählte Sportarten", style_heading))
     
-    table_sport1 = [["Allgemein:", "Leistungssport:", "Kinder-/Seniorensport:"]]
+    header_row = [
+    Paragraph("Allgemein:", style_bold),
+    Paragraph("Leistungssport:", style_bold),
+    Paragraph("Kinder-/Seniorensport:", style_bold)
+]
+
+    table_sport1 = [header_row]
 
     # Finde die maximale Länge der Werte in den Kategorien, um die Anzahl der Zeilen zu bestimmen
     max_length = max(
