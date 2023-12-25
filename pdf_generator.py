@@ -15,7 +15,7 @@ from reportlab.lib import colors
 
 app = Flask(__name__)
 
-def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, membership_type, adresse, ort, kontoinhaber, iban, bic, signature_data):
+def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, sport_person1, sport_person2, sport_person3, sport_person4, sport_person5, membership_type, adresse, ort, kontoinhaber, iban, bic, signature_data):
     signature_image = PILImage.open(BytesIO(base64.b64decode(signature_data.split(',')[1])))
 
     # PDF Styling ------------------------------------------
@@ -45,7 +45,7 @@ def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, me
 
     col_widths_application = [1.8*inch, 2*inch, 1.8*inch, 2*inch]  # Breite Spalten application_table
     col_widths = [1.8*inch, 2*inch]  # Breite Spalten
-    col_widths_sports = [0.2*inch, 2*inch, 0.2*inch, 2*inch, 0.2*inch, 2*inch]  # Breite Spalten application_table
+    col_widths_sports = [1.8*inch, 2*inch, 1.8*inch]  # Breite Spalten application_table
 
     header_image_path = 'static/fileAblage/pdf_header.png'  # Header PNG öffnen
     header_image = PlatypusImage(header_image_path, width=letter[0], height=0.75*inch)  # PNG auf bolle Breite
@@ -116,24 +116,35 @@ def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, me
     # Tabelle für Sportarten ------------------------------------------
     story.append(Paragraph("Gewählte Sportarten", style_heading))
     
-    sports = [
-        ["Allgemein:", "", "Leistungssport:", "", "Kinder-/Seniorensport", ""],
+    table_sport1 = [["Allgemein:", "Leistungssport:", "Kinder-/Seniorensport:"]]
 
-        [" X ", "Klettern",            "",     "Handball",     "", "Kinderturnen"],
-        ["", "Volleyball",          "",     "Fußball",      "", "Mutter-/Kind"],
-        ["", "Indiaca",             "",     "Turnen",       "", "Ballschule"],
-        ["", "Faustball",           "",     "Judo",         "", "Seniorensport"],
-        ["", "Basketball",          "",     "Badminton",    "", ""],
-        ["", "Boule",               "",     "Tischtennis",  "", ""],
-        ["", "Tae Bo",              "",     "",             "", ""],
-        ["", "Pilates",             "",     "",             "", ""],
-        ["", "Fitness",             "",     "",             "", ""],
-        ["", "Power Workout",       "",     "",             "", ""],
-        ["", "Passives Mitglied",   "",     "",             "", ""]
+    # Finde die maximale Länge der Werte in den Kategorien, um die Anzahl der Zeilen zu bestimmen
+    max_length = max(
+        len(sport_person1.get('Allgemein', [])),
+        len(sport_person1.get('Leistungssport', [])),
+        len(sport_person1.get('Kinder-/Seniorensport', []))
+    )
 
-    ]
+    # Erhöhe die Indizes, um neue Werte hinzuzufügen, ohne vorhandene zu überschreiben
+    for i in range(max_length):
+        row = ["", "", ""]  # Leere Zeile für die Sportarten
 
-    sport_table = Table(sports, colWidths=col_widths_sports, rowHeights=20)  # Breite der Spalten angepasst
+        # Füge die Werte der Allgemein-Kategorie in die Tabelle ein
+        
+        if i < len(sport_person1.get('Allgemein', [])):
+            row[0] = sport_person1['Allgemein'][i]
+
+        # Füge die Werte der Leistungssport-Kategorie in die Tabelle ein
+        if i < len(sport_person1.get('Leistungssport', [])):
+            row[1] = sport_person1['Leistungssport'][i]
+
+        # Füge die Werte der Kinder-/Seniorensport-Kategorie in die Tabelle ein
+        if i < len(sport_person1.get('Kinder-/Seniorensport', [])):
+            row[2] = sport_person1['Kinder-/Seniorensport'][i]
+
+        table_sport1.append(row)
+
+    sport_table = Table(table_sport1, colWidths=col_widths_sports, rowHeights=20)  # Breite der Spalten angepasst
     sport_table.setStyle(global_table_style)
     sport_table.hAlign = 'LEFT'
 
@@ -210,9 +221,85 @@ def download_pdf():
     bic = request.form['bic']
 
     signature_data = request.form['signature']
-    
+
+    # Angemeldete Sportarten abfragen
+
+    sportarten = {
+    'Person1': {
+        'Allgemein': [],
+        'Leistungssport': [],
+        'Kinder-/Seniorensport': []
+    },
+    'Person2': {
+        'Allgemein': [],
+        'Leistungssport': [],
+        'Kinder-/Seniorensport': []
+    },
+    'Person3': {
+        'Allgemein': [],
+        'Leistungssport': [],
+        'Kinder-/Seniorensport': []
+    },
+    'Person4': {
+        'Allgemein': [],
+        'Leistungssport': [],
+        'Kinder-/Seniorensport': []
+    },
+    'Person5': {
+        'Allgemein': [],
+        'Leistungssport': [],
+        'Kinder-/Seniorensport': []
+    }
+}
+
+    for i in range(1, 5):  # Abrage für die 5 Personen
+        if f'klettern{i}' in request.form:
+            sportarten[f'Person{i}']['Allgemein'].append("Klettern")
+        if f'volleyball{i}' in request.form:
+            sportarten[f'Person{i}']['Allgemein'].append("Volleyball")
+        if f'indiaca{i}' in request.form:
+            sportarten[f'Person{i}']['Allgemein'].append("Indiaca")
+        if f'faustball{i}' in request.form:
+            sportarten[f'Person{i}']['Allgemein'].append("Faustball")
+        if f'basketball{i}' in request.form:
+            sportarten[f'Person{i}']['Allgemein'].append("Basketball")
+        if f'boule{i}' in request.form:
+            sportarten[f'Person{i}']['Allgemein'].append("Boule")
+        if f'tae_bo{i}' in request.form:
+            sportarten[f'Person{i}']['Allgemein'].append("Tae Bo")
+        if f'pilates{i}' in request.form:
+            sportarten[f'Person{i}']['Allgemein'].append("Pilates")
+        if f'fitness{i}' in request.form:
+            sportarten[f'Person{i}']['Allgemein'].append("Fitness")
+        if f'power_workout{i}' in request.form:
+            sportarten[f'Person{i}']['Allgemein'].append("Power Workout")
+        if f'passives_mitglied{i}' in request.form:
+            sportarten[f'Person{i}']['Allgemein'].append("Passives Mitglied")
+
+        if f'handball{i}' in request.form:
+            sportarten[f'Person{i}']['Leistungssport'].append("Handball")
+        if f'fussball{i}' in request.form:
+            sportarten[f'Person{i}']['Leistungssport'].append("Fußball")
+        if f'turnen{i}' in request.form:
+            sportarten[f'Person{i}']['Leistungssport'].append("Turnen")
+        if f'judo{i}' in request.form:
+            sportarten[f'Person{i}']['Leistungssport'].append("Sportarten")
+        if f'badminton{i}' in request.form:
+            sportarten[f'Person{i}']['Leistungssport'].append("Badminton")
+        if f'tischtennis{i}' in request.form:
+            sportarten[f'Person{i}']['Leistungssport'].append("Tischtennis")
+
+        if f'kinderturnen{i}' in request.form:
+            sportarten[f'Person{i}']['Kinder-/Seniorensport'].append("Kinderturnen")
+        if f'mutter_kind{i}' in request.form:
+            sportarten[f'Person{i}']['Kinder-/Seniorensport'].append("Mutter-/Kind")
+        if f'ballschule{i}' in request.form:
+            sportarten[f'Person{i}']['Kinder-/Seniorensport'].append("Ballschule")
+        if f'seniorensport{i}' in request.form:
+            sportarten[f'Person{i}']['Kinder-/Seniorensport'].append("Seniorensport")
+
     # PDF Struktur mit Werten befüllen
-    generate_pdf(file_path, persons['Person1'], persons['Person2'], persons['Person3'], persons['Person4'], persons['Person5'], membership_type, adresse, ort, kontoinhaber, iban, bic, signature_data)
+    generate_pdf(file_path, persons['Person1'], persons['Person2'], persons['Person3'], persons['Person4'], persons['Person5'], sportarten['Person1'], sportarten['Person2'], sportarten['Person3'], sportarten['Person4'], sportarten['Person5'], membership_type, adresse, ort, kontoinhaber, iban, bic, signature_data)
 
     return send_file(
         file_path,
