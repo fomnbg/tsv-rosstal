@@ -1,7 +1,7 @@
 import os
 from flask import Flask, request, send_file
 from reportlab.lib.pagesizes import letter
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, TableStyle, Spacer, Image as PlatypusImage
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, TableStyle, Spacer, Image as PlatypusImage, PageBreak
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.colors import HexColor
 from PIL import Image as PILImage
@@ -46,6 +46,8 @@ def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, sp
     col_widths_application = [1.8*inch, 2.2*inch, 1.4*inch, 2*inch]  # Breite Spalten application_table
     col_widths = [1.8*inch, 2*inch]  # Breite Spalten
     col_widths_sports = [1.8*inch, 2*inch, 1.8*inch]  # Breite Spalten application_table
+
+    ##### SEITE 1 ###############################################################################################
 
     header_image_path = 'static/fileAblage/pdf_header.png'  # Header PNG öffnen
     header_image = PlatypusImage(header_image_path, width=letter[0], height=0.75*inch)  # PNG auf bolle Breite
@@ -178,6 +180,95 @@ def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, sp
 
     story.append(Paragraph(confirm_heading, style_heading))
     story.append(confirm_table)
+
+    story.append(PageBreak())   # Füge den Seitenumbruch ein
+
+    ##### SEITE 2 ###############################################################################################
+    
+    header_image_page_2 = PlatypusImage(header_image_path, width=letter[0], height=0.75*inch)  
+    story.append(header_image_page_2)  # Bild für die zweite Seite einfügen
+
+    # Überschrift Mitgliedsantrag hinzufügen
+    story.append(Spacer(1, 12))
+    
+    # Tabelle für Persönliche Informationen Zahlendes Mitglied ------------------------------------------
+    
+    mitglied2 = [
+        ["Geschlecht:", persons2['gender']],
+        ["Vorname:", persons2['vn']],
+        ["Name:", persons2['nn']],
+        ["Geburtsdatum:", persons2['date']],
+        ["E-Mail:", persons2['email']],
+        ["Telefon/Mobil:", persons2['mobile']],
+    ]
+
+    data_mitglied2 = [
+        [item if isinstance(item, PlatypusImage) else item for item in row] for row in mitglied2
+    ]
+
+    
+    # Identifiziere die Indizes der ersten Spalte
+    first_column_indices = [0, 2]
+
+    # Erstelle die aktualisierte Datenstruktur für das zahlende Mitglied
+    data_mitglied2 = [
+        [
+            Paragraph(row[i], style_bold) if idx in first_column_indices else row[i]
+            for idx, i in enumerate(range(len(row)))
+        ] for row in data_mitglied2
+    ]
+
+    table_mitglied2 = Table(data_mitglied2, colWidths=col_widths_application, rowHeights=0.25*inch)
+    table_mitglied2.setStyle(global_table_style)
+    table_mitglied2.hAlign = 'LEFT'
+
+    story.append(Paragraph("Persönliche Informationen 2. Mitglied", style_heading))
+    story.append(table_mitglied2)
+    story.append(Spacer(1, 0.2*inch))
+
+    # Tabelle für Sportarten ------------------------------------------
+    story.append(Paragraph("Gewählte Sportarten", style_heading))
+    
+    header_row = [
+    Paragraph("Allgemein:", style_bold),
+    Paragraph("Leistungssport:", style_bold),
+    Paragraph("Kinder-/Seniorensport:", style_bold)
+]
+
+    table_sport2 = [header_row]
+
+    # Finde die maximale Länge der Werte in den Kategorien, um die Anzahl der Zeilen zu bestimmen
+    max_length = max(
+        len(sport_person2.get('Allgemein', [])),
+        len(sport_person2.get('Leistungssport', [])),
+        len(sport_person2.get('Kinder-/Seniorensport', []))
+    )
+
+    # Erhöhe die Indizes, um neue Werte hinzuzufügen, ohne vorhandene zu überschreiben
+    for i in range(max_length):
+        row = ["", "", ""]  # Leere Zeile für die Sportarten
+
+        # Füge die Werte der Allgemein-Kategorie in die Tabelle ein
+        
+        if i < len(sport_person2.get('Allgemein', [])):
+            row[0] = sport_person2['Allgemein'][i]
+
+        # Füge die Werte der Leistungssport-Kategorie in die Tabelle ein
+        if i < len(sport_person2.get('Leistungssport', [])):
+            row[1] = sport_person2['Leistungssport'][i]
+
+        # Füge die Werte der Kinder-/Seniorensport-Kategorie in die Tabelle ein
+        if i < len(sport_person2.get('Kinder-/Seniorensport', [])):
+            row[2] = sport_person2['Kinder-/Seniorensport'][i]
+
+        table_sport2.append(row)
+
+    sport_table2 = Table(table_sport2, colWidths=col_widths_sports, rowHeights=20)  # Breite der Spalten angepasst
+    sport_table2.setStyle(global_table_style)
+    sport_table2.hAlign = 'LEFT'
+
+    story.append(sport_table2)
+    story.append("_____________________________________________________________________________________________________")
 
     doc.build(story)
 
