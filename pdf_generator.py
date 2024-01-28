@@ -156,6 +156,90 @@ def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, sp
 
     story.append(sport_table)
 
+    # Start weitere Personen ------------------------------------------------
+
+    mitglied2 = [
+        ["Geschlecht:", persons2['gender']],
+        ["Vorname:", persons2['vn']],
+        ["Name:", persons2['nn']],
+        ["Geburtsdatum:", persons2['date']],
+        ["E-Mail:", persons2['email']],
+        ["Telefon/Mobil:", persons2['mobile']],
+        ["Ehrenamtliche Tätigkeit:", "Ja"]
+    ]
+
+    data_mitlgied2 = [
+        [item if isinstance(item, PlatypusImage) else item for item in row] for row in mitglied2
+    ]
+
+    
+    # Identifiziere die Indizes der ersten und vierten Spalte
+    first_column_indices = [0, 2]
+    fourth_column_indices = [3, 5]
+
+    # Erstelle die aktualisierte Datenstruktur für das zahlende Mitglied
+    data_mitlgied2 = [
+        [
+            Paragraph(row[i], style_bold) if idx in first_column_indices else row[i]
+            for idx, i in enumerate(range(len(row)))
+        ] for row in mitglied2
+    ]
+
+    table_mitglied2 = Table(data_mitlgied2, colWidths=col_widths_application, rowHeights=0.25*inch)
+    table_mitglied2.setStyle(global_table_style)
+    table_mitglied2.hAlign = 'LEFT'
+    story.append(Paragraph("______________________________________________________________________________", style_heading))
+    story.append(Paragraph("Persönliche Informationen zweite Person", style_heading))
+    story.append(table_mitglied2)
+    story.append(Spacer(1, 0.2*inch))
+
+
+    #Sportarten weitere Person ------------
+
+    story.append(Paragraph("Gewählte Sportarten", style_heading))
+    
+    header_row = [
+    Paragraph("Allgemein:", style_bold),
+    Paragraph("Leistungssport:", style_bold),
+    Paragraph("Kinder-/Seniorensport:", style_bold)
+    ]
+
+    table_sport2 = [header_row]
+
+    # Finde die maximale Länge der Werte in den Kategorien, um die Anzahl der Zeilen zu bestimmen
+    max_length = max(
+        len(sport_person2.get('Allgemein', [])),
+        len(sport_person2.get('Leistungssport', [])),
+        len(sport_person2.get('Kinder-/Seniorensport', []))
+    )
+
+    # Erhöhe die Indizes, um neue Werte hinzuzufügen, ohne vorhandene zu überschreiben
+    for i in range(max_length):
+        row = ["", "", ""]  # Leere Zeile für die Sportarten
+
+        # Füge die Werte der Allgemein-Kategorie in die Tabelle ein
+        
+        if i < len(sport_person2.get('Allgemein', [])):
+            row[0] = sport_person2['Allgemein'][i]
+
+        # Füge die Werte der Leistungssport-Kategorie in die Tabelle ein
+        if i < len(sport_person2.get('Leistungssport', [])):
+            row[1] = sport_person2['Leistungssport'][i]
+
+        # Füge die Werte der Kinder-/Seniorensport-Kategorie in die Tabelle ein
+        if i < len(sport_person2.get('Kinder-/Seniorensport', [])):
+            row[2] = sport_person2['Kinder-/Seniorensport'][i]
+
+        table_sport2.append(row)
+
+    sport_table2 = Table(table_sport2, colWidths=col_widths_sports, rowHeights=20)  # Breite der Spalten angepasst
+    sport_table2.setStyle(global_table_style)
+    sport_table2.hAlign = 'LEFT'
+
+    story.append(sport_table2)
+
+
+
     # Tabelle für Antrag bestätigt ------------------------------------------
     confirm_heading = "Antrag bestätigt"
 
