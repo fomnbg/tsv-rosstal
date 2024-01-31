@@ -6,6 +6,7 @@ from forms import Antrag
 from flask import Flask, render_template, request
 from pdf_generator import download_pdf
 import csv
+from database import write_to_database
 
 app = Flask(__name__)
 
@@ -48,13 +49,24 @@ def mitglied_werden():
 def mitgliedsantrag():
     if request.method == 'POST':
         print(request.form)
+
+        ###
+        # recaptcha handling
+        ###
         secret_response = request.form['g-recaptcha-response']
         verify_response = requests.post(url=f'{VERIFY_URL}?secret={SECRET_KEY}&response={secret_response}').json()
         #print("secret-response:", secret_response)
         if verify_response['success'] == False or verify_response['score'] < 0.7:
             abort(401)#if bot detected or recaptcha request failed
         else:
+            ###
+            # write to database
+            ###
+            write_to_database(request.form)
             return render_template('daten-uebermittelt.html')
+        
+        
+
 
     else:
         sportarten_a = []
