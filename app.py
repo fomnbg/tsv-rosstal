@@ -6,7 +6,7 @@ from forms import Antrag
 from flask import Flask, render_template, request
 from pdf_generator import download_pdf
 import csv
-from database import write_to_database
+from crud import write_to_database
 
 app = Flask(__name__)
 

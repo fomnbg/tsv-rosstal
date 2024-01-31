@@ -3,9 +3,9 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from sqlalchemy.orm import relationship
-from app import db
 from werkzeug.datastructures import ImmutableMultiDict
 
+db = SQLAlchemy()
 
 class Zahlendesmitglied(db.Model):
     id = db.Column(db.Integer, primary_key=True)
