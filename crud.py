@@ -1,5 +1,9 @@
 import mysql.connector
 import os
+from dotenv import load_dotenv
+
+# Lade die Werte aus der .env Datei
+load_dotenv()
 
 def write_to_database(form_data):
     # Überprüfung, ob Person 2, 3, 4 und 5 vorhanden sind
@@ -16,10 +20,10 @@ def write_to_database(form_data):
             # Verbindung zur Datenbank herstellen
             try:
                 connection = mysql.connector.connect(
-                    host= os.getenv('DB_HOST'),
-                    user=os.getenv('DB_USER'),
-                    password=os.getenv('DB_PASSWORD'),
-                    database=os.getenv('DB_NAME'),
+                    host= os.environ.get('DB_HOST'),
+                    user=os.environ.get('DB_USER'),
+                    password=os.environ.get('DB_PASSWORD'),
+                    database=os.environ.get('DB_NAME'),
                     port = '3306'
                 )
                 cursor = connection.cursor()
