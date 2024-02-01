@@ -9,50 +9,43 @@ load_dotenv()
 def load_used_member_numbers(file_path):
     try:
         with open(file_path, 'r') as file:
-            data = json.load(file)
-            if isinstance(data, dict):
-                return set(data.get("used_numbers", []))
-            else:
-                return set()
+            return json.load(file)
     except (FileNotFoundError, json.JSONDecodeError):
-        return set()
-
+        return {'next_membership_number': 10000, 'used_numbers': []}
 
 def save_used_member_numbers(file_path, used_numbers):
     with open(file_path, 'w') as file:
-        json.dump(list(used_numbers), file)
+        json.dump(used_numbers, file)
 
 def generate_member_numbers(starting_number, count, used_numbers):
     generated_numbers = []
     for i in range(count):
         number = f"{starting_number}-{i}" if i > 0 else starting_number
-        while number in used_numbers:
+        while number in used_numbers['used_numbers']:
             i += 1
             number = f"{starting_number}-{i}" if i > 0 else starting_number
-        used_numbers.add(number)
+        used_numbers['used_numbers'].append(number)
         generated_numbers.append(number)
     return generated_numbers
 
 def write_to_database(form_data):
-    form_dict = dict(form_data)
-    
-    # Holen Sie sich die Mitgliedsnummer oder verwenden Sie 10000 als Standardwert
-    base_number = form_dict.get('membership_number', 10000)
-    
     for i in range(1, 6):
-        if f'vn{i}' in form_dict and form_dict[f'vn{i}']:
-            vorname = form_dict.get(f'vn{i}', '')
-            nachname = form_dict.get(f'nn{i}', '')
-            geburtsdatum = form_dict.get(f'date{i}', '')
-            email = form_dict.get(f'email{i}', '')
-            mobile = form_dict.get(f'mobile{i}', '')
-            sportart_member = form_dict.get(f'sportart_member{i}', '')
-            geschlecht = form_dict.get(f'gender{i}', '')
+        if f'vn{i}' in form_data and form_data[f'vn{i}']:
+            vorname = form_data.get(f'vn{i}', '')
+            nachname = form_data.get(f'nn{i}', '')
+            geburtsdatum = form_data.get(f'date{i}', '')
+            email = form_data.get(f'email{i}', '')
+            mobile = form_data.get(f'mobile{i}', '')
+            sportart_member = form_data.get(f'sportart_member{i}', '')
+            geschlecht = form_data.get(f'gender{i}', '')
 
             # Load used member numbers
             used_numbers = load_used_member_numbers('used_member_numbers.json')
 
-            # Generate member numbers starting from a new base number
+            # Use the next_membership_number from the JSON file as the base number
+            base_number = used_numbers['next_membership_number']
+
+            # Generate member numbers starting from the base number
             member_numbers = generate_member_numbers(base_number, 1, used_numbers)
 
             try:
@@ -70,6 +63,10 @@ def write_to_database(form_data):
                 for number in member_numbers:
                     cursor.execute(insert_query, (vorname, nachname, geburtsdatum, email, mobile, sportart_member, geschlecht, number))
 
+                # Update the next_membership_number in the used_numbers set
+                used_numbers['next_membership_number'] += 1
+
+                # Save used member numbers back to the JSON file
                 save_used_member_numbers('used_member_numbers.json', used_numbers)
 
                 connection.commit()
@@ -78,4 +75,3 @@ def write_to_database(form_data):
 
             except Exception as e:
                 print(f"Fehler beim Schreiben in die Datenbank: {e}")
-
