@@ -97,15 +97,21 @@ $$$$$$$$/______  $$ |  ______  /$$$$$$  |______   _______
    $$/  $$$$$$$/ $$/  $$$$$$$/ $$/      $$$$$$/  $$/   $$/  
 */
 
-function checkPhoneNumber(phoneNumber) {  
+function checkPhoneNumber() {  
+    var phoneNumber = document.querySelector('input[name="mobile1"]'); 
     // Regulärer Ausdruck für das erwartete Format: +1234567890
     const phoneRegex = /^\+\d{10,}$/;
-  
-    if (phoneRegex.test(phoneNumber)) {
-
-      return true;
+    if (phoneNumber.value != ""){ //Telefonnummer ist freiwillige angabe falls nein if bed. bitte entfernen
+        if (phoneRegex.test(phoneNumber)) {
+        phoneNumber.setCustomValidity('');
+        return true;
+        } else {
+        phoneNumber.setCustomValidity('Bitte geben Sie eine gültige Telefonnummer an oder lassen Sie das Feld leer.');
+        return false;
+        }
     } else {
-      return false;
+        phoneNumber.setCustomValidity('');
+        return true; 
     }
 }
 
@@ -162,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Add a click event listener to the button
     myButton.addEventListener('click', function (event) {
         defaultProove()
-        if (proove_iban() === false | proove_alter() === false) {
+        if (proove_iban() === false | proove_alter() === false | checkPhoneNumber() === false) {
             // If evaluation passed, prevent the default behavior of the click event
             event.preventDefault();
 
