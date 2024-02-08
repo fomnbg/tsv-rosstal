@@ -48,57 +48,57 @@
         }
     </style>
 
-        <title>Membership Application</title>
-    </head>
+    <title>Membership Application</title>
+</head>
 
 <body>
 
     <form id="antragsformular" method="post" action="{{ url_for('mitgliedsantrag') }}">
         <div class="containerMain">
-                <h1 class="main-heading">Mitgliedsantrag</h1>
-                <!-- Radio button group -->
-                <div class="radio-button-group">
-                    <label class="radio-button">
-                        <input type="radio" name="membership-type" required value="new-membership">
-                        Neumitgliedschaft
-                    </label>
-                    <label class="radio-button">
-                        <input type="radio" name="membership-type" id="family-membership" value="family-membership">
-                        Umstellung Familienmitgliedschaft
-                    </label>
-                    <label class="radio-button disabled">
-                        <input type="radio" name="membership-type" value="fee-exemption">
-                        Antrag auf Beitragsbefreiung
-                    </label>
-                </div>
-                <div class="sub-heading">Persönliche Daten</div>
-                <!-- Personal data fields -->
-            	<div class="PD-Container">
-                    <div class="flexPersonalDataGroup" id="personalDataGroup">
-                        <!-- Initial Field -->
-                        <div class="flexPersonalDataField" id="personalDataField1">
-                            <!-- Inhalte für das erste Personalfeld -->
-                            <div class="radioCheck">
-                                <input class="" id="male1" type="radio" name="gender1">
-                                <label for="male1">M</label>
-                                <input class="" id="female1" type="radio" name="gender1">
-                                <label for="female1">W</label>
-                            </div>
-                            <input class="inputField" placeholder="Vorname" name="vn1">
-                            <input class="inputField" placeholder="Name, Titel" name="nn1">
-                            <input class="inputField" class="birthdayField" placeholder="Geburtsdatum" type="date"
-                                name="date1" id="date1">
-                            <input class="inputField" placeholder="E-Mail" type="email" name="email1">
-                            <input class="inputField" placeholder="Telefon/Mobil" name="mobile1">
+            <h1 class="main-heading">Mitgliedsantrag</h1>
+            <!-- Radio button group -->
+            <div class="radio-button-group">
+                <label class="radio-button">
+                    <input type="radio" name="membership-type" required value="new-membership">
+                    Neumitgliedschaft
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="membership-type" id="family-membership" value="family-membership">
+                    Umstellung Familienmitgliedschaft
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="membership-type" value="fee-exemption">
+                    Antrag auf Beitragsbefreiung
+                </label>
+            </div>
+            <div class="sub-heading">Persönliche Daten</div>
+            <!-- Personal data fields -->
+            <div class="PD-Container">
+                <div class="flexPersonalDataGroup" id="personalDataGroup">
+                    <!-- Initial Field -->
+                    <div class="flexPersonalDataField" id="personalDataField1">
+                        <!-- Inhalte für das erste Personalfeld -->
+                        <div class="radioCheck">
+                            <input class="" id="male1" type="radio" name="gender1">
+                            <label for="male1">M</label>
+                            <input class="" id="female1" type="radio" name="gender1">
+                            <label for="female1">W</label>
                         </div>
+                        <input class="inputField" placeholder="Vorname" name="vn1">
+                        <input class="inputField" placeholder="Name, Titel" name="nn1">
+                        <input class="inputField" class="birthdayField" placeholder="Geburtsdatum" type="date"
+                            name="date1" id="date1">
+                        <input class="inputField" placeholder="E-Mail" type="email" name="email1">
+                        <input class="inputField" placeholder="Telefon/Mobil" name="mobile1">
                     </div>
-                	<span class="addFieldButton">
-                        <button class="addFieldButtonStyle" type="button" id="addFieldButton" 
-                        onclick="addField()">+</button>
-                        <button class="removeFieldButtonStyle" type="button" id="removeFieldButton" 
-                        onclick="removeField()">-</button>
-                    </span>
                 </div>
+                <span class="addFieldButton">
+                    <button class="addFieldButtonStyle" type="button" id="addFieldButton" 
+                    onclick="addField()">+</button>
+                    <button class="removeFieldButtonStyle" type="button" id="removeFieldButton" 
+                    onclick="removeField()">-</button>
+                </span>
+            </div>
 
             <!-- Sports selection -->
             <div class="sportsSelectionTabs">
