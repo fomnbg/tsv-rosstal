@@ -347,49 +347,44 @@
     </body>
 
     <script type="text/javascript">
-        // Wrapper und Canvas für das erste Signature Pad
-        var wrapper1 = document.getElementById("signature-pad"),
-            canvas1 = wrapper1.querySelector("canvas"),
-            signaturePad;
+        var wrapper = document.getElementById("signature-pad"),
+        canvas = wrapper.querySelector("canvas"),
+        signaturePad;
 
-        var wrapper2 = document.getElementById("signature-pad-2"),
-            canvas2 = wrapper2.querySelector("canvas"),
-            signaturePad2;
-
-        function resizeCanvas(canvas) {
-            var ratio = window.devicePixelRatio || 1;
-            canvas.width = canvas.offsetWidth * ratio;
-            canvas.height = canvas.offsetHeight * ratio;
-            canvas.getContext("2d").scale(ratio, ratio);
-        }
-
-        // Initialize SignaturePads nach dem Laden des Dokuments
+    // Initialize SignaturePad after the document has loaded
     document.addEventListener("DOMContentLoaded", function () {
-        try {
-            // Erstes Signature Pad
-            resizeCanvas(canvas1);
-            signaturePad1 = new SignaturePad(canvas1);
-            signaturePad1.minWidth = 1;
-            signaturePad1.maxWidth = 5;
-            signaturePad1.penColor = "#000000";
-            signaturePad1.backgroundColor = "#FFFFFF";
+        updateFieldButtons();
 
-            // Zweites Signature Pad
-            resizeCanvas(canvas2);
-            signaturePad2 = new SignaturePad(canvas2);
-            signaturePad2.minWidth = 1;
-            signaturePad2.maxWidth = 5;
-            signaturePad2.penColor = "#000000";
-            signaturePad2.backgroundColor = "#FFFFFF";
+        if (document.getElementsByClassName("tab")[0]) {
+            document.getElementsByClassName("tab")[0].click();
+        }
+        try {
+            signaturePad = new SignaturePad(canvas);
+            // SignaturePad settings
+            signaturePad.minWidth = 1;
+            signaturePad.maxWidth = 5;
+            signaturePad.penColor = "#000000";
+            signaturePad.backgroundColor = "#FFFFFF";
+            window.onresize = resizeCanvas;
+            resizeCanvas();
         } catch (e) {
-            console.error("Fehler bei der Initialisierung von SignaturePads:", e);
+            console.error("Error initializing SignaturePad:", e);
         }
     });
 
-        function submitForm() {
-            document.getElementById('signature').value = signaturePad.toDataURL();
-            document.getElementById('signature-2').value = signaturePad2.toDataURL();
-        }
+    function resizeCanvas() {
+        var oldContent = signaturePad.toData();
+        var ratio = Math.max(window.devicePixelRatio || 1, 1);
+        canvas.width = canvas.offsetWidth * ratio;
+        canvas.height = canvas.offsetHeight * ratio;
+        canvas.getContext("2d").scale(ratio, ratio);
+        signaturePad.clear();
+        signaturePad.fromData(oldContent);
+    }
+
+    function submitForm() {
+        document.getElementById('signature').value = signaturePad.toDataURL();
+    }
 
         // Member Tabs
 
