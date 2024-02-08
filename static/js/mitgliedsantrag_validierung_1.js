@@ -67,7 +67,7 @@ $$/   $$/ $$$$$$$$/ $$/    $$$$$$$$/ $$/   $$/
 
 function pruefeAlter(geburtsdatum) {
     // Das Mindestalter festlegen (in Jahren)
-    var mindestalter = 4;
+    var mindestalter = 18;
 
     // Aktuelles Datum abrufen
     var aktuellesDatum = new Date();
@@ -131,7 +131,7 @@ function proove_alter(){
     var alter_val = new Date(alter.value);
  
     if (pruefeAlter(alter_val) != true){
-        alter.setCustomValidity('Kinder unter 4 Jahren können nur als Familienmitglied aufgenommen werden.)');
+        alter.setCustomValidity('Das erste Mitglied muss mindestens 18 sein, sollten Sie Ihr kind anmelden wollen, geben Sie sich als erstes Mitglied an und das Kind als zweites Mitglied.')
         return false;
     }else{
         alter.setCustomValidity(''); 
@@ -160,7 +160,7 @@ function proove_iban() {
 document.addEventListener('DOMContentLoaded', function () {
     // Wait for the DOM to be fully loaded
 
-	setTimeout("generateToken();" , 500);
+    setTimeout("generateToken();" , 500);
     // Find the button by its ID or any other suitable selector
     var myButton = document.getElementById('submit_btn');
     var form = document.getElementById('antragsformular');

@@ -2,55 +2,54 @@
 
 {% block body %}
 
-    <head>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="/static/css/signature_style.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script type="text/javascript" src="/static/script/signature_pad.js"></script>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/mitgliedsantrag.css') }}">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/static/css/signature_style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/script/signature_pad.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mitgliedsantrag.css') }}">
+    <script language="javascript" type="text/javascript"
+        src="{{ url_for('static', filename='js/mitgliedsantrag_validierung_1.js') }}"></script>
+    <script language="javascript" type="text/javascript"
+        src="{{ url_for('static', filename='js/mitgliedsantrag.js') }}"></script>
+    <!-- recaptcha default from google site -->
+    <script src="https://www.google.com/recaptcha/api.js?render={{ site_key }}"></script>
+    <!---->
 
-        <script language="javascript" type="text/javascript"
-                src="{{ url_for('static', filename='js/mitgliedsantrag_validierung_1.js') }}"></script>
-	    <script src="{{ url_for('static', filename='js/mitgliedsantrag.js') }}"></script>
+    <!-- adress api default from google site -->
+    <script>
+        (g => {
+            var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__",
+                m = document, b = window;
+            b = b[c] || (b[c] = {});
+            var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams,
+                u = () => h || (h = new Promise(async (f, n) => {
+                    await (a = m.createElement("script"));
+                    e.set("libraries", [...r] + "");
+                    for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]);
+                    e.set("callback", c + ".maps." + q);
+                    a.src = `https://maps.${c}apis.com/maps/api/js?` + e;
+                    d[q] = f;
+                    a.onerror = () => h = n(Error(p + " could not load."));
+                    a.nonce = m.querySelector("script[nonce]")?.nonce || "";
+                    m.head.append(a)
+                }));
+            d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n))
+        })({
+            key: "YOUR_API_KEY_HERE",
+            // Add other bootstrap parameters as needed, using camel case.
+            // Use the 'v' parameter to indicate the version to load (alpha, beta, weekly, etc.)
+        });
+    </script>
+    <!---->
+    <style>
+        .hidden-opacity {
+            opacity: 0;
+        }
+    </style>
 
-        <!-- recaptcha default from google site -->
-        <script src="https://www.google.com/recaptcha/api.js?render={{ site_key }}"></script>
-        <!---->
-
-        <!-- adress api default from google site -->
-        <script>
-            (g => {
-                var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__",
-                    m = document, b = window;
-                b = b[c] || (b[c] = {});
-                var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams,
-                    u = () => h || (h = new Promise(async (f, n) => {
-                        await (a = m.createElement("script"));
-                        e.set("libraries", [...r] + "");
-                        for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]);
-                        e.set("callback", c + ".maps." + q);
-                        a.src = `https://maps.${c}apis.com/maps/api/js?` + e;
-                        d[q] = f;
-                        a.onerror = () => h = n(Error(p + " could not load."));
-                        a.nonce = m.querySelector("script[nonce]")?.nonce || "";
-                        m.head.append(a)
-                    }));
-                d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n))
-            })({
-                key: "YOUR_API_KEY_HERE",
-                // Add other bootstrap parameters as needed, using camel case.
-                // Use the 'v' parameter to indicate the version to load (alpha, beta, weekly, etc.)
-            });
-        </script>
-        <!---->
-        <style>
-            .hidden-opacity {
-                display: none;
-            }
-        </style>
-
-        <title>Membership Application</title>
-    </head>
+    <title>Membership Application</title>
+</head>
 
 <body>
 
@@ -96,10 +95,10 @@
                 	<span class="addFieldButton">
                         <button class="addFieldButtonStyle" type="button" id="addFieldButton" 
                         onclick="addField()">+</button>
-                        <button class="removeFieldButtonStyle" type="button" id="removeFieldButton" 
+                    <button class="removeFieldButtonStyle" type="button" id="removeFieldButton" 
                         onclick="removeField()">-</button>
-                    </span>
-                </div>
+                </span>
+            </div>
 
             <!-- Sports selection -->
             <div class="sportsSelectionTabs">
@@ -115,7 +114,7 @@
                             <div class="sportSelectionColumn">
                                 <h3 class="sub-heading2">Allgemein</h3>
                                 {% for sportart in sportarten_a %}
-                                <label><input onchange="kindOfSportChange(this)" type="checkbox" id="sportart_member1" value="{{ sportart }}">{{ sportart }}</label>
+                                <label><input type="checkbox" id="sportart_member1" value="{{ sportart }}">{{ sportart }}</label>
                                 {% endfor %}
                                 <!--
                                 <label><input type="checkbox" name="Sportart_member1" value="Klettern">Klettern</label>
@@ -168,7 +167,7 @@
                             <div class="sportSelectionColumn">
                                 <h3 class="sub-heading2">Allgemein</h3>
                                 {% for sportart in sportarten_a %}
-                                <label><input onchange="kindOfSportChange(this)" type="checkbox" id="sportart_member2" value="{{ sportart }}">{{ sportart }}</label>
+                                <label><input type="checkbox" id="sportart_member2" value="{{ sportart }}">{{ sportart }}</label>
                                 {% endfor %}
                                 <!--
                                 <label><input type="checkbox" name="Sportart_member1" value="Klettern">Klettern</label>
@@ -221,7 +220,7 @@
                             <div class="sportSelectionColumn">
                                 <h3 class="sub-heading2">Allgemein</h3>
                                 {% for sportart in sportarten_a %}
-                                <label><input onchange="kindOfSportChange(this)" type="checkbox" id="sportart_member3" value="{{ sportart }}">{{ sportart }}</label>
+                                <label><input type="checkbox" id="sportart_member3" value="{{ sportart }}">{{ sportart }}</label>
                                 {% endfor %}
                                 <!--
                                 <label><input type="checkbox" name="Sportart_member1" value="Klettern">Klettern</label>
@@ -274,7 +273,7 @@
                         <div class="sportSelectionColumn">
                             <h3 class="sub-heading2">Allgemein</h3>
                             {% for sportart in sportarten_a %}
-                            <label><input onchange="kindOfSportChange(this)" type="checkbox" id="sportart_member4" value="{{ sportart }}">{{ sportart }}</label>
+                            <label><input type="checkbox" id="sportart_member4" value="{{ sportart }}">{{ sportart }}</label>
                             {% endfor %}
                             <!--
                             <label><input type="checkbox" name="Sportart_member1" value="Klettern">Klettern</label>
@@ -293,7 +292,7 @@
                         <div class="sportSelectionColumn">
                             <h3 class="sub-heading2">Leistungssport</h3>
                             {% for sportart in sportarten_l %}
-                            <label><input onchange="kindOfSportChange(this)" type="checkbox" id="sportart_member4" value="{{ sportart }}">{{ sportart }}</label>
+                            <label><input type="checkbox" id="sportart_member4" value="{{ sportart }}">{{ sportart }}</label>
                             {% endfor %}
                             <!--
                             <label><input type="checkbox" name="Sportart_member1" value="Handball">Handball</label>
@@ -307,7 +306,7 @@
                         <div class="sportSelectionColumn">
                             <h3 class="sub-heading2">Kinder-/Seniorensport</h3>
                             {% for sportart in sportarten_k %}
-                            <label><input onchange="kindOfSportChange(this)" type="checkbox" id="sportart_member4" value="{{ sportart }}">{{ sportart }}</label>
+                            <label><input type="checkbox" id="sportart_member4" value="{{ sportart }}">{{ sportart }}</label>
                             {% endfor %}
                             <!--
                             <label><input type="checkbox" name="Sportart_member1" value="Kinderturnen">Kinderturnen</label>
@@ -327,7 +326,7 @@
                         <div class="sportSelectionColumn">
                             <h3 class="sub-heading2">Allgemein</h3>
                             {% for sportart in sportarten_a %}
-                            <label><input onchange="kindOfSportChange(this)" type="checkbox" id="sportart_member5" value="{{ sportart }}">{{ sportart }}</label>
+                            <label><input type="checkbox" id="sportart_member5" value="{{ sportart }}">{{ sportart }}</label>
                             {% endfor %}
                             <!--
                             <label><input type="checkbox" name="Sportart_member1" value="Klettern">Klettern</label>
@@ -346,7 +345,7 @@
                         <div class="sportSelectionColumn">
                             <h3 class="sub-heading2">Leistungssport</h3>
                             {% for sportart in sportarten_l %}
-                            <label><input onchange="kindOfSportChange(this)" type="checkbox" id="sportart_member5" value="{{ sportart }}">{{ sportart }}</label>
+                            <label><input type="checkbox" id="sportart_member5" value="{{ sportart }}">{{ sportart }}</label>
                             {% endfor %}
                             <!--
                             <label><input type="checkbox" name="Sportart_member1" value="Handball">Handball</label>
@@ -360,7 +359,7 @@
                         <div class="sportSelectionColumn">
                             <h3 class="sub-heading2">Kinder-/Seniorensport</h3>
                             {% for sportart in sportarten_k %}
-                            <label><input onchange="kindOfSportChange(this)" type="checkbox" id="sportart_member5" value="{{ sportart }}">{{ sportart }}</label>
+                            <label><input type="checkbox" id="sportart_member5" value="{{ sportart }}">{{ sportart }}</label>
                             {% endfor %}
                             <!--
                             <label><input type="checkbox" name="Sportart_member1" value="Kinderturnen">Kinderturnen</label>
@@ -439,10 +438,9 @@
                             wiederholen
                         </button>
                     </div>
-
-
                 </div>
-                <div class="callout callout-info">
+
+				<div class="callout callout-info">
                     <p style="font-weight: 700; padding: 2rem; margin-bottom: 0!important;">Kosten gesamt:
                         <span style="font-weight: 500!important" id="totalPrice">0,00€</span>
                     </p>
@@ -456,6 +454,7 @@
 
                 <p style="display: none">Jährlicher Beitrag: <span style="font-weight: 700 !important;" id="yearlyPrice">0,00€</span></p>
                 <p style="display: none">Anmeldekosten: <span style="font-weight: 700 !important;" id="processingFee">0,00€</span></p>
+
 
                 <div class="bottomButtons">
                     <button class="invisButton" type="submit" id="validationButton"></button>
@@ -629,7 +628,6 @@
         }
 
         updateFieldButtons();
-
         function showTooltip(element) {
             var yearlyPrice = document.getElementById('yearlyPrice').textContent;
             var processingFee = document.getElementById('processingFee').textContent;
