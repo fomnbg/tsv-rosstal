@@ -28,7 +28,7 @@
 
     <body>
 
-    <form id="antragsformular" method="post" action="{{ url_for('mitgliedsantrag') }}" name="DAFORM" onSubmit="submitForm();" enctype="multipart/form-data" target="_self">
+    <form id="antragsformular" method="post" action="{{ url_for('mitgliedsantrag') }}">
         <div class="containerMain">
             <h1 class="main-heading">Mitgliedsantrag</h1>
             <!-- Radio button group -->
@@ -243,14 +243,14 @@
                 </div>
                 <div class="addressField">
                     <h2 class="sub-heading3">Adresse</h2>
-                    <input class="inputField" placeholder="Straße Hausnr. " name="adresse">
-                    <input class="inputField" placeholder="Stadt, Postleitzahl" name="ort">
+                    <input class="inputField" placeholder="Straße Hausnr. ">
+                    <input class="inputField" placeholder="Stadt, Postleitzahl">
                 </div>
                 <div class="bankField">
                     <h2 class="sub-heading3">Bankdaten</h2>
-                    <input class="inputField" placeholder="Kontoinhaber/-in" required name="kontoinhaber">
-                    <input class="inputField" type="text" id="iban" placeholder="IBAN" name="iban">
-                    <input class="inputField" placeholder="BIC (nur bei Auslandskonten)" name="bic">
+                    <input class="inputField" placeholder="Kontoinhaber/-in" required>
+                    <input class="inputField" type="text" id="iban" placeholder="IBAN">
+                    <input class="inputField" placeholder="BIC (nur bei Auslandskonten)">
                 </div>
                 <div class="bankField">
                     <h2 class="sub-heading3">SEPA Mandate</h2>

@@ -63,7 +63,6 @@ def mitgliedsantrag():
             # write to database
             ###
             write_to_database(request.form)
-            download_pdf()
             return render_template('daten-uebermittelt.html')
         
         
