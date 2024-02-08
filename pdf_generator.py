@@ -16,11 +16,7 @@ from reportlab.lib import colors
 app = Flask(__name__)
 
 def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, sport_person1, sport_person2, sport_person3, sport_person4, sport_person5, membership_type, adresse, ort, kontoinhaber, iban, bic, signature_data):
-    if ',' in signature_data:
-        signature_image = PILImage.open(BytesIO(base64.b64decode(signature_data.split(',')[1])))
-    else:
-        print("Invalid signature data")
-        # Handle the error appropriately
+    signature_image = PILImage.open(BytesIO(base64.b64decode(signature_data.split(',')[1])))
 
     # PDF Styling ------------------------------------------
 
