@@ -86,10 +86,6 @@ def mitgliedsantrag():
         sportarten_l = [line.strip() for line in lines]
         del lines
 
-        print(sportarten_a)
-        print(sportarten_k)
-        print(sportarten_l)
-
         return render_template('mitgliedsantrag.html', site_key=SITE_KEY, sportarten_a = sportarten_a, sportarten_k = sportarten_k, sportarten_l = sportarten_l)
 
 @app.route('/pricelist')

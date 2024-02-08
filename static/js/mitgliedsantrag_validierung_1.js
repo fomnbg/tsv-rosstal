@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //Sportart befüllen 
 document.addEventListener('DOMContentLoaded', function(){
-    var buttonsMember1 = document.querySelectorAll('input[id="sportart_member1"]'); 
+    var buttonsMember1 = document.querySelectorAll('input[name="sportart_member1"]');
     var sportartMember1 = document.getElementById('sportartenMember1');
     
     buttonsMember1.forEach(function(checkbox) {
@@ -210,7 +210,7 @@ document.addEventListener('DOMContentLoaded', function(){
         });
     });
 
-    var buttonsMember2 = document.querySelectorAll('input[id="sportart_member2"]'); 
+    var buttonsMember2 = document.querySelectorAll('input[name="sportart_member2"]');
     var sportartMember2 = document.getElementById('sportartenMember2');
     
     buttonsMember2.forEach(function(checkbox) {
@@ -224,7 +224,7 @@ document.addEventListener('DOMContentLoaded', function(){
         });
     });
 
-    var buttonsMember3 = document.querySelectorAll('input[id="sportart_member3"]'); 
+    var buttonsMember3 = document.querySelectorAll('input[name="sportart_member3"]');
     var sportartMember3 = document.getElementById('sportartenMember3');
     
     buttonsMember3.forEach(function(checkbox) {
@@ -238,7 +238,7 @@ document.addEventListener('DOMContentLoaded', function(){
         });
     });
 
-    var buttonsMember4 = document.querySelectorAll('input[id="sportart_member4"]'); 
+    var buttonsMember4 = document.querySelectorAll('input[name="sportart_member4"]');
     var sportartMember4 = document.getElementById('sportartenMember4');
     
     buttonsMember4.forEach(function(checkbox) {
@@ -252,7 +252,7 @@ document.addEventListener('DOMContentLoaded', function(){
         });
     });
 
-    var buttonsMember5 = document.querySelectorAll('input[id="sportart_member5"]'); 
+    var buttonsMember5 = document.querySelectorAll('input[name="sportart_member5"]');
     var sportartMember5 = document.getElementById('sportartenMember5');
     
     buttonsMember5.forEach(function(checkbox) {

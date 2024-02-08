@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+
 def load_used_member_numbers(file_path):
     try:
         with open(file_path, 'r') as file:
@@ -12,9 +13,11 @@ def load_used_member_numbers(file_path):
     except (FileNotFoundError, json.JSONDecodeError):
         return {'next_membership_number': 10000, 'used_numbers': []}
 
+
 def save_used_member_numbers(file_path, used_numbers):
     with open(file_path, 'w') as file:
         json.dump(used_numbers, file)
+
 
 def generate_member_numbers(starting_number, count, used_numbers):
     generated_numbers = []
@@ -27,6 +30,7 @@ def generate_member_numbers(starting_number, count, used_numbers):
         generated_numbers.append(number)
     return generated_numbers
 
+
 def write_to_database(form_data):
     for i in range(1, 6):
         if f'vn{i}' in form_data and form_data[f'vn{i}']:
@@ -35,7 +39,7 @@ def write_to_database(form_data):
             geburtsdatum = form_data.get(f'date{i}', '')
             email = form_data.get(f'email{i}', '')
             mobile = form_data.get(f'mobile{i}', '')
-            sportart_member = form_data.get(f'sportart_member{i}', '')
+            sportart_member = form_data.get(f'sportarten_member{i}', '')
             geschlecht = form_data.get(f'gender{i}', '')
 
             # Load used member numbers
@@ -60,7 +64,8 @@ def write_to_database(form_data):
                 insert_query = "INSERT INTO fom_test2 (vorname, nachname, geburtsdatum, email, telefon, sportart, geschlecht, mitgliedsnummer) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
 
                 for number in member_numbers:
-                    cursor.execute(insert_query, (vorname, nachname, geburtsdatum, email, mobile, sportart_member, geschlecht, number))
+                    cursor.execute(insert_query, (
+                    vorname, nachname, geburtsdatum, email, mobile, sportart_member, geschlecht, number))
 
                 # Update the next_membership_number in the used_numbers set
                 used_numbers['next_membership_number'] += 1
