@@ -314,33 +314,3 @@ p {
     font-weight: bolder;
 
 }
-
-
-.callout {
-	border-left: 1rem solid;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 1rem;
-}
-
-.callout-info {
-    background-color: #cff4fc;
-    color: #055160;
-    border-color: #9eeaf9 !important;
-}
-
-#customTooltip {
-    position: absolute;
-    border: 1px solid #ccc;
-    background-color: white;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
-    z-index: 1000;
-}
-
-.disabled{
-	pointer-events: none;
-    opacity: 0.5;
-}
