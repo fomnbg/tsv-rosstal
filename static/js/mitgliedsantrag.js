@@ -14,7 +14,7 @@ window.onload = (event) => {
       berechneKosten();
     });
   })
-}; 
+};
 
 function checkAge() {
   var parentSignature = document.getElementById('parentSignature');

@@ -94,9 +94,9 @@
                 </div>
                 <span class="addFieldButton">
                     <button class="addFieldButtonStyle" type="button" id="addFieldButton" 
-                    onclick="addField()">+</button>
+                        onclick="addField()">+</button>
                     <button class="removeFieldButtonStyle" type="button" id="removeFieldButton" 
-                    onclick="removeField()">-</button>
+                        onclick="removeField()">-</button>
                 </span>
             </div>
 
@@ -361,26 +361,27 @@
                             wiederholen
                         </button>
                     </div>
+                </div>
 
-                    <p>Jährlicher Beitrag: <span id="yearlyPrice">0,00€</span></p>
-                    <p>Anmeldekosten: <span id="processingFee">0,00€</span></p>
-                    <p>--------------------------</p>
-                    <p>Kosten gesamt: <span id="totalPrice">0,00€</span></p>
-    
-                    <div class="bottomButtons">
-                        <button class="invisButton" type="submit" id="validationButton"></button>
-                        <button onclick="defaultProove()" class="button" type="button">Abbrechen</button>
-    
-    
-                        <button class="buttonSubmit g-recaptcha" id="submit_btn" data-sitekey="{{ site_key }}">
-                            Antrag absenden
-                        </button>
-    
-                    </div>
+                <p>Jährlicher Beitrag: <span id="yearlyPrice">0,00€</span></p>
+                <p>Anmeldekosten: <span id="processingFee">0,00€</span></p>
+                <p>--------------------------</p>
+                <p>Kosten gesamt: <span id="totalPrice">0,00€</span></p>
+
+                <div class="bottomButtons">
+                    <button class="invisButton" type="submit" id="validationButton"></button>
+                    <button onclick="defaultProove()" class="button" type="button">Abbrechen</button>
+
+
+                    <button class="buttonSubmit g-recaptcha" id="submit_btn" data-sitekey="{{ site_key }}">
+                        Antrag absenden
+                    </button>
+
                 </div>
             </div>
-        </form>
-    </body>
+        </div>
+    </form>
+</body>
 
 
     <script type="text/javascript">
