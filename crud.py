@@ -3,7 +3,6 @@ import os
 import json
 from dotenv import load_dotenv
 
-# Lade die Werte aus der .env Datei
 load_dotenv()
 
 def load_used_member_numbers(file_path):
