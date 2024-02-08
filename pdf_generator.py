@@ -15,8 +15,9 @@ from reportlab.lib import colors
 
 app = Flask(__name__)
 
-def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, sport_person1, sport_person2, sport_person3, sport_person4, sport_person5, membership_type, adresse, ort, kontoinhaber, iban, bic, signature_data):
-    signature_image = PILImage.open(BytesIO(base64.b64decode(signature_data.split(',')[1])))
+def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, sport_person1, sport_person2, sport_person3, sport_person4, sport_person5, membership_type, adresse, ort, kontoinhaber, iban, bic, signature_data1, signature_data2):
+    signature_image1 = PILImage.open(BytesIO(base64.b64decode(signature_data1.split(',')[1])))
+    signature_image2 = PILImage.open(BytesIO(base64.b64decode(signature_data2.split(',')[1])))
 
     # PDF Styling ------------------------------------------
 
@@ -494,12 +495,23 @@ def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, sp
     ]
 
     # Signatur-Bild zu base64 string konvertieren
-    buffered = BytesIO()
-    signature_image.save(buffered, format="PNG")
-    img_str = base64.b64encode(buffered.getvalue()).decode('utf-8')
+    buffered1 = BytesIO()
+    signature_image1.save(buffered1, format="PNG")
+    img_str1 = base64.b64encode(buffered1.getvalue()).decode('utf-8')
 
-    confirm_table_data[1][1] = PlatypusImage(BytesIO(base64.b64decode(img_str)), width=100, height=30)
-    
+    buffered2 = BytesIO()
+    signature_image2.save(buffered2, format="PNG")
+    img_str2 = base64.b64encode(buffered2.getvalue()).decode('utf-8')
+
+    # Signaturen zu den entsprechenden Tabellenzeilen hinzufügen
+    confirm_table_data[1][1] = PlatypusImage(BytesIO(base64.b64decode(img_str1)), width=100, height=30)
+    confirm_table_data[1].append(Paragraph("Unterschrift Person 1", style_bold))
+
+    confirm_table_data.append([
+        PlatypusImage(BytesIO(base64.b64decode(img_str2)), width=100, height=30),
+        Paragraph("Unterschrift Person 2", style_bold)
+    ])
+
     confirm_table = Table(confirm_table_data, colWidths=col_widths, rowHeights=0.5*inch)
     confirm_table.setStyle(global_table_style)
     confirm_table.hAlign = 'LEFT'
@@ -556,8 +568,8 @@ def download_pdf():
     iban = request.form['iban']
     bic = request.form['bic']
 
-    signature_data = request.form['signature']
-    #signature_data2 = request.form['signature-2']
+    signature_data1 = request.form['signature-1']
+    signature_data2 = request.form['signature-2']
 
     # Angemeldete Sportarten abfragen
 
@@ -636,7 +648,7 @@ def download_pdf():
             sportarten[f'Person{i}']['Kinder-/Seniorensport'].append("Seniorensport")
 
     # PDF Struktur mit Werten befüllen
-    generate_pdf(file_path, persons['Person1'], persons['Person2'], persons['Person3'], persons['Person4'], persons['Person5'], sportarten['Person1'], sportarten['Person2'], sportarten['Person3'], sportarten['Person4'], sportarten['Person5'], membership_type, adresse, ort, kontoinhaber, iban, bic, signature_data)
+    generate_pdf(file_path, persons['Person1'], persons['Person2'], persons['Person3'], persons['Person4'], persons['Person5'], sportarten['Person1'], sportarten['Person2'], sportarten['Person3'], sportarten['Person4'], sportarten['Person5'], membership_type, adresse, ort, kontoinhaber, iban, bic, signature_data1, signature_data2)
 
     return send_file(
         file_path,

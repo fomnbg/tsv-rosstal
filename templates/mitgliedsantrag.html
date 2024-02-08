@@ -280,7 +280,7 @@
                                 <div id="signature-pad" class="m-signature-pad">
                                     <div class="m-signature-pad--body">
                                         <canvas></canvas>
-                                        <input type="hidden" name="signature" id="signature" value="">
+                                        <input type="hidden" name="signature-1" id="signature-1" value="">
                                         <input type="hidden" name="signature-2" id="signature-2" value="">
                                     </div>
                                 </div>
@@ -351,7 +351,7 @@
         canvas1 = wrapper1.querySelector("canvas"),
         signaturePad1;
 
-    var wrapper2 = document.getElementById("signature-pad-2"),
+        var wrapper2 = document.getElementById("signature-pad-2"),
         canvas2 = wrapper2.querySelector("canvas"),
         signaturePad2;
 
@@ -385,7 +385,7 @@
     }
 
     function submitForm() {
-        document.getElementById('signature').value = signaturePad1.toDataURL();
+        document.getElementById('signature-1').value = signaturePad1.toDataURL();
         document.getElementById('signature-2').value = signaturePad2.toDataURL();
     }
 
