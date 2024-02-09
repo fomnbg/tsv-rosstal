@@ -1,0 +1,60 @@
+<!--
+    This macro simplifies the process of rendering a form with various options 
+    and is likely part of a larger framework or application
+    that uses WTForms for form handling and Jinja2 for template rendering.
+-->
+{% extends 'env\Lib\site-packages\flask_bootstrap\templates\bootstrap4\form.html' %}
+
+{# valid form types are "basic", "inline" and "horizontal" #}
+{% macro render_form_default(form,
+                    action=None,
+                    method="post",
+                    extra_classes=None,
+                    role="form",
+                    form_type="basic",
+                    enctype=None,
+                    id=None,
+                    novalidate=False,
+                    render_kw={}) %} {# horizontal_columns / button_map / btn_class_default in kwargs #}
+{# action attribute should not be "", see https://www.w3.org/TR/html5/sec-forms.html#element-attrdef-form-action
+    "The action and formaction content attributes, if specified, must have a value that is a valid non-empty URL
+    potentially surrounded by spaces." #}
+    {#- if any file fields are inside the form and enctype is automatic, adjust
+    if file fields are found. could really use the equalto test of jinja2
+    here, but latter is not available until 2.8
+
+    warning: the code below is guaranteed to make you cry =(
+#}
+    {%- set _enctype = [] %}
+    {%- if enctype is none -%}
+        {%- for field in form %}
+            {%- if field.type == 'FileField' %}
+                {#- for loops come with a fairly watertight scope, so this list-hack is
+          used to be able to set values outside of it #}
+                {%- set _ = _enctype.append('multipart/form-data') -%}
+            {%- endif %}
+        {%- endfor %}
+    {%- else %}
+        {% set _ = _enctype.append(enctype) %}
+    {%- endif %}
+    <form{%- if action %} action="{{ action }}"{% endif -%}
+            {%- if id %} id="{{ id }}"{% endif -%}
+            {%- if method %} method="{{ method }}"{% endif %}
+            class="form
+{%- if extra_classes %} {{ extra_classes }}{% endif -%}{%- if form_type == "inline" %} form-inline{% endif -%}"
+            {%- if _enctype[0] %} enctype="{{ _enctype[0] }}"{% endif -%}
+            {%- if role %} role="{{ role }}"{% endif -%}
+            {%- if novalidate %} novalidate{% endif -%}
+            {%- if render_kw %} {{ render_kw|xmlattr }}{% endif -%}>
+        {{ form.hidden_tag() }}
+        {{ form_errors(form, hiddens='only') }}
+        {%- for field in form %}
+            {% if not bootstrap_is_hidden_field(field) -%}
+                {{ render_field_default(field,
+                    form_id=id,
+                    form_type=form_type,
+                    **kwargs) }} {# horizontal_columns / button_map / btn_class_default in kwargs #}
+            {%- endif %}
+        {%- endfor %}
+    </form>
+{%- endmacro %}

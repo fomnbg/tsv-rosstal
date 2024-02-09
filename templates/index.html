@@ -5,9 +5,23 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Wilkommen</title>
 {% endblock %}
 
 {% block body %}
-    <h1>Index</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h1>Willkommen beim TSV Roßtal</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, libero ut consectetur elementum,
+                    arcu odio tristique nunc, sit amet elementum odio ligula eget turpis. In hac habitasse platea dictumst.</p>
+                <p>Phasellus ultricies felis eu justo blandit, at consequat libero dictum. Integer ac bibendum odio. Vivamus
+                    scelerisque nisi vel tellus auctor, eget volutpat erat facilisis.</p>
+            </div>
+            <div class="col-md-6">
+                <img src="{{ url_for('static', filename='images/placeholder-image.jpg') }}" alt="Placeholder Image">
+            </div>
+        </div>
+    </div>
 {% endblock %}
+

@@ -1,2 +1,8 @@
 venv
+env
 .idea
+credentials.env
+__pycache__
+mitglieder.json
+.env
+used_member_numbers.json
