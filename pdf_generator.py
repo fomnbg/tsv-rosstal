@@ -114,8 +114,9 @@ def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, sp
     story.append(table_zahlendes_mitglied)
     story.append(Spacer(1, 0.2*inch))
 
-    # Tabelle für Sportarten ------------------------------------------
+    # Sportarten ------------------------------------------
     story.append(Paragraph("Gewählte Sportarten", style_heading))
+    sport_person1 = [item.replace("Tae Bo", "Tae-Bo").replace("Power Workout", "Power-Workout").replace("Passives Mitglied", "Passives-Mitglied") for item in sport_person1]
     sport_person1_string = ', '.join(sport_person1).replace(' ', ', ').lstrip(', ').rstrip(', ')
     story.append(Paragraph(sport_person1_string))
     
@@ -156,50 +157,11 @@ def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, sp
         story.append(table_mitglied2)
         story.append(Spacer(1, 0.2*inch))
 
-
-        #Sportarten 2. Person ------------
-
+        # Sportarten ------------------------------------------
         story.append(Paragraph("Gewählte Sportarten", style_heading))
-        
-        header_row = [
-        Paragraph("Allgemein:", style_bold),
-        Paragraph("Leistungssport:", style_bold),
-        Paragraph("Kinder-/Seniorensport:", style_bold)
-        ]
-
-        table_sport2 = [header_row]
-
-        # Finde die maximale Länge der Werte in den Kategorien, um die Anzahl der Zeilen zu bestimmen
-        max_length = max(
-            len(sport_person2.get('Allgemein', [])),
-            len(sport_person2.get('Leistungssport', [])),
-            len(sport_person2.get('Kinder-/Seniorensport', []))
-        )
-
-        # Erhöhe die Indizes, um neue Werte hinzuzufügen, ohne vorhandene zu überschreiben
-        for i in range(max_length):
-            row = ["", "", ""]  # Leere Zeile für die Sportarten
-
-            # Füge die Werte der Allgemein-Kategorie in die Tabelle ein
-            
-            if i < len(sport_person2.get('Allgemein', [])):
-                row[0] = sport_person2['Allgemein'][i]
-
-            # Füge die Werte der Leistungssport-Kategorie in die Tabelle ein
-            if i < len(sport_person2.get('Leistungssport', [])):
-                row[1] = sport_person2['Leistungssport'][i]
-
-            # Füge die Werte der Kinder-/Seniorensport-Kategorie in die Tabelle ein
-            if i < len(sport_person2.get('Kinder-/Seniorensport', [])):
-                row[2] = sport_person2['Kinder-/Seniorensport'][i]
-
-            table_sport2.append(row)
-
-        sport_table2 = Table(table_sport2, colWidths=col_widths_sports, rowHeights=20)  # Breite der Spalten angepasst
-        sport_table2.setStyle(global_table_style)
-        sport_table2.hAlign = 'LEFT'
-
-        story.append(sport_table2)
+        sport_person2 = [item.replace("Tae Bo", "Tae-Bo").replace("Power Workout", "Power-Workout").replace("Passives Mitglied", "Passives-Mitglied") for item in sport_person2]
+        sport_person2_string = ', '.join(sport_person2).replace(' ', ', ').lstrip(', ').rstrip(', ')
+        story.append(Paragraph(sport_person2_string))
 
     # Start 3. Person ------------------------------------------------
     if f'vn3' in request.form:
@@ -239,49 +201,11 @@ def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, sp
         story.append(Spacer(1, 0.2*inch))
 
 
-        #Sportarten 3. Person ------------
-
+        # Sportarten ------------------------------------------
         story.append(Paragraph("Gewählte Sportarten", style_heading))
-        
-        header_row = [
-        Paragraph("Allgemein:", style_bold),
-        Paragraph("Leistungssport:", style_bold),
-        Paragraph("Kinder-/Seniorensport:", style_bold)
-        ]
-
-        table_sport3 = [header_row]
-
-        # Finde die maximale Länge der Werte in den Kategorien, um die Anzahl der Zeilen zu bestimmen
-        max_length = max(
-            len(sport_person3.get('Allgemein', [])),
-            len(sport_person3.get('Leistungssport', [])),
-            len(sport_person3.get('Kinder-/Seniorensport', []))
-        )
-
-        # Erhöhe die Indizes, um neue Werte hinzuzufügen, ohne vorhandene zu überschreiben
-        for i in range(max_length):
-            row = ["", "", ""]  # Leere Zeile für die Sportarten
-
-            # Füge die Werte der Allgemein-Kategorie in die Tabelle ein
-            
-            if i < len(sport_person3.get('Allgemein', [])):
-                row[0] = sport_person3['Allgemein'][i]
-
-            # Füge die Werte der Leistungssport-Kategorie in die Tabelle ein
-            if i < len(sport_person3.get('Leistungssport', [])):
-                row[1] = sport_person3['Leistungssport'][i]
-
-            # Füge die Werte der Kinder-/Seniorensport-Kategorie in die Tabelle ein
-            if i < len(sport_person3.get('Kinder-/Seniorensport', [])):
-                row[2] = sport_person3['Kinder-/Seniorensport'][i]
-
-            table_sport3.append(row)
-
-        sport_table3 = Table(table_sport3, colWidths=col_widths_sports, rowHeights=20)  # Breite der Spalten angepasst
-        sport_table3.setStyle(global_table_style)
-        sport_table3.hAlign = 'LEFT'
-
-        story.append(sport_table3)
+        sport_person3 = [item.replace("Tae Bo", "Tae-Bo").replace("Power Workout", "Power-Workout").replace("Passives Mitglied", "Passives-Mitglied") for item in sport_person3]
+        sport_person3_string = ', '.join(sport_person3).replace(' ', ', ').lstrip(', ').rstrip(', ')
+        story.append(Paragraph(sport_person3_string))
 
     # Start 4. Person ------------------------------------------------
     if f'vn4' in request.form:
@@ -321,49 +245,11 @@ def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, sp
         story.append(Spacer(1, 0.2*inch))
 
 
-        #Sportarten 4. Person ------------
-
+        # Sportarten ------------------------------------------
         story.append(Paragraph("Gewählte Sportarten", style_heading))
-        
-        header_row = [
-        Paragraph("Allgemein:", style_bold),
-        Paragraph("Leistungssport:", style_bold),
-        Paragraph("Kinder-/Seniorensport:", style_bold)
-        ]
-
-        table_sport4 = [header_row]
-
-        # Finde die maximale Länge der Werte in den Kategorien, um die Anzahl der Zeilen zu bestimmen
-        max_length = max(
-            len(sport_person4.get('Allgemein', [])),
-            len(sport_person4.get('Leistungssport', [])),
-            len(sport_person4.get('Kinder-/Seniorensport', []))
-        )
-
-        # Erhöhe die Indizes, um neue Werte hinzuzufügen, ohne vorhandene zu überschreiben
-        for i in range(max_length):
-            row = ["", "", ""]  # Leere Zeile für die Sportarten
-
-            # Füge die Werte der Allgemein-Kategorie in die Tabelle ein
-            
-            if i < len(sport_person4.get('Allgemein', [])):
-                row[0] = sport_person4['Allgemein'][i]
-
-            # Füge die Werte der Leistungssport-Kategorie in die Tabelle ein
-            if i < len(sport_person4.get('Leistungssport', [])):
-                row[1] = sport_person4['Leistungssport'][i]
-
-            # Füge die Werte der Kinder-/Seniorensport-Kategorie in die Tabelle ein
-            if i < len(sport_person4.get('Kinder-/Seniorensport', [])):
-                row[2] = sport_person4['Kinder-/Seniorensport'][i]
-
-            table_sport4.append(row)
-
-        sport_table4 = Table(table_sport4, colWidths=col_widths_sports, rowHeights=20)  # Breite der Spalten angepasst
-        sport_table4.setStyle(global_table_style)
-        sport_table4.hAlign = 'LEFT'
-
-        story.append(sport_table4)
+        sport_person4 = [item.replace("Tae Bo", "Tae-Bo").replace("Power Workout", "Power-Workout").replace("Passives Mitglied", "Passives-Mitglied") for item in sport_person4]
+        sport_person4_string = ', '.join(sport_person4).replace(' ', ', ').lstrip(', ').rstrip(', ')
+        story.append(Paragraph(sport_person4_string))
 
     # Start 5. Person ------------------------------------------------
     if f'vn5' in request.form:
@@ -405,47 +291,11 @@ def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, sp
 
         #Sportarten 5. Person ------------
 
+        # Sportarten ------------------------------------------
         story.append(Paragraph("Gewählte Sportarten", style_heading))
-        
-        header_row = [
-        Paragraph("Allgemein:", style_bold),
-        Paragraph("Leistungssport:", style_bold),
-        Paragraph("Kinder-/Seniorensport:", style_bold)
-        ]
-
-        table_sport5 = [header_row]
-
-        # Finde die maximale Länge der Werte in den Kategorien, um die Anzahl der Zeilen zu bestimmen
-        max_length = max(
-            len(sport_person5.get('Allgemein', [])),
-            len(sport_person5.get('Leistungssport', [])),
-            len(sport_person5.get('Kinder-/Seniorensport', []))
-        )
-
-        # Erhöhe die Indizes, um neue Werte hinzuzufügen, ohne vorhandene zu überschreiben
-        for i in range(max_length):
-            row = ["", "", ""]  # Leere Zeile für die Sportarten
-
-            # Füge die Werte der Allgemein-Kategorie in die Tabelle ein
-            
-            if i < len(sport_person5.get('Allgemein', [])):
-                row[0] = sport_person5['Allgemein'][i]
-
-            # Füge die Werte der Leistungssport-Kategorie in die Tabelle ein
-            if i < len(sport_person5.get('Leistungssport', [])):
-                row[1] = sport_person5['Leistungssport'][i]
-
-            # Füge die Werte der Kinder-/Seniorensport-Kategorie in die Tabelle ein
-            if i < len(sport_person5.get('Kinder-/Seniorensport', [])):
-                row[2] = sport_person5['Kinder-/Seniorensport'][i]
-
-            table_sport5.append(row)
-
-        sport_table5 = Table(table_sport5, colWidths=col_widths_sports, rowHeights=20)  # Breite der Spalten angepasst
-        sport_table5.setStyle(global_table_style)
-        sport_table5.hAlign = 'LEFT'
-
-        story.append(sport_table5)
+        sport_person5 = [item.replace("Tae Bo", "Tae-Bo").replace("Power Workout", "Power-Workout").replace("Passives Mitglied", "Passives-Mitglied") for item in sport_person5]
+        sport_person5_string = ', '.join(sport_person5).replace(' ', ', ').lstrip(', ').rstrip(', ')
+        story.append(Paragraph(sport_person5_string))
 
     # Tabelle für Antrag bestätigt ------------------------------------------
     confirm_heading = "Antrag bestätigt"
@@ -454,13 +304,14 @@ def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, sp
         confirm_table_data = [
         [Paragraph("Zustimmung:", style_bold), "Zustimmung zu AGB, Datenschutz, Lastschrifteinzug erteilt."],
         [Paragraph("Unterschrift:", style_bold), None, None],
-        [None, None, Paragraph("Unterschrift Person 2")],
+        [None, None, None],
         [Paragraph("Antrag gesendet:", style_bold), datetime.datetime.now().strftime("%d.%m.%Y %H:%M")]
-        ]
+    ]
+
     else:
         confirm_table_data = [
         [Paragraph("Zustimmung:", style_bold), "Zustimmung zu AGB, Datenschutz, Lastschrifteinzug erteilt."],
-        [Paragraph("Unterschrift:", style_bold), None, Paragraph("Unterschrift Person 1")],
+        [Paragraph("Unterschrift:", style_bold), None, None],
         [Paragraph("Antrag gesendet:", style_bold), datetime.datetime.now().strftime("%d.%m.%Y %H:%M")]
     ]
 
@@ -474,13 +325,18 @@ def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, sp
     img_str2 = base64.b64encode(buffered2.getvalue()).decode('utf-8')
 
     # Signaturen zu den entsprechenden Tabellenzeilen hinzufügen
-    confirm_table_data[1][1] = PlatypusImage(BytesIO(base64.b64decode(img_str1)), width=100, height=30)
-    confirm_table_data[1][2] = Paragraph(f"{persons1['vn']} {persons1['nn']}")
-
-
     if 'signature-2' in request.form and request.form['signature-2']:
-        confirm_table_data[2][1] = PlatypusImage(BytesIO(base64.b64decode(img_str2)), width=100, height=30)
+        confirm_table_data[1][1] = PlatypusImage(BytesIO(base64.b64decode(img_str2)), width=100, height=30)
+        confirm_table_data[1][2] = Paragraph(f"{persons1['vn']} {persons1['nn']}")
+        
+        confirm_table_data[2][1] = PlatypusImage(BytesIO(base64.b64decode(img_str1)), width=100, height=30)
         confirm_table_data[2][2] = Paragraph(f"{persons2['vn']} {persons2['nn']}")
+    
+    else:
+        confirm_table_data[1][1] = PlatypusImage(BytesIO(base64.b64decode(img_str1)), width=100, height=30)
+        confirm_table_data[1][2] = Paragraph(f"{persons1['vn']} {persons1['nn']}")
+
+
 
     confirm_table = Table(confirm_table_data, colWidths=col_widths, rowHeights=0.5*inch)
     confirm_table.setStyle(global_table_style)
