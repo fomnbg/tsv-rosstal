@@ -116,47 +116,9 @@ def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, sp
 
     # Tabelle für Sportarten ------------------------------------------
     story.append(Paragraph("Gewählte Sportarten", style_heading))
+    sport_person1_string = ', '.join(sport_person1).replace(' ', ', ').lstrip(', ').rstrip(', ')
+    story.append(Paragraph(sport_person1_string))
     
-    header_row = [
-    Paragraph("Allgemein:", style_bold),
-    Paragraph("Leistungssport:", style_bold),
-    Paragraph("Kinder-/Seniorensport:", style_bold)
-]
-
-    table_sport1 = [header_row]
-
-    # Finde die maximale Länge der Werte in den Kategorien, um die Anzahl der Zeilen zu bestimmen
-    max_length = max(
-        len(sport_person1.get('Allgemein', [])),
-        len(sport_person1.get('Leistungssport', [])),
-        len(sport_person1.get('Kinder-/Seniorensport', []))
-    )
-
-    # Erhöhe die Indizes, um neue Werte hinzuzufügen, ohne vorhandene zu überschreiben
-    for i in range(max_length):
-        row = ["", "", ""]  # Leere Zeile für die Sportarten
-
-        # Füge die Werte der Allgemein-Kategorie in die Tabelle ein
-        
-        if i < len(sport_person1.get('Allgemein', [])):
-            row[0] = sport_person1['Allgemein'][i]
-
-        # Füge die Werte der Leistungssport-Kategorie in die Tabelle ein
-        if i < len(sport_person1.get('Leistungssport', [])):
-            row[1] = sport_person1['Leistungssport'][i]
-
-        # Füge die Werte der Kinder-/Seniorensport-Kategorie in die Tabelle ein
-        if i < len(sport_person1.get('Kinder-/Seniorensport', [])):
-            row[2] = sport_person1['Kinder-/Seniorensport'][i]
-
-        table_sport1.append(row)
-
-    sport_table = Table(table_sport1, colWidths=col_widths_sports, rowHeights=20)  # Breite der Spalten angepasst
-    sport_table.setStyle(global_table_style)
-    sport_table.hAlign = 'LEFT'
-
-    story.append(sport_table)
-
     # Start 2. Person ------------------------------------------------
     if f'vn2' in request.form:
         mitglied2 = [
@@ -488,9 +450,17 @@ def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, sp
     # Tabelle für Antrag bestätigt ------------------------------------------
     confirm_heading = "Antrag bestätigt"
 
-    confirm_table_data = [
+    if 'signature-2' in request.form and request.form['signature-2']:
+        confirm_table_data = [
         [Paragraph("Zustimmung:", style_bold), "Zustimmung zu AGB, Datenschutz, Lastschrifteinzug erteilt."],
-        [Paragraph("Unterschrift:", style_bold), None],
+        [Paragraph("Unterschrift:", style_bold), None, None],
+        [None, None, Paragraph("Unterschrift Person 2")],
+        [Paragraph("Antrag gesendet:", style_bold), datetime.datetime.now().strftime("%d.%m.%Y %H:%M")]
+        ]
+    else:
+        confirm_table_data = [
+        [Paragraph("Zustimmung:", style_bold), "Zustimmung zu AGB, Datenschutz, Lastschrifteinzug erteilt."],
+        [Paragraph("Unterschrift:", style_bold), None, Paragraph("Unterschrift Person 1")],
         [Paragraph("Antrag gesendet:", style_bold), datetime.datetime.now().strftime("%d.%m.%Y %H:%M")]
     ]
 
@@ -505,12 +475,12 @@ def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, sp
 
     # Signaturen zu den entsprechenden Tabellenzeilen hinzufügen
     confirm_table_data[1][1] = PlatypusImage(BytesIO(base64.b64decode(img_str1)), width=100, height=30)
-    confirm_table_data[1].append(Paragraph("Unterschrift Person 1", style_bold))
+    confirm_table_data[1][2] = Paragraph(f"{persons1['vn']} {persons1['nn']}")
 
-    confirm_table_data.append([
-        PlatypusImage(BytesIO(base64.b64decode(img_str2)), width=100, height=30),
-        Paragraph("Unterschrift Person 2", style_bold)
-    ])
+
+    if 'signature-2' in request.form and request.form['signature-2']:
+        confirm_table_data[2][1] = PlatypusImage(BytesIO(base64.b64decode(img_str2)), width=100, height=30)
+        confirm_table_data[2][2] = Paragraph(f"{persons2['vn']} {persons2['nn']}")
 
     confirm_table = Table(confirm_table_data, colWidths=col_widths, rowHeights=0.5*inch)
     confirm_table.setStyle(global_table_style)
@@ -574,78 +544,16 @@ def download_pdf():
     # Angemeldete Sportarten abfragen
 
     sportarten = {
-    'Person1': {
-        'Allgemein': [],
-        'Leistungssport': [],
-        'Kinder-/Seniorensport': []
-    },
-    'Person2': {
-        'Allgemein': [],
-        'Leistungssport': [],
-        'Kinder-/Seniorensport': []
-    },
-    'Person3': {
-        'Allgemein': [],
-        'Leistungssport': [],
-        'Kinder-/Seniorensport': []
-    },
-    'Person4': {
-        'Allgemein': [],
-        'Leistungssport': [],
-        'Kinder-/Seniorensport': []
-    },
-    'Person5': {
-        'Allgemein': [],
-        'Leistungssport': [],
-        'Kinder-/Seniorensport': []
-    }
+    'Person1': [],
+    'Person2': [],
+    'Person3': [],
+    'Person4': [],
+    'Person5': [],
 }
 
     for i in range(1, 5):  # Abrage für die 5 Personen
-        if f'klettern{i}' in request.form:
-            sportarten[f'Person{i}']['Allgemein'].append("Klettern")
-        if f'volleyball{i}' in request.form:
-            sportarten[f'Person{i}']['Allgemein'].append("Volleyball")
-        if f'indiaca{i}' in request.form:
-            sportarten[f'Person{i}']['Allgemein'].append("Indiaca")
-        if f'faustball{i}' in request.form:
-            sportarten[f'Person{i}']['Allgemein'].append("Faustball")
-        if f'basketball{i}' in request.form:
-            sportarten[f'Person{i}']['Allgemein'].append("Basketball")
-        if f'boule{i}' in request.form:
-            sportarten[f'Person{i}']['Allgemein'].append("Boule")
-        if f'tae_bo{i}' in request.form:
-            sportarten[f'Person{i}']['Allgemein'].append("Tae Bo")
-        if f'pilates{i}' in request.form:
-            sportarten[f'Person{i}']['Allgemein'].append("Pilates")
-        if f'fitness{i}' in request.form:
-            sportarten[f'Person{i}']['Allgemein'].append("Fitness")
-        if f'power_workout{i}' in request.form:
-            sportarten[f'Person{i}']['Allgemein'].append("Power Workout")
-        if f'passives_mitglied{i}' in request.form:
-            sportarten[f'Person{i}']['Allgemein'].append("Passives Mitglied")
-
-        if f'handball{i}' in request.form:
-            sportarten[f'Person{i}']['Leistungssport'].append("Handball")
-        if f'fussball{i}' in request.form:
-            sportarten[f'Person{i}']['Leistungssport'].append("Fußball")
-        if f'turnen{i}' in request.form:
-            sportarten[f'Person{i}']['Leistungssport'].append("Turnen")
-        if f'judo{i}' in request.form:
-            sportarten[f'Person{i}']['Leistungssport'].append("Sportarten")
-        if f'badminton{i}' in request.form:
-            sportarten[f'Person{i}']['Leistungssport'].append("Badminton")
-        if f'tischtennis{i}' in request.form:
-            sportarten[f'Person{i}']['Leistungssport'].append("Tischtennis")
-
-        if f'kinderturnen{i}' in request.form:
-            sportarten[f'Person{i}']['Kinder-/Seniorensport'].append("Kinderturnen")
-        if f'mutter_kind{i}' in request.form:
-            sportarten[f'Person{i}']['Kinder-/Seniorensport'].append("Mutter-/Kind")
-        if f'ballschule{i}' in request.form:
-            sportarten[f'Person{i}']['Kinder-/Seniorensport'].append("Ballschule")
-        if f'seniorensport{i}' in request.form:
-            sportarten[f'Person{i}']['Kinder-/Seniorensport'].append("Seniorensport")
+        if f'sportarten_member{i}' in request.form:
+            sportarten[f'Person{i}'].append(request.form[f'sportarten_member{i}'])
 
     # PDF Struktur mit Werten befüllen
     generate_pdf(file_path, persons['Person1'], persons['Person2'], persons['Person3'], persons['Person4'], persons['Person5'], sportarten['Person1'], sportarten['Person2'], sportarten['Person3'], sportarten['Person4'], sportarten['Person5'], membership_type, adresse, ort, kontoinhaber, iban, bic, signature_data1, signature_data2)
