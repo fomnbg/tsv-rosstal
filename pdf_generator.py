@@ -17,7 +17,9 @@ app = Flask(__name__)
 
 def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, sport_person1, sport_person2, sport_person3, sport_person4, sport_person5, membership_type, adresse, ort, kontoinhaber, iban, bic, signature_data1, signature_data2):
     signature_image1 = PILImage.open(BytesIO(base64.b64decode(signature_data1.split(',')[1])))
-    signature_image2 = PILImage.open(BytesIO(base64.b64decode(signature_data2.split(',')[1])))
+    
+    if signature_data2 is not None:
+        signature_image2 = PILImage.open(BytesIO(base64.b64decode(signature_data2.split(',')[1])))
 
     # PDF Styling ------------------------------------------
 
@@ -320,12 +322,13 @@ def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, sp
     signature_image1.save(buffered1, format="PNG")
     img_str1 = base64.b64encode(buffered1.getvalue()).decode('utf-8')
 
-    buffered2 = BytesIO()
-    signature_image2.save(buffered2, format="PNG")
-    img_str2 = base64.b64encode(buffered2.getvalue()).decode('utf-8')
+    if signature_data2 is not None:
+        buffered2 = BytesIO()
+        signature_image2.save(buffered2, format="PNG")
+        img_str2 = base64.b64encode(buffered2.getvalue()).decode('utf-8')
 
     # Signaturen zu den entsprechenden Tabellenzeilen hinzufügen
-    if 'signature-2' in request.form and request.form['signature-2']:
+    if signature_data2 is not None:
         confirm_table_data[1][1] = PlatypusImage(BytesIO(base64.b64decode(img_str2)), width=100, height=30)
         confirm_table_data[1][2] = Paragraph(f"{persons1['vn']} {persons1['nn']}")
         
@@ -394,8 +397,19 @@ def download_pdf():
     iban = request.form['iban']
     bic = request.form['bic']
 
+    leereSignatur = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAogAAACCCAYAAADFTTn1AAAHf0lEQVR4Xu3ZIQ7EMBAEwfj/nw51QKTmU4eXbK1BK3cePwIECBAgQIAAAQKXwKFBgAABAgQIECBA4BYQiN4DAQIECBAgQIDAR0AgehAECBAgQIAAAQIC0RsgQIAAAQIECBD4F/AF0esgQIAAAQIECBDwBdEbIECAAAECBAgQ8AXRGyBAgAABAgQIEIgC/mKOUMYIECBAgAABAisCAnHl0vYkQIAAAQIECEQBgRihjBEgQIAAAQIEVgQE4sql7UmAAAECBAgQiAICMUIZI0CAAAECBAisCAjElUvbkwABAgQIECAQBQRihDJGgAABAgQIEFgREIgrl7YnAQIECBAgQCAKCMQIZYwAAQIECBAgsCIgEFcubU8CBAgQIECAQBQQiBHKGAECBAgQIEBgRUAgrlzangQIECBAgACBKCAQI5QxAgQIECBAgMCKgEBcubQ9CRAgQIAAAQJRQCBGKGMECBAgQIAAgRUBgbhyaXsSIECAAAECBKKAQIxQxggQIECAAAECKwICceXS9iRAgAABAgQIRAGBGKGMESBAgAABAgRWBATiyqXtSYAAAQIECBCIAgIxQhkjQIAAAQIECKwICMSVS9uTAAECBAgQIBAFBGKEMkaAAAECBAgQWBEQiCuXticBAgQIECBAIAoIxAhljAABAgQIECCwIiAQVy5tTwIECBAgQIBAFBCIEcoYAQIECBAgQGBFQCCuXNqeBAgQIECAAIEoIBAjlDECBAgQIECAwIqAQFy5tD0JECBAgAABAlFAIEYoYwQIECBAgACBFQGBuHJpexIgQIAAAQIEooBAjFDGCBAgQIAAAQIrAgJx5dL2JECAAAECBAhEAYEYoYwRIECAAAECBFYEBOLKpe1JgAABAgQIEIgCAjFCGSNAgAABAgQIrAgIxJVL25MAAQIECBAgEAUEYoQyRoAAAQIECBBYERCIK5e2JwECBAgQIEAgCgjECGWMAAECBAgQILAiIBBXLm1PAgQIECBAgEAUEIgRyhgBAgQIECBAYEVAIK5c2p4ECBAgQIAAgSggECOUMQIECBAgQIDAioBAXLm0PQkQIECAAAECUUAgRihjBAgQIECAAIEVAYG4cml7EiBAgAABAgSigECMUMYIECBAgAABAisCAnHl0vYkQIAAAQIECEQBgRihjBEgQIAAAQIEVgQE4sql7UmAAAECBAgQiAICMUIZI0CAAAECBAisCAjElUvbkwABAgQIECAQBQRihDJGgAABAgQIEFgREIgrl7YnAQIECBAgQCAKCMQIZYwAAQIECBAgsCIgEFcubU8CBAgQIECAQBQQiBHKGAECBAgQIEBgRUAgrlzangQIECBAgACBKCAQI5QxAgQIECBAgMCKgEBcubQ9CRAgQIAAAQJRQCBGKGMECBAgQIAAgRUBgbhyaXsSIECAAAECBKKAQIxQxggQIECAAAECKwICceXS9iRAgAABAgQIRAGBGKGMESBAgAABAgRWBATiyqXtSYAAAQIECBCIAgIxQhkjQIAAAQIECKwICMSVS9uTAAECBAgQIBAFBGKEMkaAAAECBAgQWBEQiCuXticBAgQIECBAIAoIxAhljAABAgQIECCwIiAQVy5tTwIECBAgQIBAFBCIEcoYAQIECBAgQGBFQCCuXNqeBAgQIECAAIEoIBAjlDECBAgQIECAwIqAQFy5tD0JECBAgAABAlFAIEYoYwQIECBAgACBFQGBuHJpexIgQIAAAQIEooBAjFDGCBAgQIAAAQIrAgJx5dL2JECAAAECBAhEAYEYoYwRIECAAAECBFYEBOLKpe1JgAABAgQIEIgCAjFCGSNAgAABAgQIrAgIxJVL25MAAQIECBAgEAUEYoQyRoAAAQIECBBYERCIK5e2JwECBAgQIEAgCgjECGWMAAECBAgQILAiIBBXLm1PAgQIECBAgEAUEIgRyhgBAgQIECBAYEVAIK5c2p4ECBAgQIAAgSggECOUMQIECBAgQIDAioBAXLm0PQkQIECAAAECUUAgRihjBAgQIECAAIEVAYG4cml7EiBAgAABAgSigECMUMYIECBAgAABAisCAnHl0vYkQIAAAQIECEQBgRihjBEgQIAAAQIEVgQE4sql7UmAAAECBAgQiAICMUIZI0CAAAECBAisCAjElUvbkwABAgQIECAQBQRihDJGgAABAgQIEFgREIgrl7YnAQIECBAgQCAKCMQIZYwAAQIECBAgsCIgEFcubU8CBAgQIECAQBQQiBHKGAECBAgQIEBgRUAgrlzangQIECBAgACBKCAQI5QxAgQIECBAgMCKgEBcubQ9CRAgQIAAAQJRQCBGKGMECBAgQIAAgRUBgbhyaXsSIECAAAECBKKAQIxQxggQIECAAAECKwICceXS9iRAgAABAgQIRAGBGKGMESBAgAABAgRWBATiyqXtSYAAAQIECBCIAgIxQhkjQIAAAQIECKwICMSVS9uTAAECBAgQIBAFBGKEMkaAAAECBAgQWBEQiCuXticBAgQIECBAIAoIxAhljAABAgQIECCwIiAQVy5tTwIECBAgQIBAFHgBIG8AgzZprpcAAAAASUVORK5CYII='
+
     signature_data1 = request.form['signature-1']
-    signature_data2 = request.form['signature-2']
+    #signature_data2 = request.form['signature-2']
+
+    if 'signature-2' in request.form and not request.form['signature-2'] == leereSignatur:
+    # Wenn 'signature-2' im Formular vorhanden ist und die Klasse 'hidden-opacity' nicht enthält
+    # Dann kannst du den Wert von 'signature-2' verwenden
+        signature_data2 = request.form['signature-2']
+
+    else:
+    # Andernfalls ist 'signature-2' nicht vorhanden oder hat die Klasse 'hidden-opacity'
+       signature_data2 = None
 
     # Angemeldete Sportarten abfragen
 
