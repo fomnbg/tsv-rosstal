@@ -113,6 +113,10 @@ function generateToken() {
     var absenden = document.getElementById('submit_btn');
     absenden.click();
 }
+function generateToken() {
+    var absenden = document.getElementById('submit_btn');
+    absenden.click();
+}
 
 function defaultProove() {
     console.log("defaultProove() called");
@@ -120,6 +124,7 @@ function defaultProove() {
 	button.click();
     return 1;
 }
+
 
 function proove_alter(){
     var alter = document.getElementById('date1');
@@ -155,7 +160,7 @@ function proove_iban() {
 document.addEventListener('DOMContentLoaded', function () {
     // Wait for the DOM to be fully loaded
 
-	setTimeout("generateToken();" , 500);
+    setTimeout("generateToken();" , 500);
     // Find the button by its ID or any other suitable selector
     var myButton = document.getElementById('submit_btn');
     var form = document.getElementById('antragsformular');
@@ -184,5 +189,80 @@ document.addEventListener('DOMContentLoaded', function () {
             }
             
         }
+    });
+});
+
+
+
+//Sportart befüllen 
+document.addEventListener('DOMContentLoaded', function(){
+    var buttonsMember1 = document.querySelectorAll('input[name="sportart_member1"]');
+    var sportartMember1 = document.getElementById('sportartenMember1');
+    
+    buttonsMember1.forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+            // Your event handling code goes here
+            if (checkbox.checked) {
+                sportartMember1.value = sportartMember1.value + " " + checkbox.value;
+            } else {
+                sportartMember1.value = sportartMember1.value.replace(checkbox.value, '').trim();
+            }
+        });
+    });
+
+    var buttonsMember2 = document.querySelectorAll('input[name="sportart_member2"]');
+    var sportartMember2 = document.getElementById('sportartenMember2');
+    
+    buttonsMember2.forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+            // Your event handling code goes here
+            if (checkbox.checked) {
+                sportartMember2.value = sportartMember2.value + " " + checkbox.value;
+            } else {
+                sportartMember2.value = sportartMember2.value.replace(checkbox.value, '').trim();
+            }
+        });
+    });
+
+    var buttonsMember3 = document.querySelectorAll('input[name="sportart_member3"]');
+    var sportartMember3 = document.getElementById('sportartenMember3');
+    
+    buttonsMember3.forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+            // Your event handling code goes here
+            if (checkbox.checked) {
+                sportartMember3.value = sportartMember3.value + " " + checkbox.value;
+            } else {
+                sportartMember3.value = sportartMember3.value.replace(checkbox.value, '').trim();
+            }
+        });
+    });
+
+    var buttonsMember4 = document.querySelectorAll('input[name="sportart_member4"]');
+    var sportartMember4 = document.getElementById('sportartenMember4');
+    
+    buttonsMember4.forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+            // Your event handling code goes here
+            if (checkbox.checked) {
+                sportartMember4.value = sportartMember4.value + " " + checkbox.value;
+            } else {
+                sportartMember4.value = sportartMember4.value.replace(checkbox.value, '').trim();
+            }
+        });
+    });
+
+    var buttonsMember5 = document.querySelectorAll('input[name="sportart_member5"]');
+    var sportartMember5 = document.getElementById('sportartenMember5');
+    
+    buttonsMember5.forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+            // Your event handling code goes here
+            if (checkbox.checked) {
+                sportartMember5.value = sportartMember5.value + " " + checkbox.value;
+            } else {
+                sportartMember5.value = sportartMember5.value.replace(checkbox.value, '').trim();
+            }
+        });
     });
 });

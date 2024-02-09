@@ -1,8 +1,8 @@
 venv
+env
 .idea
 credentials.env
-<<<<<<< HEAD
-env
-=======
->>>>>>> origin/feature/jb-structure
 __pycache__
+mitglieder.json
+.env
+used_member_numbers.json
