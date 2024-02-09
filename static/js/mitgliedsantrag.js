@@ -97,4 +97,6 @@ function berechneKosten() {
   document.getElementById('yearlyPrice').innerText = totalCostYearly.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '€';
   document.getElementById('processingFee').innerText = processingFee.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '€';
   document.getElementById('totalPrice').innerText = totalCost.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '€';
+  document.getElementById('totalPriceInput').value = totalCost.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '€';
+
 }
