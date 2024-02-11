@@ -15,7 +15,7 @@ from reportlab.lib import colors
 
 app = Flask(__name__)
 
-def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, sport_person1, sport_person2, sport_person3, sport_person4, sport_person5, membership_type, adresse, ort, kontoinhaber, iban, bic, signature_data1, signature_data2):
+def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, sport_person1, sport_person2, sport_person3, sport_person4, sport_person5, membership_type, adresse, ort, kontoinhaber, iban, bic, signature_data1, signature_data2, total_price):
     signature_image1 = PILImage.open(BytesIO(base64.b64decode(signature_data1.split(',')[1])))
     
     if signature_data2 is not None:
@@ -88,7 +88,8 @@ def generate_pdf(file_path, persons1, persons2, persons3, persons4, persons5, sp
         ["Geburtsdatum:", persons1['date'], "Bankverbindung", ""],
         ["E-Mail:", persons1['email'], "Kontoinhaber:", kontoinhaber],
         ["Telefon/Mobil:", persons1['mobile'], "IBAN:", iban],
-        ["Ehrenamtliche Tätigkeit:", "Ja", "BIC:", bic]
+        ["Ehrenamtliche Tätigkeit:", "Ja", "BIC:", bic],
+        ["Gesamtpreis Anmeldung:", total_price, "", ""]
     ]
 
     data_zahlendes_mitglied = [
@@ -397,6 +398,8 @@ def download_pdf():
     iban = request.form['iban']
     bic = request.form['bic']
 
+    total_price = request.form['totalPrice']
+
     leereSignatur = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAogAAACCCAYAAADFTTn1AAAHf0lEQVR4Xu3ZIQ7EMBAEwfj/nw51QKTmU4eXbK1BK3cePwIECBAgQIAAAQKXwKFBgAABAgQIECBA4BYQiN4DAQIECBAgQIDAR0AgehAECBAgQIAAAQIC0RsgQIAAAQIECBD4F/AF0esgQIAAAQIECBDwBdEbIECAAAECBAgQ8AXRGyBAgAABAgQIEIgC/mKOUMYIECBAgAABAisCAnHl0vYkQIAAAQIECEQBgRihjBEgQIAAAQIEVgQE4sql7UmAAAECBAgQiAICMUIZI0CAAAECBAisCAjElUvbkwABAgQIECAQBQRihDJGgAABAgQIEFgREIgrl7YnAQIECBAgQCAKCMQIZYwAAQIECBAgsCIgEFcubU8CBAgQIECAQBQQiBHKGAECBAgQIEBgRUAgrlzangQIECBAgACBKCAQI5QxAgQIECBAgMCKgEBcubQ9CRAgQIAAAQJRQCBGKGMECBAgQIAAgRUBgbhyaXsSIECAAAECBKKAQIxQxggQIECAAAECKwICceXS9iRAgAABAgQIRAGBGKGMESBAgAABAgRWBATiyqXtSYAAAQIECBCIAgIxQhkjQIAAAQIECKwICMSVS9uTAAECBAgQIBAFBGKEMkaAAAECBAgQWBEQiCuXticBAgQIECBAIAoIxAhljAABAgQIECCwIiAQVy5tTwIECBAgQIBAFBCIEcoYAQIECBAgQGBFQCCuXNqeBAgQIECAAIEoIBAjlDECBAgQIECAwIqAQFy5tD0JECBAgAABAlFAIEYoYwQIECBAgACBFQGBuHJpexIgQIAAAQIEooBAjFDGCBAgQIAAAQIrAgJx5dL2JECAAAECBAhEAYEYoYwRIECAAAECBFYEBOLKpe1JgAABAgQIEIgCAjFCGSNAgAABAgQIrAgIxJVL25MAAQIECBAgEAUEYoQyRoAAAQIECBBYERCIK5e2JwECBAgQIEAgCgjECGWMAAECBAgQILAiIBBXLm1PAgQIECBAgEAUEIgRyhgBAgQIECBAYEVAIK5c2p4ECBAgQIAAgSggECOUMQIECBAgQIDAioBAXLm0PQkQIECAAAECUUAgRihjBAgQIECAAIEVAYG4cml7EiBAgAABAgSigECMUMYIECBAgAABAisCAnHl0vYkQIAAAQIECEQBgRihjBEgQIAAAQIEVgQE4sql7UmAAAECBAgQiAICMUIZI0CAAAECBAisCAjElUvbkwABAgQIECAQBQRihDJGgAABAgQIEFgREIgrl7YnAQIECBAgQCAKCMQIZYwAAQIECBAgsCIgEFcubU8CBAgQIECAQBQQiBHKGAECBAgQIEBgRUAgrlzangQIECBAgACBKCAQI5QxAgQIECBAgMCKgEBcubQ9CRAgQIAAAQJRQCBGKGMECBAgQIAAgRUBgbhyaXsSIECAAAECBKKAQIxQxggQIECAAAECKwICceXS9iRAgAABAgQIRAGBGKGMESBAgAABAgRWBATiyqXtSYAAAQIECBCIAgIxQhkjQIAAAQIECKwICMSVS9uTAAECBAgQIBAFBGKEMkaAAAECBAgQWBEQiCuXticBAgQIECBAIAoIxAhljAABAgQIECCwIiAQVy5tTwIECBAgQIBAFBCIEcoYAQIECBAgQGBFQCCuXNqeBAgQIECAAIEoIBAjlDECBAgQIECAwIqAQFy5tD0JECBAgAABAlFAIEYoYwQIECBAgACBFQGBuHJpexIgQIAAAQIEooBAjFDGCBAgQIAAAQIrAgJx5dL2JECAAAECBAhEAYEYoYwRIECAAAECBFYEBOLKpe1JgAABAgQIEIgCAjFCGSNAgAABAgQIrAgIxJVL25MAAQIECBAgEAUEYoQyRoAAAQIECBBYERCIK5e2JwECBAgQIEAgCgjECGWMAAECBAgQILAiIBBXLm1PAgQIECBAgEAUEIgRyhgBAgQIECBAYEVAIK5c2p4ECBAgQIAAgSggECOUMQIECBAgQIDAioBAXLm0PQkQIECAAAECUUAgRihjBAgQIECAAIEVAYG4cml7EiBAgAABAgSigECMUMYIECBAgAABAisCAnHl0vYkQIAAAQIECEQBgRihjBEgQIAAAQIEVgQE4sql7UmAAAECBAgQiAICMUIZI0CAAAECBAisCAjElUvbkwABAgQIECAQBQRihDJGgAABAgQIEFgREIgrl7YnAQIECBAgQCAKCMQIZYwAAQIECBAgsCIgEFcubU8CBAgQIECAQBQQiBHKGAECBAgQIEBgRUAgrlzangQIECBAgACBKCAQI5QxAgQIECBAgMCKgEBcubQ9CRAgQIAAAQJRQCBGKGMECBAgQIAAgRUBgbhyaXsSIECAAAECBKKAQIxQxggQIECAAAECKwICceXS9iRAgAABAgQIRAGBGKGMESBAgAABAgRWBATiyqXtSYAAAQIECBCIAgIxQhkjQIAAAQIECKwICMSVS9uTAAECBAgQIBAFBGKEMkaAAAECBAgQWBEQiCuXticBAgQIECBAIAoIxAhljAABAgQIECCwIiAQVy5tTwIECBAgQIBAFHgBIG8AgzZprpcAAAAASUVORK5CYII='
 
     signature_data1 = request.form['signature-1']
@@ -423,7 +426,7 @@ def download_pdf():
             sportarten[f'Person{i}'].append(request.form[f'sportarten_member{i}'])
 
     # PDF Struktur mit Werten befüllen
-    generate_pdf(file_path, persons['Person1'], persons['Person2'], persons['Person3'], persons['Person4'], persons['Person5'], sportarten['Person1'], sportarten['Person2'], sportarten['Person3'], sportarten['Person4'], sportarten['Person5'], membership_type, adresse, ort, kontoinhaber, iban, bic, signature_data1, signature_data2)
+    generate_pdf(file_path, persons['Person1'], persons['Person2'], persons['Person3'], persons['Person4'], persons['Person5'], sportarten['Person1'], sportarten['Person2'], sportarten['Person3'], sportarten['Person4'], sportarten['Person5'], membership_type, adresse, ort, kontoinhaber, iban, bic, signature_data1, signature_data2, total_price)
 
     return send_file(
         file_path,
