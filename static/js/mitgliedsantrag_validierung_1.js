@@ -83,7 +83,7 @@ $$$$$$$$/______  $$ |  ______  /$$$$$$  |______   _______
 */
 function checkPhoneNumber(phoneNumber) {  
 
-    const phoneRegex = /^(0|\+)\d{10,}$/;
+    const phoneRegex = /^(0|\+)\d{10,100}$/;
   
     if (phoneRegex.test(phoneNumber)) {
       return true;
