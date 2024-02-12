@@ -64,7 +64,7 @@
                         <input class="inputField" placeholder="Name, Titel" name="nn1">
                         <input class="inputField birthdayField" placeholder="Geburtsdatum" type="date"
                                name="date1" id="date1">
-                        <input class="inputField" placeholder="E-Mail" type="email" name="email1">
+                        <input class="inputField" placeholder="E-Mail" type="email" name="email1" id="email1">
                         <input class="inputField" placeholder="Telefon/Mobil" name="mobile1">
                     </div>
                 </div>
@@ -442,7 +442,7 @@
             newField.innerHTML = `
                 <div class="radioContainer">
                     <div class="radioCheck">
-                        <input class="" id="male${newFieldNum}" type="radio" name="gender${newFieldNum}" value="M">
+                        <input class="" id="male${newFieldNum}" type="radio" name="gender${newFieldNum}" value="M" required>
                         <label for="male${newFieldNum}">M</label>
                         <input class="" id="female${newFieldNum}" type="radio" name="gender${newFieldNum}" value="W">
                         <label for="female${newFieldNum}">W</label>

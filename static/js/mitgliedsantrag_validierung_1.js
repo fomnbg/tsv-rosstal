@@ -109,10 +109,16 @@ function checkPhoneNumber(phoneNumber) {
     }
 }
 
-function generateToken() {
-    var absenden = document.getElementById('submit_btn');
-    absenden.click();
+function checkEmail(email){
+    const emailRegex = /^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/ 
+
+    if(emailRegex.test(email)){
+        return true; 
+    } else{
+        return false;
+    }
 }
+
 function generateToken() {
     var absenden = document.getElementById('submit_btn');
     absenden.click();
@@ -125,12 +131,23 @@ function defaultProove() {
     return 1;
 }
 
+function proove_Email() {
+    var email = document.getElementById("email1"); 
+    var email_val = email.value; 
+    if (checkEmail(email_val) != true){
+        email.setCustomValidity('Bitte geben Sie eine gültige EMail Adresse an!')
+        return false;
+    } else {
+        email.setCustomValidity('')
+        return true;
+    }
+}
 
 function proove_alter(){
     var alter = document.getElementById('date1');
     var alter_val = new Date(alter.value);
- 
-    if (pruefeAlter(alter_val) != true){
+    var pAlter = pruefeAlter(alter_val);
+    if (pAlter != true){
         alter.setCustomValidity('Das erste Mitglied muss mindestens 18 sein, sollten Sie Ihr kind anmelden wollen, geben Sie sich als erstes Mitglied an und das Kind als zweites Mitglied.')
         return false;
     }else{
@@ -165,9 +182,11 @@ document.addEventListener('DOMContentLoaded', function () {
     var myButton = document.getElementById('submit_btn');
     var form = document.getElementById('antragsformular');
     // Add a click event listener to the button
+   
     myButton.addEventListener('click', function (event) {
         defaultProove()
-        if (proove_iban() === false | proove_alter() === false) {
+        proove_alter();
+        if (proove_iban() === false || proove_Email() === false || proove_alter() === false) {
             // If evaluation passed, prevent the default behavior of the click event
             event.preventDefault();
 
@@ -180,6 +199,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Continue with the default behavior or additional logic
             console.log('Default behavior or custom logic here');
+            defaultProove();
         } else {
             defaultProove();
             // Evaluation failed, continue with the default behavior
