@@ -1,4 +1,3 @@
-
 /*
  ______  _______    ______   __    __ 
 /      |/       \  /      \ /  \  /  |
@@ -10,12 +9,6 @@ $$$$$$/ $$$$$$$  |/$$$$$$  |$$  \ $$ |
 / $$   |$$    $$/ $$ |  $$ |$$ | $$$ |
 $$$$$$/ $$$$$$$/  $$/   $$/ $$/   $$/ 
 */
-/*
- * Returns true if the IBAN is valid 
- * Returns FALSE if the IBAN's length is not as should be (for CY the IBAN Should be 28 chars long starting with CY )
- * Returns any other number (checksum) when the IBAN is invalid (check digits do not match)
- */
-
 function isValidIBANNumber(input) {
     var CODE_LENGTHS = {
         AD: 24, AE: 23, AT: 20, AZ: 28, BA: 20, BE: 16, BG: 22, BH: 22, BR: 29,
@@ -31,15 +24,12 @@ function isValidIBANNumber(input) {
     var iban = String(input).toUpperCase().replace(/[^A-Z0-9]/g, ''), // keep only alphanumeric characters
             code = iban.match(/^([A-Z]{2})(\d{2})([A-Z\d]+)$/), // match and capture (1) the country code, (2) the check digits, and (3) the rest
             digits;
-    // check syntax and length
     if (!code || iban.length !== CODE_LENGTHS[code[1]]) {
         return false;
     }
-    // rearrange country code and check digits, and convert chars to ints
     digits = (code[3] + code[1] + code[2]).replace(/[A-Z]/g, function (letter) {
         return letter.charCodeAt(0) - 55;
     });
-    // final check
     return mod97(digits) === 1;
 }
 
@@ -64,20 +54,15 @@ $$ |  $$ |$$ |_____ $$ |   $$ |_____ $$ |  $$ |
 $$ |  $$ |$$       |$$ |   $$       |$$ |  $$ |
 $$/   $$/ $$$$$$$$/ $$/    $$$$$$$$/ $$/   $$/ 
 */
-
 function pruefeAlter(geburtsdatum) {
     // Das Mindestalter festlegen (in Jahren)
     var mindestalter = 18;
 
-    // Aktuelles Datum abrufen
     var aktuellesDatum = new Date();
-    // Das Alter berechnen
     var alter = aktuellesDatum.getFullYear() - geburtsdatum.getFullYear();
-    // Überprüfen, ob das Geburtstag dieses Jahr bereits stattgefunden hat
     if (aktuellesDatum.getMonth() < geburtsdatum.getMonth() || (aktuellesDatum.getMonth() === geburtsdatum.getMonth() && aktuellesDatum.getDate() < geburtsdatum.getDate())) {
         alter--;
     }
-    // Das Ergebnis ausgeben
     if (alter >= mindestalter) {
         return true;
     } else {
@@ -96,19 +81,28 @@ $$$$$$$$/______  $$ |  ______  /$$$$$$  |______   _______
    $$ |$$       |$$ |$$       |$$ |    $$    $$/ $$ |  $$ |      
    $$/  $$$$$$$/ $$/  $$$$$$$/ $$/      $$$$$$/  $$/   $$/  
 */
-
 function checkPhoneNumber(phoneNumber) {  
-    // Regulärer Ausdruck für das erwartete Format: +1234567890
+
     const phoneRegex = /^\+\d{10,}$/;
   
     if (phoneRegex.test(phoneNumber)) {
-
       return true;
     } else {
       return false;
     }
 }
 
+/*
+ ________                          __  __ 
+/        |                        /  |/  |
+$$$$$$$$/  _____  ____    ______  $$/ $$ |
+$$ |__    /     \/    \  /      \ /  |$$ |
+$$    |   $$$$$$ $$$$  | $$$$$$  |$$ |$$ |
+$$$$$/    $$ | $$ | $$ | /    $$ |$$ |$$ |
+$$ |_____ $$ | $$ | $$ |/$$$$$$$ |$$ |$$ |
+$$       |$$ | $$ | $$ |$$    $$ |$$ |$$ |
+$$$$$$$$/ $$/  $$/  $$/  $$$$$$$/ $$/ $$/ 
+*/
 function checkEmail(email){
     const emailRegex = /^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/ 
 
@@ -119,10 +113,14 @@ function checkEmail(email){
     }
 }
 
+
+
 function generateToken() {
     var absenden = document.getElementById('submit_btn');
     absenden.click();
 }
+
+
 
 function defaultProove() {
     console.log("defaultProove() called");
@@ -130,6 +128,8 @@ function defaultProove() {
 	button.click();
     return 1;
 }
+
+
 
 function proove_Email() {
     var email = document.getElementById("email1"); 
@@ -157,14 +157,10 @@ function proove_alter(){
 
 }
 
-//return False if te evaluation failed
 function proove_iban() {
     var iban = document.getElementById('iban');
     var iban_val = iban.value;
-    console.log(iban_val)
-    /* var phoneNumbers = document.querySelectorAll() */
-    
-    // Check if the IBAN is valid
+
     if (isValidIBANNumber(iban_val) != true) {
         iban.setCustomValidity('Bitte geben Sie eine gültige IBAN an.'); 
         return false;
@@ -174,40 +170,32 @@ function proove_iban() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    // Wait for the DOM to be fully loaded
 
+
+document.addEventListener('DOMContentLoaded', function () {
     setTimeout("generateToken();" , 500);
-    // Find the button by its ID or any other suitable selector
+
     var myButton = document.getElementById('submit_btn');
     var form = document.getElementById('antragsformular');
-    // Add a click event listener to the button
    
     myButton.addEventListener('click', function (event) {
         defaultProove()
         proove_alter();
         if (proove_iban() === false || proove_Email() === false || proove_alter() === false) {
-            // If evaluation passed, prevent the default behavior of the click event
             event.preventDefault();
-
-            // Check if the button has the data-callback attribute set to "onSubmit"
             if (myButton.getAttribute('data-callback') === 'onSubmit') {
-                // Override or modify the onSubmit function to prevent its default behavior
                 window.onSubmit = function () {
                 };
             }
 
-            // Continue with the default behavior or additional logic
             console.log('Default behavior or custom logic here');
             defaultProove();
         } else {
             defaultProove();
-            // Evaluation failed, continue with the default behavior
             if (form.checkValidity()){
                 console.log("test called")
                 form.submit();
             }
-            
         }
     });
 });
