@@ -49,13 +49,10 @@ def write_to_database(form_data):
             else:
                 adresse = ort = iban = None
 
-            # Load used member numbers
             used_numbers = load_used_member_numbers('used_member_numbers.json')
 
-            # Use the next_membership_number from the JSON file as the base number
             base_number = used_numbers['next_membership_number']
 
-            # Generate member numbers starting from the base number
             member_numbers = generate_member_numbers(base_number, 1, used_numbers)
 
             try:
@@ -74,10 +71,8 @@ def write_to_database(form_data):
                     cursor.execute(insert_query, (
                     vorname, nachname, geburtsdatum, email, mobile, sportart_member, geschlecht, number, adresse, ort, iban ))
 
-                # Update the next_membership_number in the used_numbers set
                 used_numbers['next_membership_number'] += 1
 
-                # Save used member numbers back to the JSON file
                 save_used_member_numbers('used_member_numbers.json', used_numbers)
 
                 connection.commit()

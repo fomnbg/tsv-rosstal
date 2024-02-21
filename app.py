@@ -22,7 +22,7 @@ SECRET_KEY = '6Lf7LxkpAAAAAKfrwOGJRp_AKPKQMCLeemLN5bxf'
 VERIFY_URL = 'https://www.google.com/recaptcha/api/siteverify'
 
 
-#views
+# Views
 @app.route('/')
 def index():
     return render_template('index.html')
