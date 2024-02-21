@@ -2,6 +2,9 @@
 
 ![rosstal](/assets_readme/rosstal.png)
 
+## URL zur Website
+https://app-rosstal-prd-westeurope-001.azurewebsites.net/
+
 ## Aktuelle Features 
 - [x] Preisliste
 - [x] flexibles Frontend mit bis zu 5 Mitgliedern, dynamisch änderbar
