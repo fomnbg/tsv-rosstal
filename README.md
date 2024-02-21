@@ -2,6 +2,9 @@
 
 ![rosstal](/assets_readme/rosstal.png)
 
+## URL zur Website
+https://app-rosstal-prd-westeurope-001.azurewebsites.net/
+
 ## Aktuelle Features 
 - [x] Preisliste
 - [x] flexibles Frontend mit bis zu 5 Mitgliedern, dynamisch änderbar
@@ -9,18 +12,13 @@
 - [x] Unterschriftsfeld
 - [x] Auswahl Sportart pro Mitglied
 - [x] Plausbilitätsprüfung IBAN
-- [ ] Plausiblitätsprüfung Alter
-- [ ] Plausiblitätsprüfung Telefonnummer
-- [ ] Plausiblitätsprüfung Adresse
+- [x] Plausiblitätsprüfung Alter
+- [x] Plausiblitätsprüfung Telefonnummer
+- [x] Plausiblitätsprüfung Adresse
 - [x] Überprüfung Syntax E-Mail
 - [x] automatische Mitgliedsnummer Generierung
 - [x] automatische PDF Generierung
-- [ ] automatische Berechnung des Mitgliedbeitrags
-- [ ] Anbindung Google Konto
-- [ ] Datenbank mit Daten aus Frontend
-
-
-## mögliche Verbesserungen
-- Mitgliedsnummer verknüpft zu Familie
-- sicherer Prozess bei Umstellung Familienmitglied
-- digitale Signatur wenn möglich
+- [x] automatische Berechnung des Mitgliedbeitrags
+- [x] Datenbank mit Daten aus Frontend
+- [x] automatisiertes Deployment via CI/CD
+- [x] Anmeldung für Kinder
