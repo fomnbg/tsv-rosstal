@@ -57,10 +57,10 @@ def write_to_database(form_data):
 
             try:
                 connection = mysql.connector.connect(
-                    host='80.158.78.181',
-                    user='fom_user',
-                    password='ZeltnerstraßeNUE-Telekom$$$',
-                    database='fom_test',
+                    host=os.environ.get('DB_HOST'),
+                    user=os.environ.get('DB_USER'),
+                    password=os.environ.get('DB_PASSWORD'),
+                    database=os.environ.get('DB_NAME'),
                     port='3306'
                 )
                 cursor = connection.cursor()
