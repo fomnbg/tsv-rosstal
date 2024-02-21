@@ -2,7 +2,6 @@ from flask import Flask, render_template, redirect, url_for, request, abort, fla
 from urllib import response
 import requests
 import secrets
-from forms import Antrag
 from flask import Flask, render_template, request
 from pdf_generator import download_pdf
 import csv
@@ -15,10 +14,6 @@ foo = secrets.token_urlsafe(16)
 app.secret_key = foo
 app.static_folder = 'static'
 
-#db_setup global
-#app.config['SQLALCHEMY_DATABASE_URL'] = ''
-#app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-#DB = SQLAlchemy(app)
 
 #für site key und secret key frag entweder Philipp oder hol dir deine eigenen auf https://www.google.com/recaptcha/admin/create?hl=de
 #!!! V3 RECAPTCHA !!!#
@@ -27,7 +22,7 @@ SECRET_KEY = '6Lf7LxkpAAAAAKfrwOGJRp_AKPKQMCLeemLN5bxf'
 VERIFY_URL = 'https://www.google.com/recaptcha/api/siteverify'
 
 
-#views
+# Views
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -49,19 +44,13 @@ def mitglied_werden():
 def mitgliedsantrag():
     if request.method == 'POST':
         print(request.form)
-
-        ###
         # recaptcha handling
-        ###
         secret_response = request.form['g-recaptcha-response']
         verify_response = requests.post(url=f'{VERIFY_URL}?secret={SECRET_KEY}&response={secret_response}').json()
-        #print("secret-response:", secret_response)
+
         if verify_response['success'] == False or verify_response['score'] < 0.7:
-            abort(401)#if bot detected or recaptcha request failed
+            abort(401) #if bot detected or recaptcha request failed
         else:
-            ###
-            # write to database
-            ###
             write_to_database(request.form)
             download_pdf()
             return render_template('daten-uebermittelt.html')

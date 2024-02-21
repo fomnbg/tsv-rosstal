@@ -42,35 +42,37 @@ def write_to_database(form_data):
             sportart_member = form_data.get(f'sportarten_member{i}', '')
             geschlecht = form_data.get(f'gender{i}', '')
 
-            # Load used member numbers
+            if i == 1:
+                adresse = form_data.get('adresse', '')
+                ort = form_data.get('ort', '')
+                iban = form_data.get('iban', '')
+            else:
+                adresse = ort = iban = None
+
             used_numbers = load_used_member_numbers('used_member_numbers.json')
 
-            # Use the next_membership_number from the JSON file as the base number
             base_number = used_numbers['next_membership_number']
 
-            # Generate member numbers starting from the base number
             member_numbers = generate_member_numbers(base_number, 1, used_numbers)
 
             try:
                 connection = mysql.connector.connect(
-                    host=os.environ.get('DB_HOST'),
-                    user=os.environ.get('DB_USER'),
-                    password=os.environ.get('DB_PASSWORD'),
-                    database=os.environ.get('DB_NAME'),
+                    host='80.158.78.181',
+                    user='fom_user',
+                    password='ZeltnerstraßeNUE-Telekom$$$',
+                    database='fom_test',
                     port='3306'
                 )
                 cursor = connection.cursor()
 
-                insert_query = "INSERT INTO fom_test2 (vorname, nachname, geburtsdatum, email, telefon, sportart, geschlecht, mitgliedsnummer) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+                insert_query = "INSERT INTO mitgliedstest (vorname, nachname, geburtsdatum, email, telefon, sportart, geschlecht, mitgliedsnummer, adresse, ort, iban) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
 
                 for number in member_numbers:
                     cursor.execute(insert_query, (
-                    vorname, nachname, geburtsdatum, email, mobile, sportart_member, geschlecht, number))
+                    vorname, nachname, geburtsdatum, email, mobile, sportart_member, geschlecht, number, adresse, ort, iban ))
 
-                # Update the next_membership_number in the used_numbers set
                 used_numbers['next_membership_number'] += 1
 
-                # Save used member numbers back to the JSON file
                 save_used_member_numbers('used_member_numbers.json', used_numbers)
 
                 connection.commit()
